@@ -1,0 +1,162 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\cores\\esp32"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\variants\\esp32"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Include": "BlynkSimpleEsp32.h",
+    "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Blynk\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Include": "WiFi.h",
+    "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\WiFi\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Include": "sMQTTBroker.h",
+    "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\sMQTTBroker\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Include": "SSD1306.h",
+    "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\ESP8266_and_ESP32_OLED_driver_for_SSD1306_displays\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Include": "Wire.h",
+    "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\Wire\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Include": "NTP.h",
+    "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\NTP"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Include": "ESPmDNS.h",
+    "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\ESPmDNS\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Blynk\\src\\utility\\BlynkDebug.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Blynk\\src\\utility\\BlynkHandlers.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Blynk\\src\\utility\\BlynkTimer.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Blynk\\src\\utility\\utility.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\WiFi\\src\\WiFi.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\WiFi\\src\\WiFiAP.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\WiFi\\src\\WiFiClient.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\WiFi\\src\\WiFiGeneric.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\WiFi\\src\\WiFiMulti.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\WiFi\\src\\WiFiSTA.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\WiFi\\src\\WiFiScan.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\WiFi\\src\\WiFiServer.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\WiFi\\src\\WiFiUdp.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\sMQTTBroker\\src\\sMQTTBroker.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\sMQTTBroker\\src\\sMQTTClient.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\sMQTTBroker\\src\\sMQTTMessage.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\sMQTTBroker\\src\\sMQTTTopic.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\ESP8266_and_ESP32_OLED_driver_for_SSD1306_displays\\src\\OLEDDisplay.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\ESP8266_and_ESP32_OLED_driver_for_SSD1306_displays\\src\\OLEDDisplayUi.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\Wire\\src\\Wire.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\NTP\\NTP.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\ESPmDNS\\src\\ESPmDNS.cpp",
+    "Include": "",
+    "Includepath": null
+  }
+]
