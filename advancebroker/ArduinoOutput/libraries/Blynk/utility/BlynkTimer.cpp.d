@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\advancebroker\ArduinoOutput\libraries\Blynk\utility\BlynkTimer.cpp.o: \
+c:\Users\mirsmok\work\smartHome\advancebroker\ArduinoOutput\libraries\Blynk\utility\BlynkTimer.cpp.o: \
  C:\Users\mirsmok\Documents\Arduino\libraries\Blynk\src\utility\BlynkTimer.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\Blynk\src/Blynk/BlynkTimer.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\Blynk\src/Blynk/BlynkDebug.h \

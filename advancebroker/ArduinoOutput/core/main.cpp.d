@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\advancebroker\ArduinoOutput\core\main.cpp.o: \
+c:\Users\mirsmok\work\smartHome\advancebroker\ArduinoOutput\core\main.cpp.o: \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32\main.cpp \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2/tools/sdk/esp32/include/freertos/include/freertos/FreeRTOS.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2/tools/sdk/esp32/include/freertos/include/esp_additions/freertos/FreeRTOSConfig.h \

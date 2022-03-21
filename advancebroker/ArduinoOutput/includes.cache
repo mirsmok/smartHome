@@ -10,42 +10,42 @@
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\variants\\esp32"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
     "Include": "BlynkSimpleEsp32.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Blynk\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
     "Include": "WiFi.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\WiFi\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
     "Include": "sMQTTBroker.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\sMQTTBroker\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
     "Include": "SSD1306.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\ESP8266_and_ESP32_OLED_driver_for_SSD1306_displays\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
     "Include": "Wire.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\Wire\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
     "Include": "NTP.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\NTP"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
     "Include": "ESPmDNS.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\ESPmDNS\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\ArduinoOutput\\sketch\\advancebroker.ino.cpp",
     "Include": "",
     "Includepath": null
   },

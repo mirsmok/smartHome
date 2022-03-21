@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\advancebroker\ArduinoOutput\core\wiring_pulse.c.o: \
+c:\Users\mirsmok\work\smartHome\advancebroker\ArduinoOutput\core\wiring_pulse.c.o: \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32\wiring_pulse.c \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32\wiring_private.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32\Arduino.h \

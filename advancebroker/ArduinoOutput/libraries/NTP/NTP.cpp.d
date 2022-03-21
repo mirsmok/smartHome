@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\advancebroker\ArduinoOutput\libraries\NTP\NTP.cpp.o: \
+c:\Users\mirsmok\work\smartHome\advancebroker\ArduinoOutput\libraries\NTP\NTP.cpp.o: \
  C:\Users\mirsmok\Documents\Arduino\libraries\NTP\NTP.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\NTP\NTP.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32/Arduino.h \

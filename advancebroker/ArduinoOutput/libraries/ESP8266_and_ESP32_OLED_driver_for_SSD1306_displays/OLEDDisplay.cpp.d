@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\advancebroker\ArduinoOutput\libraries\ESP8266_and_ESP32_OLED_driver_for_SSD1306_displays\OLEDDisplay.cpp.o: \
+c:\Users\mirsmok\work\smartHome\advancebroker\ArduinoOutput\libraries\ESP8266_and_ESP32_OLED_driver_for_SSD1306_displays\OLEDDisplay.cpp.o: \
  C:\Users\mirsmok\Documents\Arduino\libraries\ESP8266_and_ESP32_OLED_driver_for_SSD1306_displays\src\OLEDDisplay.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\ESP8266_and_ESP32_OLED_driver_for_SSD1306_displays\src\OLEDDisplay.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32/Arduino.h \

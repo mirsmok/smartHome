@@ -1,5 +1,5 @@
-c:\Users\mirsmok\work\IQhome\advancebroker\ArduinoOutput\sketch\advancebroker.ino.cpp.o: \
- c:\Users\mirsmok\work\IQhome\advancebroker\ArduinoOutput\sketch\advancebroker.ino.cpp \
+c:\Users\mirsmok\work\smartHome\advancebroker\ArduinoOutput\sketch\advancebroker.ino.cpp.o: \
+ c:\Users\mirsmok\work\smartHome\advancebroker\ArduinoOutput\sketch\advancebroker.ino.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\Blynk\src/BlynkSimpleEsp32.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\Blynk\src/BlynkApiArduino.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\Blynk\src/Blynk/BlynkApi.h \

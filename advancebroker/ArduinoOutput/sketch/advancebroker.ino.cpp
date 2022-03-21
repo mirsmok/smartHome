@@ -1,4 +1,4 @@
-#line 1 "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\advancebroker.ino"
+#line 1 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 #define BLYNK_TEMPLATE_ID "TMPLOPmBUAZg"
 #define BLYNK_DEVICE_NAME "MQTTBroker"
 #define BLYNK_AUTH_TOKEN "Ao-FOFILurEg9WuBaLirpOQG5xLB-eHN"
@@ -25,19 +25,19 @@ NTP ntp(wifiUdp);
 const char *ssid = "HUAWEI_B818_18EE"; // The SSID (name) of the Wi-Fi network you want to connect to
 const char *password = "QG20M7RY90F";  // The password of the Wi-Fi network
 
-#line 27 "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\advancebroker.ino"
+#line 27 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 void display_text(String text);
-#line 62 "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\advancebroker.ino"
+#line 62 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 void wifiConnect();
-#line 82 "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\advancebroker.ino"
+#line 82 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 void BlynkConnect(void);
-#line 100 "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\advancebroker.ino"
+#line 100 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 void setup();
-#line 130 "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\advancebroker.ino"
+#line 130 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 void loop();
-#line 168 "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\advancebroker.ino"
+#line 168 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 void myTimerEvent();
-#line 27 "c:\\Users\\mirsmok\\work\\IQhome\\advancebroker\\advancebroker.ino"
+#line 27 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 void display_text(String text)
 {
     display.clear();

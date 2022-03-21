@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\advancebroker\ArduinoOutput\libraries\sMQTTBroker\sMQTTClient.cpp.o: \
+c:\Users\mirsmok\work\smartHome\advancebroker\ArduinoOutput\libraries\sMQTTBroker\sMQTTClient.cpp.o: \
  C:\Users\mirsmok\Documents\Arduino\libraries\sMQTTBroker\src\sMQTTClient.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\sMQTTBroker\src/sMQTTBroker.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\sMQTTBroker\src/sMQTTplatform.h \
