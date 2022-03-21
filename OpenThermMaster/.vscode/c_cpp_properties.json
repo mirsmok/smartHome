@@ -18,6 +18,7 @@
                 "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.4\\tools\\sdk\\include",
                 "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.4\\tools\\sdk\\lwip2\\include",
                 "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.4\\tools\\sdk\\libc\\xtensa-lx106-elf\\include",
+                "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\arduinoOutput\\core",
                 "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.4\\cores\\esp8266",
                 "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.4\\variants\\d1_mini",
                 "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\OpenTherm_Library\\src",

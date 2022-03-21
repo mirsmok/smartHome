@@ -18,6 +18,7 @@ Arduino digital pins usable for interrupts: Uno, Nano, Mini: 2,3; Mega: 2, 3, 18
 ESP8266: Interrupts may be attached to any GPIO pin except GPIO16,
 but since GPIO6-GPIO11 are typically used to interface with the flash memory ICs on most esp8266 modules, applying interrupts to these pins are likely to cause problems
 */
+#include <FS.h> //this needs to be first, or it all crashes and burns...
 
 //#include <Arduino.h>
 #include <OpenTherm.h>
@@ -56,7 +57,49 @@ PubSubClient MQTTclient(espMQTTClient);
 
 //****************** settings ***************
 #include "./devSettings.h"
-sysSettings_t settings;
+device_t openThermDev;
+// flag for saving data
+WiFiManagerParameter paramEnableCH("enableCH", "Załącz ogrzewanie", String(openThermDev.settings.enableCentralHeating).c_str(), String(openThermDev.settings.enableCentralHeating).length());
+WiFiManagerParameter paramEnableDHW("enableHWD", "Załącz ciepłą wodę", String(openThermDev.settings.enableHotWater).c_str(), String(openThermDev.settings.enableHotWater).length());
+WiFiManagerParameter paramEnableCooling("enableCooling", "Załącz chłodzenie", String(openThermDev.settings.enableCooling).c_str(), String(openThermDev.settings.enableCooling).length());
+WiFiManagerParameter paramSetpointCH("setpointCH", "Temperatura wody ogrzewanie", String(openThermDev.settings.ch_temperature).c_str(), String(openThermDev.settings.ch_temperature).length());
+WiFiManagerParameter paramSetpointDHW("setopintDHW", "Temperatura ciepłej wody użytkowej", String(openThermDev.settings.dhw_temperature).c_str(), String(openThermDev.settings.dhw_temperature).length());
+
+bool shouldSaveConfig = false;
+
+// save config
+void saveConfig()
+{
+    File configFile = SPIFFS.open("/config.json", "w");
+    if (!configFile)
+    {
+        Serial.println("failed to open config file for writing");
+    }
+    configFile.write((char *)&openThermDev.settings, sizeof(openThermDev.settings));
+    configFile.close();
+}
+
+// callback notifying us of the need to save config
+void saveConfigCallback()
+{
+    Serial.println("Should save config");
+    shouldSaveConfig = true;
+
+    // read updated parameters
+    openThermDev.settings.enableCentralHeating = (uint8_t)String(paramEnableCH.getValue()).toInt();
+    openThermDev.settings.enableHotWater = (uint8_t)String(paramEnableDHW.getValue()).toInt();
+    openThermDev.settings.enableCooling = (uint8_t)String(paramEnableCooling.getValue()).toInt();
+    openThermDev.settings.ch_temperature = String(paramSetpointCH.getValue()).toFloat();
+    openThermDev.settings.dhw_temperature = String(paramSetpointDHW.getValue()).toFloat();
+
+    File configFile = SPIFFS.open("/config.json", "w");
+    if (!configFile)
+    {
+        Serial.println("failed to open config file for writing");
+    }
+    configFile.write((char *)&openThermDev.settings, sizeof(openThermDev.settings));
+    configFile.close();
+}
 
 // global varables
 bool enableCentralHeating = true;
@@ -72,11 +115,54 @@ void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
     Serial.print("Message arrived [");
     Serial.print(topic);
     Serial.print("] ");
-    for (int i = 0; i < length; i++)
-    {
-        Serial.print((char)payload[i]);
-    }
+
+    Serial.print(String((char *)payload).toFloat());
     Serial.println();
+    String msgTopic = String(topic);
+    if (msgTopic == "/device/boiler/centralHeating/enable/remote")
+    {
+        if (openThermDev.settings.enableCentralHeating != String((char *)payload).toInt())
+        {
+            Serial.println("MQTT: nowe nastawy zal/wyl ogrzewania");
+            openThermDev.settings.enableCentralHeating = (uint8_t)String((char *)payload).toInt();
+            paramEnableCH.setValue(String(openThermDev.settings.enableCentralHeating).c_str(), String(openThermDev.settings.enableCentralHeating).length());
+            Serial.println("Nowa nastawa : " + String(openThermDev.settings.enableCentralHeating));
+            saveConfig();
+        }
+    }
+    if (msgTopic == "/device/boiler/centralHeating/setpoint/remote")
+    {
+        if (openThermDev.settings.ch_temperature != String((char *)payload).toFloat())
+        {
+            Serial.println("MQTT: nowe nastawy temeratury ogrzewania");
+            openThermDev.settings.ch_temperature = String((char *)payload).toFloat();
+            paramSetpointCH.setValue(String(openThermDev.settings.ch_temperature).c_str(), String(openThermDev.settings.ch_temperature).length());
+            Serial.println("Nowa temperatura: " + String(openThermDev.settings.ch_temperature));
+            saveConfig();
+        }
+    }
+    if (msgTopic == "/device/boiler/htoWater/enable/remote")
+    {
+        if (openThermDev.settings.enableHotWater != String((char *)payload).toInt())
+        {
+            Serial.println("MQTT: nowe nastawy zal/wyl cieplej wody");
+            openThermDev.settings.enableHotWater = (uint8_t)String((char *)payload).toInt();
+            paramEnableDHW.setValue(String(openThermDev.settings.enableHotWater).c_str(), String(openThermDev.settings.enableHotWater).length());
+            Serial.println("Nowa nastawa : " + String(openThermDev.settings.enableHotWater));
+            saveConfig();
+        }
+    }
+    if (msgTopic == "/device/boiler/hotWater/setpoint/remote")
+    {
+        if (openThermDev.settings.dhw_temperature != String((char *)payload).toFloat())
+        {
+            Serial.println("MQTT: nowe nastawy temeratury cieplej wody");
+            openThermDev.settings.dhw_temperature = String((char *)payload).toFloat();
+            paramSetpointDHW.setValue(String(openThermDev.settings.dhw_temperature).c_str(), String(openThermDev.settings.dhw_temperature).length());
+            Serial.println("Nowa temperatura: " + String(openThermDev.settings.dhw_temperature));
+            saveConfig();
+        }
+    }
 }
 
 void reconnectMQTT()
@@ -96,6 +182,8 @@ void reconnectMQTT()
             // client.publish("outTopic", "hello world");
             // ... and resubscribe
             //  client.subscribe("inTopic");
+
+            MQTTclient.subscribe("/device/boiler/centralHeating/setpoint/remote");
         }
         else
         {
@@ -193,10 +281,70 @@ void handleNotFound()
 unsigned long timeStamp;
 void setup()
 {
+    delay(5000);
     Serial.begin(115200);
     Serial.println("Start");
     ot.begin(handleInterrupt);
 
+    ////////////////////// config modyfication //////////////////////////////
+
+    // read configuration from FS json
+    Serial.println("mounting FS...");
+
+    if (SPIFFS.begin())
+    {
+        Serial.println("mounted file system");
+        if (SPIFFS.exists("/config.json"))
+        {
+            // file exists, reading and loading
+            Serial.println("reading config file");
+            File configFile = SPIFFS.open("/config.json", "r");
+            if (configFile)
+            {
+                Serial.println("opened config file");
+                size_t size = configFile.size();
+                if ((size == sizeof(sysSettingsRetein_t)) && (size > 0))
+                { // simple check that data fits
+
+                    char buffer[size];
+                    configFile.readBytes(buffer, size);
+                    memcpy(&openThermDev.settings, buffer, sizeof(sysSettingsRetein_t));
+                    Serial.println("Zaladowano nastawy z pamieci");
+                }
+                else
+                {
+                    Serial.println("Brak danych w pamięci lub dane nieprawidlowe");
+                }
+                configFile.close();
+            }
+        }
+        else
+        {
+            File configFile = SPIFFS.open("/config.json", "w");
+            configFile.write("first open");
+            configFile.close();
+        }
+    }
+    else
+    {
+        Serial.println("failed to mount FS");
+    }
+    // end read
+
+    // The extra parameters to be configured (can be either global or just in the setup)
+    // After connecting, parameter.getValue() will get you the configured value
+    // id/name placeholder/prompt default length
+
+    // set config save notify callback
+    wm.setBreakAfterConfig(true);
+    wm.setSaveConfigCallback(saveConfigCallback);
+
+    // add all your parameters here
+    wm.addParameter(&paramEnableCH);
+    wm.addParameter(&paramEnableDHW);
+    wm.addParameter(&paramEnableCooling);
+    wm.addParameter(&paramSetpointCH);
+    wm.addParameter(&paramSetpointDHW);
     // wifi configuration
     WiFi.mode(WIFI_STA);
     bool res;
@@ -280,17 +428,17 @@ void loop()
     }
     if (WiFi.isConnected())
     {
-        webServer.handleClient();
         if (MQTTclient.connected())
         {
             if (responseStatus == OpenThermResponseStatus::SUCCESS)
             {
-                MQTTclient.loop();
-                MQTTclient.publish("/device/boiler/flame", String(ot.isCentralHeatingActive(response) ? "on" : "off").c_str());
-                MQTTclient.publish("/device/boiler/hotWater", String(ot.isHotWaterActive(response) ? "on" : "off").c_str());
-                MQTTclient.publish("/device/boiler/centralHeating", String(ot.isCentralHeatingActive(response) ? "on" : "off").c_str());
-                MQTTclient.publish("/device/boiler/centralHeatingTemperature", String(ch_temperature, 1).c_str());
-                MQTTclient.publish("/device/boiler/hotWaterTemperature", String(dhw_temperature, 1).c_str());
+                MQTTclient.publish("/device/boiler/centralHeating/state", String(ot.isCentralHeatingActive(response) ? "on" : "off").c_str());
+                MQTTclient.publish("/device/boiler/centralHeating/actual", String(ch_temperature, 1).c_str());
+
+                MQTTclient.publish("/device/boiler/hotWater/state", String(ot.isHotWaterActive(response) ? "on" : "off").c_str());
+                MQTTclient.publish("/device/boiler/hotWater/actual", String(dhw_temperature, 1).c_str());
+
+                MQTTclient.publish("/device/boiler/flame/state", String(ot.isCentralHeatingActive(response) ? "on" : "off").c_str());
                 MQTTclient.publish("/device/boiler/fault", String(ot.isFault(response) ? 0 : 1).c_str());
                 MQTTclient.publish("/device/boiler/communicationStatus", "OK");
             }
@@ -298,9 +446,27 @@ void loop()
             {
                 MQTTclient.publish("/device/boiler/communicationStatus", "FAULT");
             }
+
+            MQTTclient.publish("/device/boiler/centralHeating/enable", String(openThermDev.settings.enableCentralHeating).c_str());
+            MQTTclient.publish("/device/boiler/centralHeating/setpoint", String(openThermDev.settings.ch_temperature, 1).c_str());
+
+            MQTTclient.publish("/device/boiler/hotWater/enable", String(openThermDev.settings.enableHotWater).c_str());
+            MQTTclient.publish("/device/boiler/hotWater/setpoint", String(openThermDev.settings.dhw_temperature, 1).c_str());
         }
         else
+        {
+            Serial.println("start reconect...");
             reconnectMQTT();
-        MDNS.update();
+        }
+        Serial.println("Zatana temperatura wody ciepłej: " + String(openThermDev.settings.ch_temperature));
     }
+    if (WiFi.isConnected())
+    {
+        webServer.handleClient();
+        if (MQTTclient.connected())
+        {
+            MQTTclient.loop();
+        }
+    }
+    MDNS.update();
 }

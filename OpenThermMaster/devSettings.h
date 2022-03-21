@@ -6,11 +6,17 @@
 
 typedef struct
 {
-    bool enableCentralHeating = true;
-    bool enableHotWater = true;
-    bool enableCooling = false;
+    uint8_t enableCentralHeating = 1;
+    uint8_t enableHotWater = 1;
+    uint8_t enableCooling = 0;
     float ch_temperature = 0.0;
     float dhw_temperature = 0.0;
-} sysSettings_t;
+} sysSettingsRetein_t;
+
+typedef struct
+{
+    sysSettingsRetein_t settings;
+
+} device_t;
 
 #endif
