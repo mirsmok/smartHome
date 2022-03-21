@@ -115,51 +115,63 @@ void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
     Serial.print("Message arrived [");
     Serial.print(topic);
     Serial.print("] ");
+    char buff[length + 1];
+    strncpy(buff, (char *)payload, length);
 
-    Serial.print(String((char *)payload).toFloat());
-    Serial.println();
     String msgTopic = String(topic);
     if (msgTopic == "/device/boiler/centralHeating/enable/remote")
     {
-        if (openThermDev.settings.enableCentralHeating != String((char *)payload).toInt())
+        uint8_t state = String(buff).toInt();
+        Serial.print(state);
+        Serial.println();
+        if (openThermDev.settings.enableCentralHeating != state)
         {
             Serial.println("MQTT: nowe nastawy zal/wyl ogrzewania");
-            openThermDev.settings.enableCentralHeating = (uint8_t)String((char *)payload).toInt();
-            paramEnableCH.setValue(String(openThermDev.settings.enableCentralHeating).c_str(), String(openThermDev.settings.enableCentralHeating).length());
-            Serial.println("Nowa nastawa : " + String(openThermDev.settings.enableCentralHeating));
+            openThermDev.settings.enableCentralHeating = state;
+            paramEnableCH.setValue(String(state).c_str(), String(state).length());
+            Serial.println("Nowa nastawa : " + String(state));
             saveConfig();
         }
     }
     if (msgTopic == "/device/boiler/centralHeating/setpoint/remote")
     {
-        if (openThermDev.settings.ch_temperature != String((char *)payload).toFloat())
+        float value = String(buff).toFloat();
+        Serial.print(value);
+        Serial.println();
+        if (openThermDev.settings.ch_temperature != value)
         {
             Serial.println("MQTT: nowe nastawy temeratury ogrzewania");
-            openThermDev.settings.ch_temperature = String((char *)payload).toFloat();
-            paramSetpointCH.setValue(String(openThermDev.settings.ch_temperature).c_str(), String(openThermDev.settings.ch_temperature).length());
-            Serial.println("Nowa temperatura: " + String(openThermDev.settings.ch_temperature));
+            openThermDev.settings.ch_temperature = value;
+            paramSetpointCH.setValue(String(value, 1).c_str(), String(value, 1).length());
+            Serial.println("Nowa temperatura: " + String(value));
             saveConfig();
         }
     }
-    if (msgTopic == "/device/boiler/htoWater/enable/remote")
+    if (msgTopic == "/device/boiler/hotWater/enable/remote")
     {
-        if (openThermDev.settings.enableHotWater != String((char *)payload).toInt())
+        uint8_t state = String(buff).toInt();
+        Serial.print(state);
+        Serial.println();
+        if (openThermDev.settings.enableHotWater != state)
         {
             Serial.println("MQTT: nowe nastawy zal/wyl cieplej wody");
-            openThermDev.settings.enableHotWater = (uint8_t)String((char *)payload).toInt();
-            paramEnableDHW.setValue(String(openThermDev.settings.enableHotWater).c_str(), String(openThermDev.settings.enableHotWater).length());
-            Serial.println("Nowa nastawa : " + String(openThermDev.settings.enableHotWater));
+            openThermDev.settings.enableHotWater = state;
+            paramEnableDHW.setValue(String(state).c_str(), String(state).length());
+            Serial.println("Nowa nastawa : " + String(state));
             saveConfig();
         }
     }
     if (msgTopic == "/device/boiler/hotWater/setpoint/remote")
     {
-        if (openThermDev.settings.dhw_temperature != String((char *)payload).toFloat())
+        float value = String(buff).toFloat();
+        Serial.print(value);
+        Serial.println();
+        if (openThermDev.settings.dhw_temperature != value)
         {
             Serial.println("MQTT: nowe nastawy temeratury cieplej wody");
-            openThermDev.settings.dhw_temperature = String((char *)payload).toFloat();
-            paramSetpointDHW.setValue(String(openThermDev.settings.dhw_temperature).c_str(), String(openThermDev.settings.dhw_temperature).length());
-            Serial.println("Nowa temperatura: " + String(openThermDev.settings.dhw_temperature));
+            openThermDev.settings.dhw_temperature = value;
+            paramSetpointDHW.setValue(String(value, 1).c_str(), String(value, 1).length());
+            Serial.println("Nowa temperatura: " + String(value, 1));
             saveConfig();
         }
     }
@@ -184,6 +196,9 @@ void reconnectMQTT()
             //  client.subscribe("inTopic");
 
             MQTTclient.subscribe("/device/boiler/centralHeating/setpoint/remote");
+            MQTTclient.subscribe("/device/boiler/centralHeating/enable/remote");
+            MQTTclient.subscribe("/device/boiler/hotWater/setpoint/remote");
+            MQTTclient.subscribe("/device/boiler/hotWater/enable/remote");
         }
         else
         {
@@ -281,7 +296,7 @@ void handleNotFound()
 unsigned long timeStamp;
 void setup()
 {
-    delay(5000);
+    delay(10000);
     Serial.begin(115200);
     Serial.println("Start");
     ot.begin(handleInterrupt);
@@ -310,6 +325,12 @@ void setup()
                     configFile.readBytes(buffer, size);
                     memcpy(&openThermDev.settings, buffer, sizeof(sysSettingsRetein_t));
                     Serial.println("Zaladowano nastawy z pamieci");
+
+                    // flag for saving data
+                    paramEnableCH.setValue(String(openThermDev.settings.enableCentralHeating).c_str(), String(openThermDev.settings.enableCentralHeating).length());
+                    paramEnableDHW.setValue(String(openThermDev.settings.enableHotWater).c_str(), String(openThermDev.settings.enableHotWater).length());
+                    paramSetpointCH.setValue(String(openThermDev.settings.ch_temperature).c_str(), String(openThermDev.settings.ch_temperature).length());
+                    paramSetpointDHW.setValue(String(openThermDev.settings.dhw_temperature).c_str(), String(openThermDev.settings.dhw_temperature).length());
                 }
                 else
                 {
