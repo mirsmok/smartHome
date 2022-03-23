@@ -32,19 +32,25 @@ OpenTherm ot(inPin, outPin);
 void saveConfig();
 #line 83 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void saveConfigCallback();
-#line 113 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 115 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length);
-#line 180 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 182 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void reconnectMQTT();
-#line 264 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 266 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+void handleSetMqttBrokerForm();
+#line 284 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+void handleSetMqttBroker();
+#line 307 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleUpdate();
-#line 269 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 317 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+void handleResetErrors();
+#line 325 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleRoot();
-#line 277 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 438 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleNotFound();
-#line 297 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 457 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void setup();
-#line 408 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 580 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void loop();
 #line 29 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void ICACHE_RAM_ATTR handleInterrupt()
@@ -123,11 +129,13 @@ void saveConfigCallback()
 }
 
 // global varables
-bool enableCentralHeating = true;
-bool enableHotWater = true;
-bool enableCooling = false;
-float ch_temperature = 0.0;
-float dhw_temperature = 0.0;
+// bool enableCentralHeating = true;
+// bool enableHotWater = true;
+// bool enableCooling = false;
+// float ch_temperature = 0.0;
+// float dhw_temperature = 0.0;
+
+unsigned long timeStamp, timeStampMQTT;
 unsigned long response;
 OpenThermResponseStatus responseStatus;
 
@@ -265,6 +273,8 @@ body {\
 table, th, td {\
   border: 1px solid black;\
   border-collapse: collapse;\
+  margin: 20px;\
+  padding: 10px;\
 }\
 </style>\
 </head>\
@@ -272,8 +282,6 @@ table, th, td {\
 <div class='topnav'>\
   <a " + (activeIndex == 0 ? activeTag : String("")) +
                            " href='/'>Home</a>\
-  <a " + (activeIndex == 1 ? activeTag : String("")) +
-                           " href='/dev'>Urządzenia</a>\
   <a " + (activeIndex == 2 ? activeTag : String("")) +
                            " href='/setMqttBrokerForm'>MQTT</a>\
   <a " + (activeIndex == 3 ? activeTag : String("")) +
@@ -282,14 +290,173 @@ table, th, td {\
     return header;
 }
 
+void handleSetMqttBrokerForm()
+{
+    String webContent(htmlHeader(2));
+    webContent += String("<h2> &nbsp; Ustawienia brokera MQTT </br></h2>\
+    <h3>Aktualny adres brokera: ");
+    webContent += mqtt_server;
+    webContent += "</h3><form action='/setMqttBroker'>\
+<table style='text-align:right'>\
+<tr><td>  <label for='mqttAddr'>Adres brokera MQTT:</label></td>\
+<td>  <input type='text' id='mqttAddr' name='mqttAddr'></td></tr>\
+<tr><td></td><td><input type='submit' value='Ustaw'></td></tr>\
+</table>\
+</form>";
+    webContent += "</body></html>";
+
+    webServer.send(200, "text/html", webContent);
+}
+
+void handleSetMqttBroker()
+{
+    String brokerAddr = String(webServer.arg(0).c_str());
+    bool errorAddr = false;
+
+    if (brokerAddr.length() > 28 || brokerAddr.length() < 8)
+        errorAddr = true;
+
+    String webContent(htmlHeader(1) + "<h2> Ustawianie adresu brokera MQTT </h2><br><br>");
+    if (errorAddr)
+        webContent += "<h3> Operacja zakonczona niepowodzeniem!</h3>";
+    else
+    {
+        webContent += "<h3> Operacja zakonczona powodzeniem</h3>";
+        strcpy(&openThermDev.settings.mqttAddress[0], brokerAddr.c_str());
+        saveConfig();
+    }
+    webContent += "<br><br><a href='/dev'> Powrót </a>";
+    webContent += "</body></html>";
+
+    webServer.send(200, "text/html", webContent);
+}
+
 void handleUpdate()
 {
+    String webContent = htmlHeader(0);
+    webContent += "<h3 style='margin: 20px'>Nastąpi uruchomienie configPortalu. Zaloguj się do domyślnego wifi. Adres urządzenia <a href='192.168.4.1'>192.168.4.1</a></h3>";
+    webContent += "</body>\
+        </html>";
+    webServer.send(200, "text/html", webContent);
     wm.startConfigPortal();
+}
+
+void handleResetErrors()
+{
+    openThermDev.status.wifiFault = 0;
+    openThermDev.status.mqttFault = 0;
+    openThermDev.status.otFault = 0;
+    handleRoot();
 }
 
 void handleRoot()
 {
     String webContent = htmlHeader(0);
+    webContent += "<h2 style='margin: 20px'>Nastawy:</h2>\
+        <table>\
+            <tr>\
+                <th>Parametr</th>\
+                <th>Wartość</th>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Ogrzewanie</td>\
+                <td>" +
+                  String(openThermDev.settings.enableCentralHeating ? "Załączone" : "Wyłączone") + "</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Ogrzewanie Temperatura Zadana</td>\
+                <td>" +
+                  String(openThermDev.settings.ch_temperature, 1) + "  °C</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Ciepła woda</td>\
+                <td>" +
+                  String(openThermDev.settings.enableHotWater ? "Załączona" : "Wyłączona") + "</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Ciepła Woda Temperatura Zadana</td>\
+                <td>" +
+                  String(openThermDev.settings.dhw_temperature, 1) + "  °C</td>\
+            </tr></table>";
+
+    // status urzadzenia
+    webContent += "<h2 style='margin: 20px'>Status:</h2>\
+        <table>\
+            <tr>\
+                <th>Parametr</th>\
+                <th>Wartość</th>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Ogrzewanie</td>\
+                <td>" +
+                  String(openThermDev.status.CentralHeating ? "Aktywne" : "Nieaktywne") + "</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Ogrzewanie Aktualna Temperatura</td>\
+                <td>" +
+                  String(openThermDev.status.ch_temperature, 1) + " °C</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Ciepła woda</td>\
+                <td>" +
+                  String(openThermDev.status.HotWater ? "Aktywna" : "Nieaktywna") + "</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Ciepła Woda Aktualna Temperatura</td>\
+                <td>" +
+                  String(openThermDev.status.dhw_temperature, 1) + "  °C</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Aktualne ciśnienie</td>\
+                <td>" +
+                  String(openThermDev.status.pressure, 1) + "  bar</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Aktualna modulacja</td>\
+                <td>" +
+                  String(openThermDev.status.modulation, 1) + "  %</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Płomień</td>\
+                <td>" +
+                  String(openThermDev.status.Flame ? "Załączony" : "Wyłączony") + "</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Status Komunikacji Piec</td>\
+                <td>" +
+                  String(openThermDev.status.communicationStatus) + "</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Błąd Komunikacji Wifi</td>\
+                <td>" +
+                  String(openThermDev.status.wifiFault ? "TAK" : "NIE") + "</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Błąd Komunikacji MQTT</td>\
+                <td>" +
+                  String(openThermDev.status.mqttFault ? "TAK" : "NIE") + "</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Błąd Pieca</td>\
+                <td>" +
+                  String(openThermDev.status.otFault ? "TAK" : "NIE") + "</td>\
+            </tr>";
+    if (openThermDev.status.otFault != 0)
+    {
+        webContent += "<tr>\
+                <td>Kod Błędu Pieca</td>\
+                <td>" +
+                      String(openThermDev.status.otFaultCode) + "</td>\
+            </tr>";
+    }
+    webContent += "</table>";
+    if (openThermDev.status.mqttFault || openThermDev.status.wifiFault)
+        webContent += "<form action='/resetErrors'>\
+<table style='border: 0px;text-align:right'>\
+<tr><td>  <label>Aktywne błędny na urządzeniu</label></td>\
+<td><input type='submit' value='Resetuj'></td></tr>\
+</table>\
+</form>";
     webContent += "</body>\
         </html>";
     webServer.send(200, "text/html", webContent);
@@ -314,7 +481,6 @@ void handleNotFound()
     webServer.send(404, "text/plain", message);
 }
 
-unsigned long timeStamp;
 void setup()
 {
     delay(10000);
@@ -352,12 +518,14 @@ void setup()
                     paramEnableDHW.setValue(String(openThermDev.settings.enableHotWater).c_str(), String(openThermDev.settings.enableHotWater).length());
                     paramSetpointCH.setValue(String(openThermDev.settings.ch_temperature).c_str(), String(openThermDev.settings.ch_temperature).length());
                     paramSetpointDHW.setValue(String(openThermDev.settings.dhw_temperature).c_str(), String(openThermDev.settings.dhw_temperature).length());
+                    configFile.close();
                 }
                 else
                 {
                     Serial.println("Brak danych w pamięci lub dane nieprawidlowe");
+                    configFile.close();
+                    saveConfig();
                 }
-                configFile.close();
             }
         }
         else
@@ -394,7 +562,7 @@ void setup()
     // res = wm.autoConnect("AutoConnectAP"); // anonymous ap
     wm.setConnectRetries(5);
     wm.setWiFiAutoReconnect(true);
-    res = wm.autoConnect("AutoConnectAP", "password"); // password protected ap
+    res = wm.autoConnect("otInterface"); // password protected ap
     if (!res)
     {
         Serial.println("Failed to connect");
@@ -415,29 +583,68 @@ void setup()
 
     webServer.on("/", handleRoot);
     webServer.on("/Update", handleUpdate);
+    webServer.on("/setMqttBrokerForm", handleSetMqttBrokerForm);
+    webServer.on("/setMqttBroker", handleSetMqttBroker);
+    webServer.on("/resetErrors", handleResetErrors);
     webServer.onNotFound(handleNotFound);
     webServer.begin();
     //*********************** MQTT *****************************
+    strcpy(mqtt_server, openThermDev.settings.mqttAddress);
     MQTTclient.setServer(mqtt_server, 1883);
     MQTTclient.setCallback(MQTTmsgRcvCallback);
     MQTTclient.setBufferSize(512);
     reconnectMQTT();
 
+    if (openThermDev.settings.ch_temperature > 80.0 || openThermDev.settings.ch_temperature < 20.0)
+        openThermDev.settings.ch_temperature = 45.0;
+    if (openThermDev.settings.dhw_temperature > 65.0 || openThermDev.settings.dhw_temperature < 20.0)
+        openThermDev.settings.dhw_temperature = 45.0;
+
     timeStamp = millis();
+    timeStampMQTT = millis();
 }
 
 void loop()
 {
-    if ((millis() - timeStamp) > 3000)
+    if ((millis() - timeStamp) > 1000)
     {
         timeStamp = millis();
-        response = ot.setBoilerStatus(enableCentralHeating, enableHotWater, enableCooling);
+        response = ot.setBoilerStatus(openThermDev.settings.enableCentralHeating, openThermDev.settings.enableHotWater, openThermDev.settings.enableCooling);
         responseStatus = ot.getLastResponseStatus();
+        strcpy(openThermDev.status.communicationStatus, ot.statusToString(responseStatus));
         if (responseStatus == OpenThermResponseStatus::SUCCESS)
         {
-            Serial.println("Central Heating: " + String(ot.isCentralHeatingActive(response) ? "on" : "off"));
-            Serial.println("Hot Water: " + String(ot.isHotWaterActive(response) ? "on" : "off"));
-            Serial.println("Flame: " + String(ot.isFlameOn(response) ? "on" : "off"));
+            openThermDev.status.CentralHeating = ot.isCentralHeatingActive(response) ? 0 : 1;
+            openThermDev.status.HotWater = ot.isHotWaterActive(response) ? 0 : 1;
+            openThermDev.status.Flame = ot.isFlameOn(response) ? 0 : 1;
+            openThermDev.status.otFault = ot.isFault(response) ? 0 : 1;
+            if (openThermDev.status.otFault)
+                openThermDev.status.otFaultCode = ot.getFault() ? 0 : 1;
+            Serial.println("Central Heating: " + String(openThermDev.status.CentralHeating ? "on" : "off"));
+            Serial.println("Hot Water: " + String(openThermDev.status.HotWater ? "on" : "off"));
+            Serial.println("Flame: " + String(openThermDev.status.Flame ? "on" : "off"));
+            Serial.println("Fault: " + String(openThermDev.status.otFault ? "on" : "off"));
+            if (openThermDev.status.otFault)
+                Serial.println("Fault code: " + String(openThermDev.status.otFaultCode));
+
+            // Set Boiler Temperature to 64 degrees C
+            ot.setBoilerTemperature(openThermDev.settings.ch_temperature);
+            // Get Boiler Temperature
+            openThermDev.status.ch_temperature = ot.getBoilerTemperature();
+            Serial.println("CH temperature is " + String(openThermDev.status.ch_temperature) + " degrees C");
+            // Set DHW setpoint to 40 degrees C
+            ot.setDHWSetpoint(openThermDev.settings.dhw_temperature);
+            // Get DHW Temperature
+            openThermDev.status.dhw_temperature = ot.getDHWTemperature();
+            Serial.println("DHW temperature is " + String(openThermDev.status.dhw_temperature) + " degrees C");
+            // Get pressure
+            openThermDev.status.pressure = ot.getPressure();
+            Serial.println("Pressure: " + String(openThermDev.status.pressure));
+            // Get modulation
+            openThermDev.status.modulation = ot.getModulation();
+            Serial.println("DHW temperature is " + String(openThermDev.status.modulation) + " degrees C");
+
+            Serial.println();
         }
         if (responseStatus == OpenThermResponseStatus::NONE)
         {
@@ -451,56 +658,47 @@ void loop()
         {
             Serial.println("Error: Response timeout");
         }
-
-        // Set Boiler Temperature to 64 degrees C
-        ot.setBoilerTemperature(64);
-
-        // Get Boiler Temperature
-        ch_temperature = ot.getBoilerTemperature();
-        Serial.println("CH temperature is " + String(ch_temperature) + " degrees C");
-
-        // Set DHW setpoint to 40 degrees C
-        ot.setDHWSetpoint(40);
-
-        // Get DHW Temperature
-        dhw_temperature = ot.getDHWTemperature();
-        Serial.println("DHW temperature is " + String(dhw_temperature) + " degrees C");
-
-        Serial.println();
     }
-    if (WiFi.isConnected())
+
+    if ((millis() - timeStampMQTT) > 10000)
     {
-        if (MQTTclient.connected())
+        timeStampMQTT = millis();
+        if (WiFi.isConnected())
         {
-            if (responseStatus == OpenThermResponseStatus::SUCCESS)
+            if (MQTTclient.connected())
             {
-                MQTTclient.publish("/device/boiler/centralHeating/state", String(ot.isCentralHeatingActive(response) ? "on" : "off").c_str());
-                MQTTclient.publish("/device/boiler/centralHeating/actual", String(ch_temperature, 1).c_str());
+                if (responseStatus == OpenThermResponseStatus::SUCCESS)
+                {
+                    MQTTclient.publish("/device/boiler/centralHeating/state", String(openThermDev.status.CentralHeating).c_str());
+                    MQTTclient.publish("/device/boiler/centralHeating/actual", String(openThermDev.status.ch_temperature, 1).c_str());
 
-                MQTTclient.publish("/device/boiler/hotWater/state", String(ot.isHotWaterActive(response) ? "on" : "off").c_str());
-                MQTTclient.publish("/device/boiler/hotWater/actual", String(dhw_temperature, 1).c_str());
+                    MQTTclient.publish("/device/boiler/hotWater/state", String(openThermDev.status.HotWater).c_str());
+                    MQTTclient.publish("/device/boiler/hotWater/actual", String(openThermDev.status.dhw_temperature, 1).c_str());
 
-                MQTTclient.publish("/device/boiler/flame/state", String(ot.isCentralHeatingActive(response) ? "on" : "off").c_str());
-                MQTTclient.publish("/device/boiler/fault", String(ot.isFault(response) ? 0 : 1).c_str());
-                MQTTclient.publish("/device/boiler/communicationStatus", "OK");
+                    MQTTclient.publish("/device/boiler/pressure/actual", String(openThermDev.status.pressure, 1).c_str());
+                    MQTTclient.publish("/device/boiler/modulation/actual", String(openThermDev.status.modulation, 1).c_str());
+
+                    MQTTclient.publish("/device/boiler/flame/state", String(openThermDev.status.Flame).c_str());
+                    MQTTclient.publish("/device/boiler/fault", String(openThermDev.status.otFault).c_str());
+
+                    if (openThermDev.status.otFault)
+                        MQTTclient.publish("/device/boiler/faultCode", String(openThermDev.status.otFaultCode).c_str());
+                }
+
+                MQTTclient.publish("/device/boiler/communicationStatus", openThermDev.status.communicationStatus);
+                MQTTclient.publish("/device/boiler/centralHeating/enable", String(openThermDev.settings.enableCentralHeating).c_str());
+                MQTTclient.publish("/device/boiler/centralHeating/setpoint", String(openThermDev.settings.ch_temperature, 1).c_str());
+
+                MQTTclient.publish("/device/boiler/hotWater/enable", String(openThermDev.settings.enableHotWater).c_str());
+                MQTTclient.publish("/device/boiler/hotWater/setpoint", String(openThermDev.settings.dhw_temperature, 1).c_str());
             }
             else
             {
-                MQTTclient.publish("/device/boiler/communicationStatus", "FAULT");
+                Serial.println("start reconect...");
+                openThermDev.status.mqttFault = 1;
+                reconnectMQTT();
             }
-
-            MQTTclient.publish("/device/boiler/centralHeating/enable", String(openThermDev.settings.enableCentralHeating).c_str());
-            MQTTclient.publish("/device/boiler/centralHeating/setpoint", String(openThermDev.settings.ch_temperature, 1).c_str());
-
-            MQTTclient.publish("/device/boiler/hotWater/enable", String(openThermDev.settings.enableHotWater).c_str());
-            MQTTclient.publish("/device/boiler/hotWater/setpoint", String(openThermDev.settings.dhw_temperature, 1).c_str());
         }
-        else
-        {
-            Serial.println("start reconect...");
-            reconnectMQTT();
-        }
-        Serial.println("Zatana temperatura wody ciepłej: " + String(openThermDev.settings.ch_temperature));
     }
     if (WiFi.isConnected())
     {
@@ -509,6 +707,10 @@ void loop()
         {
             MQTTclient.loop();
         }
+    }
+    else
+    {
+        openThermDev.status.wifiFault = 1;
     }
     MDNS.update();
 }
