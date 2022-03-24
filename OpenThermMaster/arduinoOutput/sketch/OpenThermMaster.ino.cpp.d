@@ -183,5 +183,8 @@ c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\sketch\OpenThermMa
  C:\Users\mirsmok\Documents\Arduino\libraries\WiFiManager/WiFiManager.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\2.7.4\libraries\DNSServer\src/DNSServer.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\WiFiManager/strings_en.h \
+ C:\Users\mirsmok\Documents\Arduino\libraries\OneWire/OneWire.h \
+ C:\Users\mirsmok\Documents\Arduino\libraries\OneWire/util/OneWire_direct_regtype.h \
+ C:\Users\mirsmok\Documents\Arduino\libraries\DallasTemperature/DallasTemperature.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\PubSubClient\src/PubSubClient.h \
  c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\sketch\./devSettings.h
