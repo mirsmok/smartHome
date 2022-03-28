@@ -1,4 +1,4 @@
-#line 1 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\devSettings.cpp"
+#line 1 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\devSettings.cpp"
 #include "./devSettings.h"
 void devError::checkLoraPing(const sysSettings_t &sysSettings, unsigned long actualTime)
 {

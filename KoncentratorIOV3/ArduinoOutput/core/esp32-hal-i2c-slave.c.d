@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\KoncentratorIOV3\ArduinoOutput\core\esp32-hal-i2c-slave.c.o: \
+c:\Users\mirsmok\work\smartHome\KoncentratorIOV3\ArduinoOutput\core\esp32-hal-i2c-slave.c.o: \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32\esp32-hal-i2c-slave.c \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2/tools/sdk/esp32/include/esp_common/include/esp_attr.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2/tools/sdk/esp32/include/esp_rom/include/esp32/rom/gpio.h \

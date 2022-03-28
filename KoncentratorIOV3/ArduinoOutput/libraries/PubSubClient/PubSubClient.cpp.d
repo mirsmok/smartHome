@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\KoncentratorIOV3\ArduinoOutput\libraries\PubSubClient\PubSubClient.cpp.o: \
+c:\Users\mirsmok\work\smartHome\KoncentratorIOV3\ArduinoOutput\libraries\PubSubClient\PubSubClient.cpp.o: \
  C:\Users\mirsmok\Documents\Arduino\libraries\PubSubClient\src\PubSubClient.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\PubSubClient\src\PubSubClient.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32/Arduino.h \

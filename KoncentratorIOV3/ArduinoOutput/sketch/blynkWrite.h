@@ -1,4 +1,4 @@
-#line 1 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\blynkWrite.h"
+#line 1 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\blynkWrite.h"
 #ifndef BLYNKWRITE
 #define BLYNKWRITE
 

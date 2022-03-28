@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\KoncentratorIOV3\ArduinoOutput\core\Print.cpp.o: \
+c:\Users\mirsmok\work\smartHome\KoncentratorIOV3\ArduinoOutput\core\Print.cpp.o: \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32\Print.cpp \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32\Arduino.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32\esp_arduino_version.h \

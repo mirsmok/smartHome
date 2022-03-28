@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\KoncentratorIOV3\ArduinoOutput\libraries\LoRaNow\utility\LoRa.cpp.o: \
+c:\Users\mirsmok\work\smartHome\KoncentratorIOV3\ArduinoOutput\libraries\LoRaNow\utility\LoRa.cpp.o: \
  C:\Users\mirsmok\Documents\Arduino\libraries\LoRaNow\src\utility\LoRa.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\LoRaNow\src\utility\LoRa.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32/Arduino.h \

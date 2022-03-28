@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\KoncentratorIOV3\ArduinoOutput\libraries\WiFiManager\WiFiManager.cpp.o: \
+c:\Users\mirsmok\work\smartHome\KoncentratorIOV3\ArduinoOutput\libraries\WiFiManager\WiFiManager.cpp.o: \
  C:\Users\mirsmok\Documents\Arduino\libraries\WiFiManager\WiFiManager.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\WiFiManager\WiFiManager.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\libraries\WiFi\src/WiFi.h \

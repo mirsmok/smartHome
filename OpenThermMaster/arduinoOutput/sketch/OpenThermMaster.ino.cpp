@@ -34,23 +34,23 @@ void saveConfig();
 void saveConfigCallback();
 #line 125 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length);
-#line 192 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 195 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void reconnectMQTT();
-#line 276 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 279 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleSetMqttBrokerForm();
-#line 294 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 297 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleSetMqttBroker();
-#line 317 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 320 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleUpdate();
-#line 327 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 330 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleResetErrors();
-#line 335 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 338 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleRoot();
-#line 448 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 451 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleNotFound();
-#line 467 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 470 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void setup();
-#line 599 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 602 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void loop();
 #line 29 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void ICACHE_RAM_ATTR handleInterrupt()
@@ -156,12 +156,14 @@ void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
     Serial.print("] ");
     char buff[length + 1];
     strncpy(buff, (char *)payload, length);
+    buff[length] = '\0';
 
     String msgTopic = String(topic);
     if (msgTopic == "device/boiler/centralHeating/enable/remote")
     {
-        uint8_t state = String(buff).toInt();
+        uint8_t state = String(buff).toInt() == 1 ? 1 : 0;
         Serial.print(state);
+        //   Serial.print(buff);
         Serial.println();
         if (openThermDev.settings.enableCentralHeating != state)
         {
@@ -188,7 +190,8 @@ void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
     }
     if (msgTopic == "device/boiler/hotWater/enable/remote")
     {
-        uint8_t state = String(buff).toInt();
+        uint8_t state = String(buff).toInt() == 1 ? 1 : 0;
+        ;
         Serial.print(state);
         Serial.println();
         if (openThermDev.settings.enableHotWater != state)
@@ -629,17 +632,19 @@ void loop()
     {
         roomTemperature = temperatureSensors.getTempCByIndex(0);
         timeStamp = millis();
-        response = ot.setBoilerStatus(openThermDev.settings.enableCentralHeating, openThermDev.settings.enableHotWater, openThermDev.settings.enableCooling);
+        // if (!openThermDev.settings.enableCentralHeating && !openThermDev.settings.enableHotWater)
+        //     openThermDev.settings.enableCentralHeating = 1;
+        response = ot.setBoilerStatus((bool)openThermDev.settings.enableCentralHeating, (bool)openThermDev.settings.enableHotWater, false);
         responseStatus = ot.getLastResponseStatus();
         strcpy(openThermDev.status.communicationStatus, ot.statusToString(responseStatus));
         if (responseStatus == OpenThermResponseStatus::SUCCESS)
         {
-            openThermDev.status.CentralHeating = ot.isCentralHeatingActive(response) ? 0 : 1;
-            openThermDev.status.HotWater = ot.isHotWaterActive(response) ? 0 : 1;
-            openThermDev.status.Flame = ot.isFlameOn(response) ? 0 : 1;
-            openThermDev.status.otFault = ot.isFault(response) ? 0 : 1;
+            openThermDev.status.CentralHeating = ot.isCentralHeatingActive(response) ? 1 : 0;
+            openThermDev.status.HotWater = ot.isHotWaterActive(response) ? 1 : 0;
+            openThermDev.status.Flame = ot.isFlameOn(response) ? 1 : 0;
+            openThermDev.status.otFault = ot.isFault(response) ? 1 : 0;
             if (openThermDev.status.otFault)
-                openThermDev.status.otFaultCode = ot.getFault() ? 0 : 1;
+                openThermDev.status.otFaultCode = ot.getFault() ? 1 : 0;
             Serial.println("Central Heating: " + String(openThermDev.status.CentralHeating ? "on" : "off"));
             Serial.println("Hot Water: " + String(openThermDev.status.HotWater ? "on" : "off"));
             Serial.println("Flame: " + String(openThermDev.status.Flame ? "on" : "off"));
@@ -662,7 +667,7 @@ void loop()
             Serial.println("Pressure: " + String(openThermDev.status.pressure));
             // Get modulation
             openThermDev.status.modulation = ot.getModulation();
-            Serial.println("DHW temperature is " + String(openThermDev.status.modulation) + " degrees C");
+            Serial.println("Actual modulation: " + String(openThermDev.status.modulation) + " %");
 
             if (MQTTclient.connected() && WiFi.isConnected())
                 digitalRead(BUILTIN_LED) ? digitalWrite(BUILTIN_LED, LOW) : digitalWrite(BUILTIN_LED, HIGH);

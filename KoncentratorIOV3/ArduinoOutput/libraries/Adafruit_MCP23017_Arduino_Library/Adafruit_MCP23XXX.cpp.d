@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\KoncentratorIOV3\ArduinoOutput\libraries\Adafruit_MCP23017_Arduino_Library\Adafruit_MCP23XXX.cpp.o: \
+c:\Users\mirsmok\work\smartHome\KoncentratorIOV3\ArduinoOutput\libraries\Adafruit_MCP23017_Arduino_Library\Adafruit_MCP23XXX.cpp.o: \
  C:\Users\mirsmok\Documents\Arduino\libraries\Adafruit_MCP23017_Arduino_Library\src\Adafruit_MCP23XXX.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\Adafruit_MCP23017_Arduino_Library\src\Adafruit_MCP23XXX.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\Adafruit_BusIO/Adafruit_BusIO_Register.h \

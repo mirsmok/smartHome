@@ -150,12 +150,14 @@ void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
     Serial.print("] ");
     char buff[length + 1];
     strncpy(buff, (char *)payload, length);
+    buff[length] = '\0';
 
     String msgTopic = String(topic);
     if (msgTopic == "device/boiler/centralHeating/enable/remote")
     {
-        uint8_t state = String(buff).toInt();
+        uint8_t state = String(buff).toInt() == 1 ? 1 : 0;
         Serial.print(state);
+        //   Serial.print(buff);
         Serial.println();
         if (openThermDev.settings.enableCentralHeating != state)
         {
@@ -182,7 +184,8 @@ void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
     }
     if (msgTopic == "device/boiler/hotWater/enable/remote")
     {
-        uint8_t state = String(buff).toInt();
+        uint8_t state = String(buff).toInt() == 1 ? 1 : 0;
+        ;
         Serial.print(state);
         Serial.println();
         if (openThermDev.settings.enableHotWater != state)
@@ -246,7 +249,7 @@ String htmlHeader(uint8_t activeIndex = 0)
 {
     String activeTag = String("class='active'");
     String header = String("<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width, initial-scale=1' charset='UTF-8'><style>body {  margin: 0;  font-family: Arial, Helvetica, sans-serif;}.topnav {  overflow: hidden;  background-color: #333;}.topnav a {  float: left;  color: #f2f2f2;  text-align: center;  padding: 14px 16px;  text-decoration: none;  font-size: 17px;}.topnav a:hover {  background-color: #ddd;  color: black;}.topnav a.active {  background-color: #04AA6D;  color: white;}table, th, td {  border: 1px solid black;  border-collapse: collapse;  margin: 20px;  padding: 10px;}</style></head><body><div class='topnav'>  <a "
-# 266 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+# 269 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
        + (activeIndex == 0 ? activeTag : String("")) +
                            " href='/'>Home</a>  <a "
        + (activeIndex == 2 ? activeTag : String("")) +
@@ -586,17 +589,19 @@ void loop()
     {
         roomTemperature = temperatureSensors.getTempCByIndex(0);
         timeStamp = millis();
-        response = ot.setBoilerStatus(openThermDev.settings.enableCentralHeating, openThermDev.settings.enableHotWater, openThermDev.settings.enableCooling);
+        // if (!openThermDev.settings.enableCentralHeating && !openThermDev.settings.enableHotWater)
+        //     openThermDev.settings.enableCentralHeating = 1;
+        response = ot.setBoilerStatus((bool)openThermDev.settings.enableCentralHeating, (bool)openThermDev.settings.enableHotWater, false);
         responseStatus = ot.getLastResponseStatus();
         strcpy(openThermDev.status.communicationStatus, ot.statusToString(responseStatus));
         if (responseStatus == OpenThermResponseStatus::SUCCESS)
         {
-            openThermDev.status.CentralHeating = ot.isCentralHeatingActive(response) ? 0 : 1;
-            openThermDev.status.HotWater = ot.isHotWaterActive(response) ? 0 : 1;
-            openThermDev.status.Flame = ot.isFlameOn(response) ? 0 : 1;
-            openThermDev.status.otFault = ot.isFault(response) ? 0 : 1;
+            openThermDev.status.CentralHeating = ot.isCentralHeatingActive(response) ? 1 : 0;
+            openThermDev.status.HotWater = ot.isHotWaterActive(response) ? 1 : 0;
+            openThermDev.status.Flame = ot.isFlameOn(response) ? 1 : 0;
+            openThermDev.status.otFault = ot.isFault(response) ? 1 : 0;
             if (openThermDev.status.otFault)
-                openThermDev.status.otFaultCode = ot.getFault() ? 0 : 1;
+                openThermDev.status.otFaultCode = ot.getFault() ? 1 : 0;
             Serial.println("Central Heating: " + String(openThermDev.status.CentralHeating ? "on" : "off"));
             Serial.println("Hot Water: " + String(openThermDev.status.HotWater ? "on" : "off"));
             Serial.println("Flame: " + String(openThermDev.status.Flame ? "on" : "off"));
@@ -619,7 +624,7 @@ void loop()
             Serial.println("Pressure: " + String(openThermDev.status.pressure));
             // Get modulation
             openThermDev.status.modulation = ot.getModulation();
-            Serial.println("DHW temperature is " + String(openThermDev.status.modulation) + " degrees C");
+            Serial.println("Actual modulation: " + String(openThermDev.status.modulation) + " %");
 
             if (MQTTclient.connected() && WiFi.isConnected())
                 digitalRead(BUILTIN_LED) ? digitalWrite(BUILTIN_LED, 0x0) : digitalWrite(BUILTIN_LED, 0x1);

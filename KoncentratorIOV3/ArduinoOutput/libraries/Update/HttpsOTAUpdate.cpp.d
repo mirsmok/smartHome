@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\KoncentratorIOV3\ArduinoOutput\libraries\Update\HttpsOTAUpdate.cpp.o: \
+c:\Users\mirsmok\work\smartHome\KoncentratorIOV3\ArduinoOutput\libraries\Update\HttpsOTAUpdate.cpp.o: \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\libraries\Update\src\HttpsOTAUpdate.cpp \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2/tools/sdk/esp32/include/freertos/include/freertos/FreeRTOS.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2/tools/sdk/esp32/include/freertos/include/esp_additions/freertos/FreeRTOSConfig.h \

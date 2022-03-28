@@ -1,4 +1,4 @@
-#line 1 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\devSettings.h"
+#line 1 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\devSettings.h"
 
 #ifndef DEVSETTINGS_H
 #define DEVSETTINGS_H

@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\KoncentratorIOV3\ArduinoOutput\libraries\Adafruit_BusIO\Adafruit_I2CDevice.cpp.o: \
+c:\Users\mirsmok\work\smartHome\KoncentratorIOV3\ArduinoOutput\libraries\Adafruit_BusIO\Adafruit_I2CDevice.cpp.o: \
  C:\Users\mirsmok\Documents\Arduino\libraries\Adafruit_BusIO\Adafruit_I2CDevice.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\Adafruit_BusIO\Adafruit_I2CDevice.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32/Arduino.h \

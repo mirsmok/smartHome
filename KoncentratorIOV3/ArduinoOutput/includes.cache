@@ -10,117 +10,117 @@
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\variants\\esp32"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "BlynkSimpleEsp32.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Blynk\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "WiFi.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\WiFi\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "ArduinoJson.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\ArduinoJson\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "WiFiManager.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\WiFiManager"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "Update.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\Update\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "WebServer.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\WebServer\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "DNSServer.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\DNSServer\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "LoRaNow.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\LoRaNow\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "SPI.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\SPI\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "NTP.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\NTP"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "TFT_eSPI.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\TFT_eSPI"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "FS.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\FS\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "SPIFFS.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\SPIFFS\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "OneWire.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\OneWire"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "DallasTemperature.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\DallasTemperature"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "Adafruit_MCP23X17.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Adafruit_MCP23017_Arduino_Library\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "Adafruit_BusIO_Register.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Adafruit_BusIO"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "Wire.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\Wire\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "Preferences.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\Preferences\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "ESPmDNS.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.2\\libraries\\ESPmDNS\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "PubSubClient.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\PubSubClient\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\KoncentratorIOV3.ino.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\devSettings.cpp",
+    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\ArduinoOutput\\sketch\\devSettings.cpp",
     "Include": "",
     "Includepath": null
   },

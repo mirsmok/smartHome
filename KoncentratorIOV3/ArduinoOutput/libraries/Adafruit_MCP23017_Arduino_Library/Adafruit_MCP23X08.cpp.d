@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\KoncentratorIOV3\ArduinoOutput\libraries\Adafruit_MCP23017_Arduino_Library\Adafruit_MCP23X08.cpp.o: \
+c:\Users\mirsmok\work\smartHome\KoncentratorIOV3\ArduinoOutput\libraries\Adafruit_MCP23017_Arduino_Library\Adafruit_MCP23X08.cpp.o: \
  C:\Users\mirsmok\Documents\Arduino\libraries\Adafruit_MCP23017_Arduino_Library\src\Adafruit_MCP23X08.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\Adafruit_MCP23017_Arduino_Library\src\Adafruit_MCP23X08.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\Adafruit_MCP23017_Arduino_Library\src\Adafruit_MCP23XXX.h \

@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\KoncentratorIOV3\ArduinoOutput\libraries\Blynk\utility\BlynkHandlers.cpp.o: \
+c:\Users\mirsmok\work\smartHome\KoncentratorIOV3\ArduinoOutput\libraries\Blynk\utility\BlynkHandlers.cpp.o: \
  C:\Users\mirsmok\Documents\Arduino\libraries\Blynk\src\utility\BlynkHandlers.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\Blynk\src/Blynk/BlynkConfig.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\Blynk\src/Blynk/BlynkDetectDevice.h \

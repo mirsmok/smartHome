@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#line 1 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 //******************** blynk settings ***********************
 
 #define BLYNK_TEMPLATE_ID "TMPLmJH5TAX6"
@@ -122,63 +122,63 @@ WiFiClient espMQTTClient;
 PubSubClient MQTTclient(espMQTTClient);
 bool MQTTenabled = false;
 
-#line 123 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 123 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length);
-#line 135 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 158 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void reconnectMQTT();
-#line 215 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 248 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleDevUpdate();
-#line 264 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 297 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleShowDev();
-#line 300 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 333 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleDelDev();
-#line 315 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 348 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleAddDev();
-#line 385 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 418 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleSetMqttBrokerForm();
-#line 412 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 445 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleSetMqttBroker();
-#line 436 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 469 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleAddDevForm();
-#line 519 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 552 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleDevList();
-#line 576 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 609 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleRoot();
-#line 584 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 617 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleNotFound();
-#line 603 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 636 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void drawGraph();
-#line 623 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 656 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 uint8_t countTagElements(String input, String tag);
-#line 647 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 680 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void setup();
-#line 861 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 894 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void loop();
-#line 928 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 966 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void mesureTemperatures(void);
-#line 1000 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1038 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void clearDevice(int devIndex);
-#line 1024 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1062 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void printAddress(DeviceAddress deviceAddress);
-#line 1035 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1073 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 String ds18b20AddressToStr(DeviceAddress deviceAddress);
-#line 1047 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1085 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void onMessage(uint8_t *buffer, size_t size);
-#line 1181 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1219 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void sendDataToMQTT(int devIndex, String &data);
-#line 1188 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1226 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void sendLocalDataToBlynk(void);
-#line 1240 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1278 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void sendDataToBlynk(void);
-#line 1296 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1334 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void displayData(const String &text);
-#line 1420 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1458 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void myTimerEvent();
-#line 1445 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1483 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void tftMessage(String Message, int txtColor, int bgColor, int showTime);
-#line 1468 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1506 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 bool parseFormula(String formula);
-#line 123 "c:\\Users\\mirsmok\\work\\IQhome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 123 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
 {
     Serial.print("Message arrived [");
@@ -189,6 +189,29 @@ void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
         Serial.print((char)payload[i]);
     }
     Serial.println();
+
+    char buff[length + 1];
+    strncpy(buff, (char *)payload, length);
+    buff[length] = '\0';
+
+    String msgTopic = String(topic);
+    if (msgTopic == "device/boiler/centralHeating/state")
+        Blynk.virtualWrite(100, String(buff).toInt());
+    if (msgTopic == "device/boiler/centralHeating/enable")
+        Blynk.virtualWrite(101, String(buff).toInt());
+    if (msgTopic == "device/boiler/centralHeating/actual")
+        Blynk.virtualWrite(102, String(buff).toFloat());
+    if (msgTopic == "device/boiler/centralHeating/setpoint")
+        Blynk.virtualWrite(103, String(buff).toFloat());
+
+    if (msgTopic == "device/boiler/hotWater/state")
+        Blynk.virtualWrite(106, String(buff).toInt());
+    if (msgTopic == "device/boiler/hotWater/enable")
+        Blynk.virtualWrite(107, String(buff).toInt());
+    if (msgTopic == "device/boiler/hotWater/actual")
+        Blynk.virtualWrite(108, String(buff).toFloat());
+    if (msgTopic == "device/boiler/hotWater/setpoint")
+        Blynk.virtualWrite(109, String(buff).toFloat());
 }
 
 void reconnectMQTT()
@@ -208,6 +231,16 @@ void reconnectMQTT()
             // client.publish("outTopic", "hello world");
             // ... and resubscribe
             //  client.subscribe("inTopic");
+
+            //        MQTTclient.subscribe("device/boiler/centralHeating/state");
+            //        MQTTclient.subscribe("device/boiler/centralHeating/enable");
+            //        MQTTclient.subscribe("device/boiler/centralHeating/actual");
+            //        MQTTclient.subscribe("device/boiler/centralHeating/setpoint");
+
+            //       MQTTclient.subscribe("device/boiler/hotWater/state");
+            //       MQTTclient.subscribe("device/boiler/hotWater/enable");
+            //       MQTTclient.subscribe("device/boiler/hotWater/actual");
+            //       MQTTclient.subscribe("device/boiler/hotWater/setpoint");
         }
         else
         {
@@ -958,12 +991,17 @@ void loop()
                 reconnectMQTT();
                 devErrors.mqttError = true;
             }
+            else
+            {
+                MQTTclient.publish("device/boiler/centralHeating/enable/remote", vPinStateFromBlink[20] ? "1" : "0");
+                MQTTclient.publish("device/boiler/hotWater/enable/remote", vPinStateFromBlink[19] ? "1" : "0");
+                MQTTclient.loop();
+            }
         }
         if (MQTTclient.connected())
-            MQTTclient.loop();
 
-        if (!Blynk.connected())
-            Blynk.connect();
+            if (!Blynk.connected())
+                Blynk.connect();
         devErrors.checkLoraPing(sysSettings, millis());
         if (!extIO.begin_I2C())
             devErrors.extIoError = true;
@@ -977,8 +1015,8 @@ void loop()
     }
 
     // reset bledow
-    if (touchRead(T7) < 30)
-        devErrors.clearErrors();
+    // if (touchRead(T7) < 30)
+    //    devErrors.clearErrors();
 
     displayData("");
     delay(2);
@@ -1556,7 +1594,7 @@ bool parseFormula(String formula)
             return false;
         }
         bool result = false;
-        // Serial.println(String(in1) + ": " + String(vPinStateFromBlink[in1]) + " " + String(in2) + ": " + String(vPinStateFromBlink[in2]) + " " + " " + String(in3) + " " + String(out) + " " + operator1 + " " + operator2);
+        Serial.println(String(in1) + ": " + String(vPinStateFromBlink[in1]) + " " + String(in2) + ": " + String(vPinStateFromBlink[in2]) + " " + String(in3) + ": " + String(vPinStateFromBlink[in3]) + " " + String(out) + " " + operator1 + " " + operator2);
         if (operator1 == "or")
             result = vPinStateFromBlink[in1] or vPinStateFromBlink[in2];
         else
@@ -1566,7 +1604,7 @@ bool parseFormula(String formula)
         else
             result = result and vPinStateFromBlink[in3];
         vPinStateFromBlink[out] = result ? 1 : 0;
-        //   Serial.println("Parse result2: " + String(result));
+        Serial.println("Parse result2: " + String(result));
     }
     if (formulaType == 2)
     {

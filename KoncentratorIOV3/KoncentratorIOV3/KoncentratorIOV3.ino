@@ -130,6 +130,29 @@ void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
         Serial.print((char)payload[i]);
     }
     Serial.println();
+
+    char buff[length + 1];
+    strncpy(buff, (char *)payload, length);
+    buff[length] = '\0';
+
+    String msgTopic = String(topic);
+    if (msgTopic == "device/boiler/centralHeating/state")
+        Blynk.virtualWrite(100, String(buff).toInt());
+    if (msgTopic == "device/boiler/centralHeating/enable")
+        Blynk.virtualWrite(101, String(buff).toInt());
+    if (msgTopic == "device/boiler/centralHeating/actual")
+        Blynk.virtualWrite(102, String(buff).toFloat());
+    if (msgTopic == "device/boiler/centralHeating/setpoint")
+        Blynk.virtualWrite(103, String(buff).toFloat());
+
+    if (msgTopic == "device/boiler/hotWater/state")
+        Blynk.virtualWrite(106, String(buff).toInt());
+    if (msgTopic == "device/boiler/hotWater/enable")
+        Blynk.virtualWrite(107, String(buff).toInt());
+    if (msgTopic == "device/boiler/hotWater/actual")
+        Blynk.virtualWrite(108, String(buff).toFloat());
+    if (msgTopic == "device/boiler/hotWater/setpoint")
+        Blynk.virtualWrite(109, String(buff).toFloat());
 }
 
 void reconnectMQTT()
@@ -149,6 +172,16 @@ void reconnectMQTT()
             // client.publish("outTopic", "hello world");
             // ... and resubscribe
             //  client.subscribe("inTopic");
+
+            //        MQTTclient.subscribe("device/boiler/centralHeating/state");
+            //        MQTTclient.subscribe("device/boiler/centralHeating/enable");
+            //        MQTTclient.subscribe("device/boiler/centralHeating/actual");
+            //        MQTTclient.subscribe("device/boiler/centralHeating/setpoint");
+
+            //       MQTTclient.subscribe("device/boiler/hotWater/state");
+            //       MQTTclient.subscribe("device/boiler/hotWater/enable");
+            //       MQTTclient.subscribe("device/boiler/hotWater/actual");
+            //       MQTTclient.subscribe("device/boiler/hotWater/setpoint");
         }
         else
         {
@@ -899,12 +932,17 @@ void loop()
                 reconnectMQTT();
                 devErrors.mqttError = true;
             }
+            else
+            {
+                MQTTclient.publish("device/boiler/centralHeating/enable/remote", vPinStateFromBlink[20] ? "1" : "0");
+                MQTTclient.publish("device/boiler/hotWater/enable/remote", vPinStateFromBlink[19] ? "1" : "0");
+                MQTTclient.loop();
+            }
         }
         if (MQTTclient.connected())
-            MQTTclient.loop();
 
-        if (!Blynk.connected())
-            Blynk.connect();
+            if (!Blynk.connected())
+                Blynk.connect();
         devErrors.checkLoraPing(sysSettings, millis());
         if (!extIO.begin_I2C())
             devErrors.extIoError = true;
@@ -918,8 +956,8 @@ void loop()
     }
 
     // reset bledow
-    if (touchRead(T7) < 30)
-        devErrors.clearErrors();
+    // if (touchRead(T7) < 30)
+    //    devErrors.clearErrors();
 
     displayData("");
     delay(2);
@@ -1497,7 +1535,7 @@ bool parseFormula(String formula)
             return false;
         }
         bool result = false;
-        // Serial.println(String(in1) + ": " + String(vPinStateFromBlink[in1]) + " " + String(in2) + ": " + String(vPinStateFromBlink[in2]) + " " + " " + String(in3) + " " + String(out) + " " + operator1 + " " + operator2);
+        Serial.println(String(in1) + ": " + String(vPinStateFromBlink[in1]) + " " + String(in2) + ": " + String(vPinStateFromBlink[in2]) + " " + String(in3) + ": " + String(vPinStateFromBlink[in3]) + " " + String(out) + " " + operator1 + " " + operator2);
         if (operator1 == "or")
             result = vPinStateFromBlink[in1] or vPinStateFromBlink[in2];
         else
@@ -1507,7 +1545,7 @@ bool parseFormula(String formula)
         else
             result = result and vPinStateFromBlink[in3];
         vPinStateFromBlink[out] = result ? 1 : 0;
-        //   Serial.println("Parse result2: " + String(result));
+        Serial.println("Parse result2: " + String(result));
     }
     if (formulaType == 2)
     {

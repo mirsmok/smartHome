@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\IQhome\KoncentratorIOV3\ArduinoOutput\libraries\DallasTemperature\DallasTemperature.cpp.o: \
+c:\Users\mirsmok\work\smartHome\KoncentratorIOV3\ArduinoOutput\libraries\DallasTemperature\DallasTemperature.cpp.o: \
  C:\Users\mirsmok\Documents\Arduino\libraries\DallasTemperature\DallasTemperature.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\DallasTemperature\DallasTemperature.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\OneWire/OneWire.h \

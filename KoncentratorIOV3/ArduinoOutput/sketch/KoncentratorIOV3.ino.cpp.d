@@ -1,5 +1,5 @@
-c:\Users\mirsmok\work\IQhome\KoncentratorIOV3\ArduinoOutput\sketch\KoncentratorIOV3.ino.cpp.o: \
- c:\Users\mirsmok\work\IQhome\KoncentratorIOV3\ArduinoOutput\sketch\KoncentratorIOV3.ino.cpp \
+c:\Users\mirsmok\work\smartHome\KoncentratorIOV3\ArduinoOutput\sketch\KoncentratorIOV3.ino.cpp.o: \
+ c:\Users\mirsmok\work\smartHome\KoncentratorIOV3\ArduinoOutput\sketch\KoncentratorIOV3.ino.cpp \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32/Arduino.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32/esp_arduino_version.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2/tools/sdk/esp32/include/freertos/include/freertos/FreeRTOS.h \
@@ -341,9 +341,9 @@ c:\Users\mirsmok\work\IQhome\KoncentratorIOV3\ArduinoOutput\sketch\KoncentratorI
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\cores\esp32/esp32-hal.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\Adafruit_BusIO/Adafruit_SPIDevice.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\libraries\Preferences\src/Preferences.h \
- c:\users\mirsmok\work\iqhome\koncentratoriov3\arduinooutput\sketch\devsettings.h \
+ c:\users\mirsmok\work\smarthome\koncentratoriov3\arduinooutput\sketch\devsettings.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\libraries\WiFi\src/WiFiClient.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2\libraries\ESPmDNS\src/ESPmDNS.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp32\hardware\esp32\2.0.2/tools/sdk/esp32/include/mdns/include/mdns.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\PubSubClient\src/PubSubClient.h \
- c:\users\mirsmok\work\iqhome\koncentratoriov3\arduinooutput\sketch\blynkwrite.h
+ c:\users\mirsmok\work\smarthome\koncentratoriov3\arduinooutput\sketch\blynkwrite.h
