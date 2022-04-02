@@ -69,24 +69,24 @@ public:
     devError()
     {
         this->errorActive = false;
-        this->blynkError = false;
-        this->wifiError = false;
-        this->mqttError = false;
-        this->localSensorError = false;
-        this->extIoError = false;
-        this->loraDevError = false;
-        this->loraDevErrorArr[DefinedSystemMaxDevCount] = {false};
+        this->blynkError = 0;
+        this->wifiError = 0;
+        this->mqttError = 0;
+        this->localSensorError = 0;
+        this->extIoError = 0;
+        this->loraDevError = 0;
+        this->loraDevErrorArr[DefinedSystemMaxDevCount] = {0};
         this->loraLastPing[DefinedSystemMaxDevCount] = {0};
         this->loraPingTimeout = 60000;
     }
     bool errorActive;
-    bool blynkError;
-    bool wifiError;
-    bool mqttError;
-    bool localSensorError;
-    bool extIoError;
-    bool loraDevError;
-    bool loraDevErrorArr[DefinedSystemMaxDevCount];
+    uint8_t blynkError;
+    uint8_t wifiError;
+    uint8_t mqttError;
+    uint8_t localSensorError;
+    uint8_t extIoError;
+    uint8_t loraDevError;
+    uint8_t loraDevErrorArr[DefinedSystemMaxDevCount];
     unsigned long loraLastPing[DefinedSystemMaxDevCount];
     int loraPingTimeout;
     void checkLoraPing(const sysSettings_t &, unsigned long);

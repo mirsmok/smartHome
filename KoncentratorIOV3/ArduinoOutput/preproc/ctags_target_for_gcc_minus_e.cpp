@@ -196,8 +196,8 @@ void reconnectMQTT()
 String htmlHeader(uint8_t activeIndex = 0)
 {
     String activeTag = String("class='active'");
-    String header = String("<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width, initial-scale=1' charset='UTF-8'><style>body {  margin: 0;  font-family: Arial, Helvetica, sans-serif;}.topnav {  overflow: hidden;  background-color: #333;}.topnav a {  float: left;  color: #f2f2f2;  text-align: center;  padding: 14px 16px;  text-decoration: none;  font-size: 17px;}.topnav a:hover {  background-color: #ddd;  color: black;}.topnav a.active {  background-color: #04AA6D;  color: white;}table, th, td {  border: 1px solid black;  border-collapse: collapse;}</style></head><body><div class='topnav'>  <a "
-# 235 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+    String header = String("<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width, initial-scale=1' charset='UTF-8'><style>body {  margin: 0;  font-family: Arial, Helvetica, sans-serif;}.topnav {  overflow: hidden;  background-color: #333;}.topnav a {  float: left;  color: #f2f2f2;  text-align: center;  padding: 14px 16px;  text-decoration: none;  font-size: 17px;}.topnav a:hover {  background-color: #ddd;  color: black;}.topnav a.active {  background-color: #04AA6D;  color: white;}table, th, td {  border: 1px solid black;  border-collapse: collapse;  margin: 20px;  padding: 10px;}</style></head><body><div class='topnav'>  <a "
+# 237 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
        + (activeIndex == 0 ? activeTag : String("")) +
                            " href='/'>Home</a>  <a "
        + (activeIndex == 1 ? activeTag : String("")) +
@@ -318,9 +318,9 @@ void handleAddDev()
     String devDescription(webServer.arg(1));
     int devIndex = atoi(webServer.arg(2).c_str());
     uint32_t devId = strtoul(String(webServer.arg(3)).c_str(), 
-# 354 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 356 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                               __null
-# 354 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 356 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                   , 16);
     int vPinStart = atoi(webServer.arg(4).c_str());
 
@@ -339,9 +339,9 @@ void handleAddDev()
         if (webServer.argName(i).startsWith("ChId"))
         {
             sysSettings.device[devIndex].oneWireChannel[j].id = strtoul(webServer.arg(i).c_str(), 
-# 371 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 373 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                                                                  __null
-# 371 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 373 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                                                      , 16);
             sysSettings.device[devIndex].oneWireChannel[j].vPinAdrr = atoi(webServer.arg(i + 1).c_str());
         }
@@ -453,7 +453,7 @@ void handleAddDevForm()
     int firstFreeDevIndex = i;
     String webContent(htmlHeader(1) + "<h2> Dodawanie urządzenia </h2>");
     webContent += "<form action='/addDev'><table style='text-align:right'><tr><td>  <label for='devType'>Typ urządzenia:</label> </td><td>  <select name='devType' id='devType'>    <option value='1'>remIOv01</option>    <option value='2'>remTempSensor</option>    <option value='3'>localPorts</option>  </select></td></tr><tr><td>  <label for='Opis'>Opis urządzenia:</label></td><td>  <input type='text' id='Opis' name='Opis'></td></tr><tr><td>  <label for='No'>Index nowego urządzenia:</label></td><td>  <input type='text' id='No' name='No' value='";
-# 494 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 496 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
     webContent += String(firstFreeDevIndex);
     webContent += "'></td></tr><tr><td>  <label for='Id'>Device Id:</label></td><td>  <input type='text' id='Id' name='Id' value='";
 
@@ -517,7 +517,7 @@ void handleDevList()
     String webContent(htmlHeader(1) + " <h2> Aktualna konfiguracja systemu </h2>");
     // tablica urzadzen systemu
     webContent += "<br><table  style='width:600px'>    <caption>Lista zarejestrowanych urządzeń w sytemie</caption>  <tr>    <th>No</th>    <th>Typ</th>    <th>Id</th>    <th>Opis</th>    <th>vPin Start</th>    <th>Akcja</th>  </tr>";
-# 566 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 568 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
     /*
 
     webContent += "<tr><td>0</td>";
@@ -531,7 +531,7 @@ void handleDevList()
     webContent += "<td>" + String(sysSettings.localPorts.virtualPinStartAddr) + "</td>";
 
     webContent += "<td>" + String("<a href='/addDevForm?No=-1'>edytuj</a>") + "</td></tr>";*/
-# 573 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 575 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
     for (size_t i = 0; i < 10; i++)
     {
         if (sysSettings.device[i].id != 0)
@@ -570,10 +570,115 @@ void handleDevList()
 
 void handleRoot()
 {
+
     String webContent = htmlHeader(0);
+    webContent += "<h2 style='margin: 20px'>Status:</h2>        <table>            <tr>                <th>Parametr</th>                <th>Wartość</th>            </tr>";
+
+
+
+
+
+    /*    webContent += "<tr>                    <td>Ogrzewanie</td>                    <td>" +
+d>" +
+                      String(openThermDev.settings.enableCentralHeating ? "Załączone" : "Wyłączone") + "</td>                </tr>";
+";
+        webContent += "<tr>                    <td>Ogrzewanie Temperatura Zadana</td>                    <td>" +
+d>" +
+                      String(openThermDev.settings.ch_temperature, 1) + "  °C</td>                </tr>";
+";
+        webContent += "<tr>                    <td>Ciepła woda</td>                    <td>" +
+d>" +
+                      String(openThermDev.settings.enableHotWater ? "Załączona" : "Wyłączona") + "</td>                </tr>";
+";
+        webContent += "<tr>                    <td>Ciepła Woda Temperatura Zadana</td>                    <td>" +
+d>" +
+                      String(openThermDev.settings.dhw_temperature, 1) + "  °C</td>                </tr></table>";
+";
+
+
+        // status urzadzenia
+
+        webContent += "<h2 style='margin: 20px'>Status:</h2>            <table>                <tr>                    <th>Parametr</th>                    <th>Wartość</th>                </tr>";
+       </tr>";
+        webContent += "<tr>                    <td>Ogrzewanie</td>                    <td>" +
+d>" +
+                      String(openThermDev.status.CentralHeating ? "Aktywne" : "Nieaktywne") + "</td>                </tr>";
+";
+        webContent += "<tr>                    <td>Ogrzewanie Aktualna Temperatura</td>                    <td>" +
+d>" +
+                      String(openThermDev.status.ch_temperature, 1) + " °C</td>                </tr>";
+";
+        webContent += "<tr>                    <td>Ciepła woda</td>                    <td>" +
+d>" +
+                      String(openThermDev.status.HotWater ? "Aktywna" : "Nieaktywna") + "</td>                </tr>";
+";
+        webContent += "<tr>                    <td>Ciepła Woda Aktualna Temperatura</td>                    <td>" +
+d>" +
+                      String(openThermDev.status.dhw_temperature, 1) + "  °C</td>                </tr>";
+";
+        webContent += "<tr>                    <td>Aktualne ciśnienie</td>                    <td>" +
+d>" +
+                      String(openThermDev.status.pressure, 1) + "  bar</td>                </tr>";
+";
+        webContent += "<tr>                    <td>Aktualna modulacja</td>                    <td>" +
+d>" +
+                      String(openThermDev.status.modulation, 1) + "  %</td>                </tr>";
+";
+        webContent += "<tr>                    <td>Płomień</td>                    <td>" +
+d>" +
+                      String(openThermDev.status.Flame ? "Załączony" : "Wyłączony") + "</td>                </tr>";
+";
+        webContent += "<tr>                    <td>Status Komunikacji Piec</td>                    <td>" +
+d>" +
+                      String(openThermDev.status.communicationStatus) + "</td>                </tr>";*/
+# 689 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+    webContent += "<tr>                <td>Błąd Komunikacji Wifi</td>                <td>"
+
+                      +
+                  String(devErrors.wifiError ? (devErrors.wifiError == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>            </tr>";
+
+    webContent += "<tr>                <td>Błąd Komunikacji MQTT </td>                <td>"
+
+                      +
+                  String(devErrors.mqttError ? (devErrors.mqttError == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>            </tr>";
+
+    webContent += "<tr>                <td>Błąd Komunikacji LORA</td>                <td>"
+
+                      +
+                  String(devErrors.loraDevError ? (devErrors.loraDevError == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>            </tr>";
+
+    webContent += "<tr>                <td>Błąd lokalne IO</td>                <td>"
+
+                      +
+                  String(devErrors.extIoError ? (devErrors.extIoError == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>            </tr>";
+
+    webContent += "<tr>                <td>Błąd Komunikacji blynk</td>                <td>"
+
+                      +
+                  String(devErrors.blynkError ? (devErrors.blynkError == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>            </tr>";
+
+    webContent += "<tr>                <td>Błąd 1-wire </td>                <td>"
+
+                      +
+                  String(devErrors.localSensorError ? (devErrors.localSensorError == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>            </tr>";
+
+    webContent += "</table>";
+    if (devErrors.errorActive)
+        webContent += "<form action='/resetErrors'><table style='border: 0px;text-align:right'><tr><td>  <label>Aktywne błędny na urządzeniu</label></td><td><input type='submit' value='Resetuj'></td></tr></table></form>";
+
+
+
+
+
     webContent += "</body>        </html>";
 
     webServer.send(200, "text/html", webContent);
+}
+
+void handleResetErrors()
+{
+    devErrors.clearErrors();
+    handleRoot();
 }
 
 void handleNotFound()
@@ -774,6 +879,7 @@ void setup()
     webServer.on("/addDev", handleAddDev);
     webServer.on("/delDev", handleDelDev);
     webServer.on("/showDev", handleShowDev);
+    webServer.on("/resetErrors", handleResetErrors);
     webServer.on("/test.svg", drawGraph);
     webServer.on("/inline", []()
                  { webServer.send(200, "text/plain", "this works as well"); });
@@ -859,14 +965,24 @@ void loop()
 
     LoRaNow.loop();
     if (Blynk.connected())
+    {
         Blynk.run();
+        if (devErrors.blynkError == 1)
+            devErrors.blynkError = 2;
+    }
     else
-        devErrors.blynkError = true;
+    {
+        devErrors.blynkError = 1;
+    }
     timer.run();
     if (WiFi.isConnected())
+    {
         webServer.handleClient();
+        if (devErrors.wifiError == 1)
+            devErrors.wifiError = 2;
+    }
     else
-        devErrors.wifiError = true;
+        devErrors.wifiError = 1;
     // local mesurement
     if ((millis() - currentTime) > 10000)
     {
@@ -892,22 +1008,28 @@ void loop()
             if (!MQTTclient.connected())
             {
                 reconnectMQTT();
-                devErrors.mqttError = true;
+                devErrors.mqttError = 1;
             }
             else
             {
                 MQTTclient.publish("device/boiler/centralHeating/enable/remote", vPinStateFromBlink[20] ? "1" : "0");
                 MQTTclient.publish("device/boiler/hotWater/enable/remote", vPinStateFromBlink[19] ? "1" : "0");
                 MQTTclient.loop();
+                if (devErrors.mqttError == 1)
+                    devErrors.mqttError = 2;
             }
         }
-        if (MQTTclient.connected())
 
-            if (!Blynk.connected())
-                Blynk.connect();
+        if (!Blynk.connected())
+            Blynk.connect();
         devErrors.checkLoraPing(sysSettings, millis());
         if (!extIO.begin_I2C())
-            devErrors.extIoError = true;
+            devErrors.extIoError = 1;
+        else
+        {
+            if (devErrors.extIoError == 1)
+                devErrors.extIoError = 2;
+        }
         devErrors.checkError();
         if (WiFi.status() == WL_CONNECTED)
             ntp.update();
@@ -966,9 +1088,9 @@ void mesureTemperatures(void)
                 {
                     for (size_t k = 0; (k < localSensorsCount) && (k < 9); k++)
                         unassigendDeviceArr[j].oneWireChannel[k].id = strtoul(ds18b20AddressToStr(sensorsAddr[k]).c_str(), 
-# 1006 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 1144 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                                                                                           __null
-# 1006 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1144 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                                                                               , 16);
                 }
                 unassigendDeviceArr[j].DI_PortCfg.count = 8;
@@ -998,7 +1120,9 @@ void mesureTemperatures(void)
         }
     }
     if (sysLocalOneWireSensors != localSensorsCount)
-        devErrors.localSensorError = true;
+        devErrors.localSensorError = 1;
+    else if (devErrors.localSensorError == 1)
+        devErrors.localSensorError = 2;
 }
 
 void clearDevice(int devIndex)
@@ -1151,9 +1275,9 @@ void onMessage(uint8_t *buffer, size_t size)
                     int CHs = loraMessege["CHs"];
                     for (size_t k = 0; (k < CHs) && (k < 9); k++)
                         unassigendDeviceArr[j].oneWireChannel[k].id = strtoul(loraMessege["ChIds"][k], 
-# 1187 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 1327 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                                                                       __null
-# 1187 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1327 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                                                           , 16);
                 }
                 if (loraMessege.containsKey("DIs"))
@@ -1219,9 +1343,9 @@ void sendLocalDataToBlynk(void)
                 for (size_t j = 0; j < localSensorsCount; j++)
                 {
                     if (sysSettings.device[devIndex].oneWireChannel[i].id == strtoul(ds18b20AddressToStr(sensorsAddr[j]).c_str(), 
-# 1251 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 1391 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                                                                                                  __null
-# 1251 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1391 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                                                                                      , 16))
                     {
                         sensorIndex = j;
@@ -1271,9 +1395,9 @@ void sendDataToBlynk(void)
                 for (size_t j = 0; j < loraMessege["CHs"]; j++)
                 {
                     if (sysSettings.device[devIndex].oneWireChannel[i].id == strtoul(loraMessege["ChIds"][j], 
-# 1299 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 1439 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                                                                              __null
-# 1299 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1439 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                                                                  , 16))
                     {
                         loraIndex = j;
@@ -1331,7 +1455,7 @@ void displayData(const String &text)
                 tft.drawString(text, 40, 5);
 
             }*/
-# 1353 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1493 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
         // tft.fillRect(30, 0, 185, 19, TFT_BLACK);
         tft.drawString("RAM:" + String((float)freeRam / 5200.0, 0) + "%", 30, 10);
         tft.drawString("Wifi:" + String(WiFi.RSSI()), 120, 10);
@@ -1406,41 +1530,53 @@ void displayData(const String &text)
                     tft.drawString("No sensors!", 10, 90);
 
         */
-# 1416 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1556 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
         // botom information panell
         // wifi state
-        if (devErrors.wifiError)
+        if (devErrors.wifiError == 1)
             tft.setTextColor(0xFFFF /* 255, 255, 255 */, 0xF800 /* 255,   0,   0 */);
+        else if (devErrors.wifiError == 2)
+            tft.setTextColor(0xFFFF /* 255, 255, 255 */, 0xFDA0 /* 255, 180,   0 */);
         else
             tft.setTextColor(0x001F /*   0,   0, 255 */, 0x07E0 /*   0, 255,   0 */);
         tft.drawString("WF", 30, 133);
         // lora state
-        if (devErrors.loraDevError)
+        if (devErrors.loraDevError == 1)
             tft.setTextColor(0xFFFF /* 255, 255, 255 */, 0xF800 /* 255,   0,   0 */);
+        else if (devErrors.loraDevError == 2)
+            tft.setTextColor(0xFFFF /* 255, 255, 255 */, 0xFDA0 /* 255, 180,   0 */);
         else
             tft.setTextColor(0x001F /*   0,   0, 255 */, 0x07E0 /*   0, 255,   0 */);
         tft.drawString("LR", 59, 133);
         // MQTT state
-        if (devErrors.mqttError)
+        if (devErrors.mqttError == 1)
             tft.setTextColor(0xFFFF /* 255, 255, 255 */, 0xF800 /* 255,   0,   0 */);
+        else if (devErrors.mqttError == 2)
+            tft.setTextColor(0xFFFF /* 255, 255, 255 */, 0xFDA0 /* 255, 180,   0 */);
         else
             tft.setTextColor(0x001F /*   0,   0, 255 */, 0x07E0 /*   0, 255,   0 */);
         tft.drawString("MQ", 86, 133);
         // Blynk state
-        if (devErrors.blynkError)
+        if (devErrors.blynkError == 1)
             tft.setTextColor(0xFFFF /* 255, 255, 255 */, 0xF800 /* 255,   0,   0 */);
+        else if (devErrors.blynkError == 2)
+            tft.setTextColor(0xFFFF /* 255, 255, 255 */, 0xFDA0 /* 255, 180,   0 */);
         else
             tft.setTextColor(0x001F /*   0,   0, 255 */, 0x07E0 /*   0, 255,   0 */);
         tft.drawString("BLK", 116, 133);
         // ext IO
-        if (devErrors.extIoError)
+        if (devErrors.extIoError == 1)
             tft.setTextColor(0xFFFF /* 255, 255, 255 */, 0xF800 /* 255,   0,   0 */);
+        else if (devErrors.extIoError == 2)
+            tft.setTextColor(0xFFFF /* 255, 255, 255 */, 0xFDA0 /* 255, 180,   0 */);
         else
             tft.setTextColor(0x001F /*   0,   0, 255 */, 0x07E0 /*   0, 255,   0 */);
         tft.drawString("IO", 157, 133);
         // local DS18b20
-        if (devErrors.localSensorError)
+        if (devErrors.localSensorError == 1)
             tft.setTextColor(0xFFFF /* 255, 255, 255 */, 0xF800 /* 255,   0,   0 */);
+        else if (devErrors.localSensorError == 2)
+            tft.setTextColor(0xFFFF /* 255, 255, 255 */, 0xFDA0 /* 255, 180,   0 */);
         else
             tft.setTextColor(0x001F /*   0,   0, 255 */, 0x07E0 /*   0, 255,   0 */);
         tft.drawString("1w", 185, 133);
@@ -1492,7 +1628,7 @@ void myTimerEvent()
             Blynk.virtualWrite(100 + i, extIO.digitalRead(i) ? 1 : 0);
 
         }*/
-# 1482 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1634 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 }
 void tftMessage(String Message, int txtColor, int bgColor, int showTime)
 {
@@ -1526,7 +1662,7 @@ void tftMessage(String Message, int txtColor, int bgColor, int showTime)
  * dayMask - 127 all days  62 work days 65 weekends
 
  *********************************************************************/
-# 1506 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1658 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 bool parseFormula(String formula)
 {
     uint8_t index0 = formula.indexOf(" ");
@@ -1685,4 +1821,4 @@ bool parseFormula(String formula)
     }
     return true;
 }
-# 1665 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 1817 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2

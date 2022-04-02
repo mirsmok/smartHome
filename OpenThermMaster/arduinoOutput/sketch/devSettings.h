@@ -20,6 +20,8 @@ typedef struct
     uint8_t HotWater = 0;
     uint8_t Cooling = 0;
     uint8_t Flame = 0;
+    uint8_t manualCentralHeatinActive = 0;
+    uint8_t manualHotWaterActive = 0;
     // falult status: 0 - inactivce acknowleged, 1 - active 2 - inactive not acknowleged
     uint8_t wifiFault = 0;
     uint8_t mqttFault = 0;
@@ -42,8 +44,8 @@ typedef struct
     const uint8_t ledOKStatusPin = 13;
     const uint8_t ledErrorStatusPin = 15;
     const uint8_t ledHotWaterStatusPin = 16;
-    const uint8_t buttonCentralHeatingManualLevel = 835;
-    const uint8_t buttonHotWaterManualLevel = 550;
+    const uint16_t buttonCentralHeatingManualLevel = 835;
+    const uint16_t buttonHotWaterManualLevel = 550;
 
 } device_t;
 

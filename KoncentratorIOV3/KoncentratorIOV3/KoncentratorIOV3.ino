@@ -227,6 +227,8 @@ body {\
 table, th, td {\
   border: 1px solid black;\
   border-collapse: collapse;\
+  margin: 20px;\
+  padding: 10px;\
 }\
 </style>\
 </head>\
@@ -608,10 +610,129 @@ void handleDevList()
 
 void handleRoot()
 {
+
     String webContent = htmlHeader(0);
+    webContent += "<h2 style='margin: 20px'>Status:</h2>\
+        <table>\
+            <tr>\
+                <th>Parametr</th>\
+                <th>Wartość</th>\
+            </tr>";
+    /*    webContent += "<tr>\
+                    <td>Ogrzewanie</td>\
+                    <td>" +
+                      String(openThermDev.settings.enableCentralHeating ? "Załączone" : "Wyłączone") + "</td>\
+                </tr>";
+        webContent += "<tr>\
+                    <td>Ogrzewanie Temperatura Zadana</td>\
+                    <td>" +
+                      String(openThermDev.settings.ch_temperature, 1) + "  °C</td>\
+                </tr>";
+        webContent += "<tr>\
+                    <td>Ciepła woda</td>\
+                    <td>" +
+                      String(openThermDev.settings.enableHotWater ? "Załączona" : "Wyłączona") + "</td>\
+                </tr>";
+        webContent += "<tr>\
+                    <td>Ciepła Woda Temperatura Zadana</td>\
+                    <td>" +
+                      String(openThermDev.settings.dhw_temperature, 1) + "  °C</td>\
+                </tr></table>";
+
+        // status urzadzenia
+        webContent += "<h2 style='margin: 20px'>Status:</h2>\
+            <table>\
+                <tr>\
+                    <th>Parametr</th>\
+                    <th>Wartość</th>\
+                </tr>";
+        webContent += "<tr>\
+                    <td>Ogrzewanie</td>\
+                    <td>" +
+                      String(openThermDev.status.CentralHeating ? "Aktywne" : "Nieaktywne") + "</td>\
+                </tr>";
+        webContent += "<tr>\
+                    <td>Ogrzewanie Aktualna Temperatura</td>\
+                    <td>" +
+                      String(openThermDev.status.ch_temperature, 1) + " °C</td>\
+                </tr>";
+        webContent += "<tr>\
+                    <td>Ciepła woda</td>\
+                    <td>" +
+                      String(openThermDev.status.HotWater ? "Aktywna" : "Nieaktywna") + "</td>\
+                </tr>";
+        webContent += "<tr>\
+                    <td>Ciepła Woda Aktualna Temperatura</td>\
+                    <td>" +
+                      String(openThermDev.status.dhw_temperature, 1) + "  °C</td>\
+                </tr>";
+        webContent += "<tr>\
+                    <td>Aktualne ciśnienie</td>\
+                    <td>" +
+                      String(openThermDev.status.pressure, 1) + "  bar</td>\
+                </tr>";
+        webContent += "<tr>\
+                    <td>Aktualna modulacja</td>\
+                    <td>" +
+                      String(openThermDev.status.modulation, 1) + "  %</td>\
+                </tr>";
+        webContent += "<tr>\
+                    <td>Płomień</td>\
+                    <td>" +
+                      String(openThermDev.status.Flame ? "Załączony" : "Wyłączony") + "</td>\
+                </tr>";
+        webContent += "<tr>\
+                    <td>Status Komunikacji Piec</td>\
+                    <td>" +
+                      String(openThermDev.status.communicationStatus) + "</td>\
+                </tr>";*/
+    webContent += "<tr>\
+                <td>Błąd Komunikacji Wifi</td>\
+                <td>" +
+                  String(devErrors.wifiError ? (devErrors.wifiError == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Błąd Komunikacji MQTT </td>\
+                <td>" +
+                  String(devErrors.mqttError ? (devErrors.mqttError == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Błąd Komunikacji LORA</td>\
+                <td>" +
+                  String(devErrors.loraDevError ? (devErrors.loraDevError == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Błąd lokalne IO</td>\
+                <td>" +
+                  String(devErrors.extIoError ? (devErrors.extIoError == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Błąd Komunikacji blynk</td>\
+                <td>" +
+                  String(devErrors.blynkError ? (devErrors.blynkError == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>\
+            </tr>";
+    webContent += "<tr>\
+                <td>Błąd 1-wire </td>\
+                <td>" +
+                  String(devErrors.localSensorError ? (devErrors.localSensorError == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>\
+            </tr>";
+    webContent += "</table>";
+    if (devErrors.errorActive)
+        webContent += "<form action='/resetErrors'>\
+<table style='border: 0px;text-align:right'>\
+<tr><td>  <label>Aktywne błędny na urządzeniu</label></td>\
+<td><input type='submit' value='Resetuj'></td></tr>\
+</table>\
+</form>";
     webContent += "</body>\
         </html>";
     webServer.send(200, "text/html", webContent);
+}
+
+void handleResetErrors()
+{
+    devErrors.clearErrors();
+    handleRoot();
 }
 
 void handleNotFound()
@@ -812,6 +933,7 @@ void setup()
     webServer.on("/addDev", handleAddDev);
     webServer.on("/delDev", handleDelDev);
     webServer.on("/showDev", handleShowDev);
+    webServer.on("/resetErrors", handleResetErrors);
     webServer.on("/test.svg", drawGraph);
     webServer.on("/inline", []()
                  { webServer.send(200, "text/plain", "this works as well"); });
@@ -897,14 +1019,24 @@ void loop()
 
     LoRaNow.loop();
     if (Blynk.connected())
+    {
         Blynk.run();
+        if (devErrors.blynkError == 1)
+            devErrors.blynkError = 2;
+    }
     else
-        devErrors.blynkError = true;
+    {
+        devErrors.blynkError = 1;
+    }
     timer.run();
     if (WiFi.isConnected())
+    {
         webServer.handleClient();
+        if (devErrors.wifiError == 1)
+            devErrors.wifiError = 2;
+    }
     else
-        devErrors.wifiError = true;
+        devErrors.wifiError = 1;
     // local mesurement
     if ((millis() - currentTime) > 10000)
     {
@@ -930,22 +1062,28 @@ void loop()
             if (!MQTTclient.connected())
             {
                 reconnectMQTT();
-                devErrors.mqttError = true;
+                devErrors.mqttError = 1;
             }
             else
             {
                 MQTTclient.publish("device/boiler/centralHeating/enable/remote", vPinStateFromBlink[20] ? "1" : "0");
                 MQTTclient.publish("device/boiler/hotWater/enable/remote", vPinStateFromBlink[19] ? "1" : "0");
                 MQTTclient.loop();
+                if (devErrors.mqttError == 1)
+                    devErrors.mqttError = 2;
             }
         }
-        if (MQTTclient.connected())
 
-            if (!Blynk.connected())
-                Blynk.connect();
+        if (!Blynk.connected())
+            Blynk.connect();
         devErrors.checkLoraPing(sysSettings, millis());
         if (!extIO.begin_I2C())
-            devErrors.extIoError = true;
+            devErrors.extIoError = 1;
+        else
+        {
+            if (devErrors.extIoError == 1)
+                devErrors.extIoError = 2;
+        }
         devErrors.checkError();
         if (WiFi.status() == WL_CONNECTED)
             ntp.update();
@@ -1032,7 +1170,9 @@ void mesureTemperatures(void)
         }
     }
     if (sysLocalOneWireSensors != localSensorsCount)
-        devErrors.localSensorError = true;
+        devErrors.localSensorError = 1;
+    else if (devErrors.localSensorError == 1)
+        devErrors.localSensorError = 2;
 }
 
 void clearDevice(int devIndex)
@@ -1415,38 +1555,50 @@ void displayData(const String &text)
         */
         // botom information panell
         // wifi state
-        if (devErrors.wifiError)
+        if (devErrors.wifiError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
+        else if (devErrors.wifiError == 2)
+            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
         else
             tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("WF", 30, 133);
         // lora state
-        if (devErrors.loraDevError)
+        if (devErrors.loraDevError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
+        else if (devErrors.loraDevError == 2)
+            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
         else
             tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("LR", 59, 133);
         // MQTT state
-        if (devErrors.mqttError)
+        if (devErrors.mqttError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
+        else if (devErrors.mqttError == 2)
+            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
         else
             tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("MQ", 86, 133);
         // Blynk state
-        if (devErrors.blynkError)
+        if (devErrors.blynkError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
+        else if (devErrors.blynkError == 2)
+            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
         else
             tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("BLK", 116, 133);
         // ext IO
-        if (devErrors.extIoError)
+        if (devErrors.extIoError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
+        else if (devErrors.extIoError == 2)
+            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
         else
             tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("IO", 157, 133);
         // local DS18b20
-        if (devErrors.localSensorError)
+        if (devErrors.localSensorError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
+        else if (devErrors.localSensorError == 2)
+            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
         else
             tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("1w", 185, 133);

@@ -332,7 +332,7 @@ void handleSetMqttBroker()
 void handleUpdate()
 {
     String webContent = htmlHeader(0);
-    webContent += "<h3 style='margin: 20px'>Nastąpi uruchomienie configPortalu. Zaloguj się do domyślnego wifi. Adres urządzenia <a href='192.168.4.1'>192.168.4.1</a></h3>";
+    webContent += "<h3 style='margin: 20px'>Nastąpi uruchomienie configPortalu. Zaloguj się do domyślnego wifi. Adres urządzenia <a href='192.168.4.1'>192.168.4.1</a> lub <a href='192.168.8.188'>192.168.8.188</a></h3>";
     webContent += "</body>        </html>";
 
     webServer.send(200, "text/html", webContent);
@@ -344,6 +344,7 @@ void handleResetErrors()
     openThermDev.status.wifiFault = 0;
     openThermDev.status.mqttFault = 0;
     openThermDev.status.otFault = 0;
+    openThermDev.status.otCommunicationFault = 0;
     handleRoot();
 }
 
@@ -427,17 +428,22 @@ void handleRoot()
     webContent += "<tr>                <td>Błąd Komunikacji Wifi</td>                <td>"
 
                       +
-                  String(openThermDev.status.wifiFault ? "TAK" : "NIE") + "</td>            </tr>";
+                  String(openThermDev.status.otCommunicationFault ? (openThermDev.status.otCommunicationFault == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>            </tr>";
+
+    webContent += "<tr>                <td>Błąd Komunikacji Wifi</td>                <td>"
+
+                      +
+                  String(openThermDev.status.wifiFault ? (openThermDev.status.wifiFault == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>            </tr>";
 
     webContent += "<tr>                <td>Błąd Komunikacji MQTT</td>                <td>"
 
                       +
-                  String(openThermDev.status.mqttFault ? "TAK" : "NIE") + "</td>            </tr>";
+                  String(openThermDev.status.mqttFault ? (openThermDev.status.mqttFault == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>            </tr>";
 
     webContent += "<tr>                <td>Błąd Pieca</td>                <td>"
 
                       +
-                  String(openThermDev.status.otFault ? "TAK" : "NIE") + "</td>            </tr>";
+                  String(openThermDev.status.otFault ? (openThermDev.status.otFault == 1 ? "AKTYWNY" : "NIEAKTYWNY") : "BRAK") + "</td>            </tr>";
 
     if (openThermDev.status.otFault != 0)
     {
@@ -448,7 +454,7 @@ void handleRoot()
 
     }
     webContent += "</table>";
-    if (openThermDev.status.mqttFault || openThermDev.status.wifiFault)
+    if (openThermDev.status.mqttFault || openThermDev.status.wifiFault || openThermDev.status.otCommunicationFault || openThermDev.status.otFault)
         webContent += "<form action='/resetErrors'><table style='border: 0px;text-align:right'><tr><td>  <label>Aktywne błędny na urządzeniu</label></td><td><input type='submit' value='Resetuj'></td></tr></table></form>";
 
 
@@ -479,14 +485,92 @@ void handleNotFound()
     webServer.send(404, "text/plain", message);
 }
 
+void handleButtons()
+{
+    uint16_t adcLevel = analogRead(A0);
+    if ((adcLevel > (openThermDev.buttonCentralHeatingManualLevel - 50)) && (adcLevel < (openThermDev.buttonCentralHeatingManualLevel + 50)))
+    {
+        openThermDev.status.manualCentralHeatinActive = 1;
+    }
+    else
+    {
+        openThermDev.status.manualCentralHeatinActive = 0;
+    }
+    if ((adcLevel > (openThermDev.buttonHotWaterManualLevel - 50)) && (adcLevel < (openThermDev.buttonHotWaterManualLevel + 50)))
+    {
+        openThermDev.status.manualHotWaterActive = 1;
+    }
+    else
+    {
+        openThermDev.status.manualHotWaterActive = 0;
+    }
+}
+
 void handleLed()
 {
-    if (!openThermDev.status.mqttFault && !openThermDev.status.wifiFault && !openThermDev.status.otCommunicationFault)
+    // online status led
+    if ((openThermDev.status.mqttFault != 1) && (openThermDev.status.wifiFault != 1) && (openThermDev.status.otCommunicationFault != 1))
+    {
         digitalRead(openThermDev.ledOnlineStatusPin) ? digitalWrite(openThermDev.ledOnlineStatusPin, 0x0) : digitalWrite(openThermDev.ledOnlineStatusPin, 0x1);
-    if (!openThermDev.status.mqttFault && !openThermDev.status.wifiFault && openThermDev.status.mqttFault)
-        digitalWrite(openThermDev.ledOnlineStatusPin, 0x0);
-    if (openThermDev.status.mqttFault || openThermDev.status.wifiFault)
-        digitalWrite(openThermDev.ledOnlineStatusPin, 0x1);
+    }
+    else
+    {
+        if ((openThermDev.status.mqttFault != 1) && (openThermDev.status.wifiFault != 1) && openThermDev.status.otCommunicationFault)
+            digitalWrite(openThermDev.ledOnlineStatusPin, 0x1);
+        else
+            digitalWrite(openThermDev.ledOnlineStatusPin, 0x0);
+    }
+    // error i ok status led
+    if ((openThermDev.status.mqttFault == 1) || (openThermDev.status.wifiFault == 1) || (openThermDev.status.otCommunicationFault == 1))
+    {
+        digitalRead(openThermDev.ledErrorStatusPin) ? digitalWrite(openThermDev.ledErrorStatusPin, 0x0) : digitalWrite(openThermDev.ledErrorStatusPin, 0x1);
+        digitalWrite(openThermDev.ledOKStatusPin, 0x0);
+    }
+    else
+    {
+        if ((openThermDev.status.mqttFault == 2) || (openThermDev.status.wifiFault == 2) || (openThermDev.status.otCommunicationFault == 2))
+        {
+            digitalWrite(openThermDev.ledErrorStatusPin, 0x1);
+            digitalWrite(openThermDev.ledOKStatusPin, 0x0);
+        }
+        else
+        {
+            digitalWrite(openThermDev.ledErrorStatusPin, 0x0);
+            digitalWrite(openThermDev.ledOKStatusPin, 0x1);
+        }
+    }
+    // central heating led is driven low
+    if (openThermDev.status.CentralHeating)
+    {
+        digitalRead(openThermDev.ledCentralHeatingStatusPin) ? digitalWrite(openThermDev.ledCentralHeatingStatusPin, 0x0) : digitalWrite(openThermDev.ledCentralHeatingStatusPin, 0x1);
+    }
+    else
+    {
+        if (openThermDev.settings.enableCentralHeating || openThermDev.status.manualCentralHeatinActive)
+        {
+            digitalWrite(openThermDev.ledCentralHeatingStatusPin, 0x0);
+        }
+        else
+        {
+            digitalWrite(openThermDev.ledCentralHeatingStatusPin, 0x1);
+        }
+    }
+    // hot water led
+    if (openThermDev.status.HotWater)
+    {
+        digitalRead(openThermDev.ledHotWaterStatusPin) ? digitalWrite(openThermDev.ledHotWaterStatusPin, 0x0) : digitalWrite(openThermDev.ledHotWaterStatusPin, 0x1);
+    }
+    else
+    {
+        if (openThermDev.settings.enableHotWater || openThermDev.status.manualHotWaterActive)
+        {
+            digitalWrite(openThermDev.ledHotWaterStatusPin, 0x1);
+        }
+        else
+        {
+            digitalWrite(openThermDev.ledHotWaterStatusPin, 0x0);
+        }
+    }
 }
 
 void setup()
@@ -633,7 +717,7 @@ void loop()
         timeStamp = millis();
         // if (!openThermDev.settings.enableCentralHeating && !openThermDev.settings.enableHotWater)
         //     openThermDev.settings.enableCentralHeating = 1;
-        response = ot.setBoilerStatus((bool)openThermDev.settings.enableCentralHeating, (bool)openThermDev.settings.enableHotWater, false);
+        response = ot.setBoilerStatus((bool)openThermDev.settings.enableCentralHeating || openThermDev.status.manualCentralHeatinActive, (bool)openThermDev.settings.enableHotWater || openThermDev.status.manualHotWaterActive, false);
         responseStatus = ot.getLastResponseStatus();
         strcpy(openThermDev.status.communicationStatus, ot.statusToString(responseStatus));
         if (responseStatus == OpenThermResponseStatus::SUCCESS)
@@ -641,7 +725,15 @@ void loop()
             openThermDev.status.CentralHeating = ot.isCentralHeatingActive(response) ? 1 : 0;
             openThermDev.status.HotWater = ot.isHotWaterActive(response) ? 1 : 0;
             openThermDev.status.Flame = ot.isFlameOn(response) ? 1 : 0;
-            openThermDev.status.otFault = ot.isFault(response) ? 1 : 0;
+            if (ot.isFault(response))
+            {
+                openThermDev.status.otFault = 1;
+            }
+            else
+            {
+                if (openThermDev.status.otFault == 1)
+                    openThermDev.status.otFault = 2;
+            }
             if (openThermDev.status.otFault)
                 openThermDev.status.otFaultCode = ot.getFault() ? 1 : 0;
             Serial.println("Central Heating: " + String(openThermDev.status.CentralHeating ? "on" : "off"));
@@ -688,6 +780,7 @@ void loop()
         }
         temperatureSensors.requestTemperatures();
         handleLed();
+        handleButtons();
     }
 
     if ((millis() - timeStampMQTT) > 10000)
