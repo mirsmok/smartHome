@@ -132,6 +132,33 @@ void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
     buff[length] = '\0';
 
     String msgTopic = String(topic);
+
+    if (msgTopic == "device/boiler/openThermInterface/led/remote")
+    {
+        uint8_t state = String(buff).toInt();
+        switch (state)
+        {
+        case 15:
+            digitalWrite(state, digitalRead(state) ? LOW : HIGH);
+            break;
+        case 13:
+            digitalWrite(state, digitalRead(state) ? LOW : HIGH);
+            break;
+        case 12:
+            digitalWrite(state, digitalRead(state) ? LOW : HIGH);
+            break;
+        case 16:
+            digitalWrite(state, digitalRead(state) ? LOW : HIGH);
+            break;
+        case 2:
+            digitalWrite(state, digitalRead(state) ? LOW : HIGH);
+            break;
+
+        default:
+            break;
+        }
+        MQTTclient.publish("device/boiler/openThermInterface/adc/actual", String(analogRead(A0)).c_str());
+    }
     if (msgTopic == "device/boiler/centralHeating/enable/remote")
     {
         uint8_t state = String(buff).toInt() == 1 ? 1 : 0;
@@ -214,6 +241,7 @@ void reconnectMQTT()
             MQTTclient.subscribe("device/boiler/centralHeating/enable/remote");
             MQTTclient.subscribe("device/boiler/hotWater/setpoint/remote");
             MQTTclient.subscribe("device/boiler/hotWater/enable/remote");
+            MQTTclient.subscribe("device/boiler/openThermInterface/led/remote");
         }
         else
         {
@@ -467,12 +495,44 @@ void handleNotFound()
     webServer.send(404, "text/plain", message);
 }
 
+void handleLed()
+{
+    if (!openThermDev.status.mqttFault && !openThermDev.status.wifiFault && !openThermDev.status.otCommunicationFault)
+        digitalRead(openThermDev.ledOnlineStatusPin) ? digitalWrite(openThermDev.ledOnlineStatusPin, LOW) : digitalWrite(openThermDev.ledOnlineStatusPin, HIGH);
+    if (!openThermDev.status.mqttFault && !openThermDev.status.wifiFault && openThermDev.status.otCommunicationFault)
+        digitalWrite(openThermDev.ledOnlineStatusPin, HIGH);
+    if (openThermDev.status.mqttFault || openThermDev.status.wifiFault)
+        digitalWrite(openThermDev.ledOnlineStatusPin, LOW);
+    if ((openThermDev.status.mqttFault == 1) || (openThermDev.status.wifiFault == 1) || (openThermDev.status.otCommunicationFault == 1))
+    {
+        digitalRead(openThermDev.ledErrorStatusPin) ? digitalWrite(openThermDev.ledErrorStatusPin, LOW) : digitalWrite(openThermDev.ledErrorStatusPin, HIGH);
+        digitalWrite(openThermDev.ledOKStatusPin, LOW);
+    }
+    else
+    {
+        if ((openThermDev.status.mqttFault == 2) || (openThermDev.status.wifiFault == 2) || (openThermDev.status.otCommunicationFault == 2))
+        {
+            digitalWrite(openThermDev.ledErrorStatusPin, HIGH);
+            digitalWrite(openThermDev.ledOKStatusPin, LOW);
+        }
+        else
+        {
+            digitalWrite(openThermDev.ledErrorStatusPin, LOW);
+            digitalWrite(openThermDev.ledOKStatusPin, HIGH);
+        }
+    }
+}
+
 void setup()
 {
     delay(10000);
     Serial.begin(115200);
     Serial.println("Start");
-    pinMode(BUILTIN_LED, OUTPUT);
+    pinMode(2, OUTPUT);
+    pinMode(12, OUTPUT);
+    pinMode(13, OUTPUT);
+    pinMode(15, OUTPUT);
+    pinMode(16, OUTPUT);
     ot.begin(handleInterrupt);
 
     ////////////////////// config modyfication //////////////////////////////
@@ -641,24 +701,27 @@ void loop()
             // Get modulation
             openThermDev.status.modulation = ot.getModulation();
             Serial.println("Actual modulation: " + String(openThermDev.status.modulation) + " %");
-
-            if (MQTTclient.connected() && WiFi.isConnected())
-                digitalRead(BUILTIN_LED) ? digitalWrite(BUILTIN_LED, LOW) : digitalWrite(BUILTIN_LED, HIGH);
             Serial.println();
+            if (openThermDev.status.otCommunicationFault == 1)
+                openThermDev.status.otCommunicationFault = 2;
         }
         if (responseStatus == OpenThermResponseStatus::NONE)
         {
             Serial.println("Error: OpenTherm is not initialized");
+            openThermDev.status.otCommunicationFault = 1;
         }
         else if (responseStatus == OpenThermResponseStatus::INVALID)
         {
             Serial.println("Error: Invalid response " + String(response, HEX));
+            openThermDev.status.otCommunicationFault = 1;
         }
         else if (responseStatus == OpenThermResponseStatus::TIMEOUT)
         {
             Serial.println("Error: Response timeout");
+            openThermDev.status.otCommunicationFault = 1;
         }
         temperatureSensors.requestTemperatures();
+        handleLed();
     }
 
     if ((millis() - timeStampMQTT) > 10000)
@@ -698,17 +761,24 @@ void loop()
             else
             {
                 Serial.println("start reconect...");
-                openThermDev.status.mqttFault = 1;
                 reconnectMQTT();
             }
         }
     }
     if (WiFi.isConnected())
     {
+        if (openThermDev.status.wifiFault == 1)
+            openThermDev.status.wifiFault = 2;
         webServer.handleClient();
         if (MQTTclient.connected())
         {
+            if (openThermDev.status.mqttFault == 1)
+                openThermDev.status.mqttFault = 2;
             MQTTclient.loop();
+        }
+        else
+        {
+            openThermDev.status.mqttFault = 1;
         }
     }
     else

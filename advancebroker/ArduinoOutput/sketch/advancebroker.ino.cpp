@@ -21,23 +21,24 @@ bool BlynkConected = false;
 SSD1306 display(0x3c, 5, 4);
 WiFiUDP wifiUdp;
 NTP ntp(wifiUdp);
+uint8_t clientCount = 0;
 
 const char *ssid = "HUAWEI_B818_18EE"; // The SSID (name) of the Wi-Fi network you want to connect to
 const char *password = "QG20M7RY90F";  // The password of the Wi-Fi network
 
-#line 27 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
+#line 28 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 void display_text(String text);
-#line 62 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
+#line 67 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 void wifiConnect();
-#line 82 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
+#line 87 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 void BlynkConnect(void);
-#line 100 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
+#line 105 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 void setup();
-#line 130 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
+#line 135 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 void loop();
-#line 168 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
+#line 174 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 void myTimerEvent();
-#line 27 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
+#line 28 "c:\\Users\\mirsmok\\work\\smartHome\\advancebroker\\advancebroker.ino"
 void display_text(String text)
 {
     display.clear();
@@ -54,9 +55,13 @@ public:
     {
         // check username and password, if ok return true
         Serial.println("new client!!!!!!!!!!!!!!!!!!!!!!!!");
+        clientCount++;
         return true;
     };
-    void onRemove(sMQTTClient *){};
+    void onRemove(sMQTTClient *)
+    {
+        clientCount--;
+    };
     void onPublish(sMQTTClient *client, const std::string &topic, const std::string &payload)
     {
         // client publish a message to the topic
@@ -177,10 +182,11 @@ void loop()
     display.drawString(64, 5, ntp.formattedTime("%d. %B %Y"));
     display.drawString(64, 15, ntp.formattedTime("%A %T"));
     display.drawString(64, 25, "RAM: " + String((float)freeRam / 5200.0, 1) + "%");
+    display.drawString(64, 35, "client count: " + String(clientCount));
     display.display();
 }
 void myTimerEvent()
 {
-  ///  Blynk.virtualWrite(V0, 0.2);
+    ///  Blynk.virtualWrite(V0, 0.2);
 }
 
