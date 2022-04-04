@@ -28,10 +28,11 @@ int8_t LoRaRSSI;
 #include <WiFiUdp.h>
 WiFiUDP wifiUdp;
 NTP ntp(wifiUdp);
+bool timeSynchronized = false;
 
 //**************** TFT ***************
 #include <TFT_eSPI.h>
-//#include <SPI.h>
+#include <SPI.h>
 TFT_eSPI tft = TFT_eSPI(135, 240); // Invoke custom library
 
 //******************** OneWire **************************************************
@@ -115,7 +116,7 @@ const char *serverIndex =
 #include <PubSubClient.h>
 
 // Update these with values suitable for your network.
-char mqtt_server[20] = "192.168.8.177";
+char mqtt_server[20] = "";
 WiFiClient espMQTTClient;
 PubSubClient MQTTclient(espMQTTClient);
 bool MQTTenabled = false;
@@ -153,6 +154,7 @@ void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
         Blynk.virtualWrite(108, String(buff).toFloat());
     if (msgTopic == "device/boiler/hotWater/setpoint")
         Blynk.virtualWrite(109, String(buff).toFloat());
+    Serial.println("End MQTT recieve");
 }
 
 void reconnectMQTT()
@@ -901,6 +903,7 @@ void setup()
     ntp.ruleDST("CEST", Last, Sun, Mar, 2, 120); // last sunday in march 2:00, timetone +120min (+1 GMT + 1h summertime offset)
     ntp.ruleSTD("CET", Last, Sun, Oct, 3, 60);   // last sunday in october 3:00, timezone +60min (+1 GMT)
     ntp.begin();
+    timeSynchronized = ntp.update();
 
     //******************** info *******************************************************8
     int i = -1;
@@ -1013,6 +1016,7 @@ void setup()
     freeRam = ESP.getFreeHeap();
 }
 
+unsigned long displayTime = millis();
 void loop()
 {
     // put your main code here, to run repeatedly:
@@ -1028,7 +1032,9 @@ void loop()
     {
         devErrors.blynkError = 1;
     }
-    timer.run();
+    // Serial.println("timer run");
+    //  timer.run();
+    // Serial.println("webserwer handle client");
     if (WiFi.isConnected())
     {
         webServer.handleClient();
@@ -1040,17 +1046,21 @@ void loop()
     // local mesurement
     if ((millis() - currentTime) > 10000)
     {
-
+        // Serial.println("mesure temperatures");
         mesureTemperatures();
+        //  Serial.println("send local data to blynk");
         sendLocalDataToBlynk();
 
         currentTime = millis();
+        //  Serial.println("get free ram");
         if (ESP.getFreeHeap() != freeRam)
         {
             freeRam = ESP.getFreeHeap();
-            Serial.print("RAM:");
-            Serial.println(freeRam);
+            //    Serial.print("RAM:");
+            //    Serial.println(freeRam);
         }
+        if (Blynk.connected())
+            Blynk.virtualWrite(28, millis() / 1000);
     }
 
     // check if some errors ocured
@@ -1061,11 +1071,13 @@ void loop()
         {
             if (!MQTTclient.connected())
             {
+                Serial.println("reconnect MQTT ");
                 reconnectMQTT();
                 devErrors.mqttError = 1;
             }
             else
             {
+                //    Serial.println("publish heating states");
                 MQTTclient.publish("device/boiler/centralHeating/enable/remote", vPinStateFromBlink[20] ? "1" : "0");
                 MQTTclient.publish("device/boiler/hotWater/enable/remote", vPinStateFromBlink[19] ? "1" : "0");
                 MQTTclient.loop();
@@ -1074,19 +1086,32 @@ void loop()
             }
         }
 
+        // Serial.println("check blink status");
         if (!Blynk.connected())
             Blynk.connect();
+        // Serial.println("check lora ping");
         devErrors.checkLoraPing(sysSettings, millis());
-        if (!extIO.begin_I2C())
-            devErrors.extIoError = 1;
-        else
-        {
-            if (devErrors.extIoError == 1)
-                devErrors.extIoError = 2;
-        }
+        //  Serial.println("check ext io");
+        //   if (!extIO.begin_I2C())
+        //       devErrors.extIoError = 1;
+        //   else
+        //   {
+        //       if (devErrors.extIoError == 1)
+        //           devErrors.extIoError = 2;
+        //  }
+        // Serial.println("chek dev errors");
         devErrors.checkError();
+
+        //  Serial.println("ntp update");
         if (WiFi.status() == WL_CONNECTED)
-            ntp.update();
+        {
+            if (!timeSynchronized)
+                timeSynchronized = ntp.update();
+            else
+                ntp.update();
+        }
+
+        //  Serial.println("parse formulas");
         parseFormula("1 50 or 82 and 18 20");
         parseFormula("2 40 42 21");
         parseFormula("3 20 11 20 13 6 22");
@@ -1097,7 +1122,13 @@ void loop()
     // if (touchRead(T7) < 30)
     //    devErrors.clearErrors();
 
-    displayData("");
+    //   Serial.println("display data");
+
+    if ((millis() - displayTime) > 1000)
+    {
+        displayData();
+        displayTime = millis();
+    }
     delay(2);
 }
 
@@ -1224,6 +1255,7 @@ String ds18b20AddressToStr(DeviceAddress deviceAddress)
 
 void onMessage(uint8_t *buffer, size_t size)
 {
+    Serial.println("Start Lora recieve");
     messageCounter = LoRaNow.count();
     LoRaRSSI = LoRaNow.getRSSI();
     LoRaId = LoRaNow.id();
@@ -1245,57 +1277,67 @@ void onMessage(uint8_t *buffer, size_t size)
     LoRaNow.print(millis());
     LoRaNow.send();
     ///************ parse recieved data ****************************
+    Serial.println("Start deserialize");
     DeserializationError error = deserializeJson(loraMessege, data);
     if (error)
     {
         Serial.print(F("deserializeJson() failed: "));
         Serial.println(error.f_str());
-        displayData(String("LoRa: error deserializacji"));
+        // displayData(String("LoRa: error deserializacji"));
     }
     else
     {
-
+        Serial.println("Deserialize ok");
         int dis = 0;
+        Serial.println("check if is key chs");
         if (loraMessege.containsKey("CHs"))
         {
             if (loraMessege["CHs"] == 0)
             {
-                displayData(String("LoRa: brak czujnikow"));
+                // displayData(String("LoRa: brak czujnikow"));
             }
         }
         else
         {
+            Serial.println("check if is key chvalues");
             if (loraMessege.containsKey("ChValues"))
             {
                 int CHs = countTagElements(data, "ChValues");
                 loraMessege["CHs"] = CHs;
             }
         }
+        Serial.println("check if is key di");
         if (loraMessege.containsKey("DI"))
         {
             int dis = countTagElements(data, "DI");
             loraMessege["DIs"] = dis;
         }
+        Serial.println("check if is key do");
         if (loraMessege.containsKey("DO"))
         {
             loraMessege["DOs"] = countTagElements(data, "DO");
             int dos = loraMessege["DOs"];
         }
+        Serial.println("check if is key ai");
         if (loraMessege.containsKey("AI"))
         {
             loraMessege["AIs"] = countTagElements(data, "AI");
             int ais = loraMessege["AIs"];
         }
+        Serial.println("check if is key ao");
         if (loraMessege.containsKey("AO"))
         {
             loraMessege["AOs"] = countTagElements(data, "AO");
             int aos = loraMessege["AOs"];
         }
 
-        displayData("Odebrano dane");
+        Serial.println("Lora recieve: wyswietlenie odebrano dane");
+        // powoduje zawieche cpu
+        //  displayData("Odebrano dane");
     }
 
     // sprawdzenie czy urzadzenie jest na liscie
+    Serial.println("Sprawdzenie czy urzadzenie jest na liscie");
     size_t i, j;
     for (i = 0; i < DefinedSystemMaxDevCount; i++)
     {
@@ -1305,6 +1347,7 @@ void onMessage(uint8_t *buffer, size_t size)
     // jezeli urzadzenia nie ma na liscie
     if (i == DefinedSystemMaxDevCount)
     {
+        Serial.println("urzadzenie nie ma na liscie");
         for (j = 0; j < maxUnassignedDevCount; j++)
         {
             bool _break = false;
@@ -1350,10 +1393,15 @@ void onMessage(uint8_t *buffer, size_t size)
     }
     else // jezeli urzadzenie jest na liscie wyslij dane do blynk
     {
-        sendDataToBlynk();
-        sendDataToMQTT(i, data);
+        Serial.println("urzadzenie jest na licie - wysylanie danych do blynk");
+        if (Blynk.connected())
+            sendDataToBlynk();
+        Serial.println("urzadzenie jest na licie - wysylanie danych do MQTT");
+        if (MQTTclient.connected())
+            sendDataToMQTT(i, data);
         devErrors.loraLastPing[i] = millis();
     }
+    Serial.println("End Lora recieve");
 }
 
 void sendDataToMQTT(int devIndex, String &data)
@@ -1471,11 +1519,12 @@ void sendDataToBlynk(void)
     }
 }
 
-void displayData(const String &text)
+void displayData(void)
 {
     static bool firstRun = true;
     static unsigned long time = millis();
-    if ((millis() - time) > 1000 or (text.length() > 1))
+    if ((millis() - time) > 1000)
+        Serial.println("start wyswietlania");
     {
         if (firstRun)
         {
@@ -1490,21 +1539,30 @@ void displayData(const String &text)
                 tft.drawString(text, 40, 5);
             }*/
 
+        // Serial.println("wyswietlenie RAM ");
         // tft.fillRect(30, 0, 185, 19, TFT_BLACK);
         tft.drawString("RAM:" + String((float)freeRam / 5200.0, 0) + "%", 30, 10);
+        //  Serial.println("wyswietlenie wifi ");
         tft.drawString("Wifi:" + String(WiFi.RSSI()), 120, 10);
 
         // time
-        tft.setTextSize(4);
-        tft.drawString(ntp.formattedTime("%R"), 42, 80);
-        tft.setTextSize(3);
-        tft.drawString(ntp.formattedTime("%S"), 165, 80);
-        tft.setTextSize(2);
-
+        if (timeSynchronized)
+        {
+            tft.setTextSize(4);
+            //      Serial.println("wyswietlenie godziny ");
+            //    Serial.println("year: " + String(ntp.year()));
+            tft.drawString(ntp.formattedTime("%R"), 42, 80);
+            tft.setTextSize(3);
+            //      Serial.println("wyswietlenie minuty ");
+            tft.drawString(ntp.formattedTime("%S"), 165, 80);
+            tft.setTextSize(2);
+        }
         uint16_t onColor = TFT_ORANGE, fillColor;
         uint16_t offColor = 0x8410; // gray
+                                    //  Serial.println("wyswietlenie stanu wejsc ");
         // input state
         uint8_t statePortIn = extIO.readGPIOA();
+        // Serial.println("wejscia odczytane ");
         tft.setTextColor(TFT_BLACK, TFT_ORANGE);
         for (size_t i = 0; i < 8; i++)
         {
@@ -1521,6 +1579,7 @@ void displayData(const String &text)
             tft.fillRoundRect(1, 16 * i + 4, 24, 15, 4, fillColor);
             tft.drawString(String(i + 1), 8, 20 + i * 16);
         }
+        //   Serial.println("wyswietlenie stanu wyjsc ");
         // output state
         // tft.setTextColor(TFT_BLACK, TFT_ORANGE);
         uint8_t statePortOut = extIO.readGPIOB();
@@ -1554,57 +1613,59 @@ void displayData(const String &text)
                     tft.drawString("No sensors!", 10, 90);
         */
         // botom information panell
+        //  Serial.println("wyswietlenie bledow ");
         // wifi state
         if (devErrors.wifiError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
-        else if (devErrors.wifiError == 2)
-            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
-        else
+        else // if (devErrors.wifiError == 2)
+            // tft.setTextColor(TFT_WHITE, TFT_ORANGE);
+            // else
             tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("WF", 30, 133);
         // lora state
         if (devErrors.loraDevError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
-        else if (devErrors.loraDevError == 2)
-            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
-        else
-            tft.setTextColor(TFT_BLUE, TFT_GREEN);
+        // else if (devErrors.loraDevError == 2)
+        //  tft.setTextColor(TFT_WHITE, TFT_ORANGE);
+        // else
+        tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("LR", 59, 133);
         // MQTT state
         if (devErrors.mqttError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
-        else if (devErrors.mqttError == 2)
-            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
-        else
-            tft.setTextColor(TFT_BLUE, TFT_GREEN);
+        // else if (devErrors.mqttError == 2)
+        //  tft.setTextColor(TFT_WHITE, TFT_ORANGE);
+        // else
+        tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("MQ", 86, 133);
         // Blynk state
         if (devErrors.blynkError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
-        else if (devErrors.blynkError == 2)
-            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
-        else
-            tft.setTextColor(TFT_BLUE, TFT_GREEN);
+        // else if (devErrors.blynkError == 2)
+        //  tft.setTextColor(TFT_WHITE, TFT_ORANGE);
+        // else
+        tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("BLK", 116, 133);
         // ext IO
         if (devErrors.extIoError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
-        else if (devErrors.extIoError == 2)
-            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
-        else
-            tft.setTextColor(TFT_BLUE, TFT_GREEN);
+        // else if (devErrors.extIoError == 2)
+        //  tft.setTextColor(TFT_WHITE, TFT_ORANGE);
+        // else
+        tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("IO", 157, 133);
         // local DS18b20
         if (devErrors.localSensorError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
-        else if (devErrors.localSensorError == 2)
-            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
-        else
-            tft.setTextColor(TFT_BLUE, TFT_GREEN);
+        // else if (devErrors.localSensorError == 2)
+        //  tft.setTextColor(TFT_WHITE, TFT_ORANGE);
+        // else
+        tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("1w", 185, 133);
 
         tft.setTextColor(TFT_GREEN, TFT_BLACK);
     }
+    // Serial.println("koniec wyswietlania ");
 }
 
 void myTimerEvent()
@@ -1687,7 +1748,7 @@ bool parseFormula(String formula)
             return false;
         }
         bool result = false;
-        Serial.println(String(in1) + ": " + String(vPinStateFromBlink[in1]) + " " + String(in2) + ": " + String(vPinStateFromBlink[in2]) + " " + String(in3) + ": " + String(vPinStateFromBlink[in3]) + " " + String(out) + " " + operator1 + " " + operator2);
+        // Serial.println(String(in1) + ": " + String(vPinStateFromBlink[in1]) + " " + String(in2) + ": " + String(vPinStateFromBlink[in2]) + " " + String(in3) + ": " + String(vPinStateFromBlink[in3]) + " " + String(out) + " " + operator1 + " " + operator2);
         if (operator1 == "or")
             result = vPinStateFromBlink[in1] or vPinStateFromBlink[in2];
         else
@@ -1697,7 +1758,7 @@ bool parseFormula(String formula)
         else
             result = result and vPinStateFromBlink[in3];
         vPinStateFromBlink[out] = result ? 1 : 0;
-        Serial.println("Parse result2: " + String(result));
+        // Serial.println("Parse result2: " + String(result));
     }
     if (formulaType == 2)
     {
@@ -1811,6 +1872,7 @@ bool parseFormula(String formula)
             vPinStateFromBlink[out] = 0;
         }
     }
+    // Serial.println("Parse formula end");
     return true;
 }
 #include "./blynkWrite.h"
