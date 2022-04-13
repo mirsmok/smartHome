@@ -93,4 +93,12 @@ public:
     bool checkError(void);
     void clearErrors(void);
 };
+
+typedef struct
+{
+    char topic[60] = {0};
+    char payload[10] = {0};
+    uint8_t len = 0;
+} mqttMessage_t;
+
 #endif

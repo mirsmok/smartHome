@@ -54,7 +54,7 @@ void handleButtons();
 void handleLed();
 #line 592 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void setup();
-#line 728 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 730 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void loop();
 #line 29 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void ICACHE_RAM_ATTR handleInterrupt()
@@ -756,6 +756,8 @@ void setup()
     timeStampMQTT = millis();
 }
 
+uint8_t mqttCounter = 0;
+
 void loop()
 {
     if ((millis() - timeStamp) > 1000)
@@ -830,39 +832,65 @@ void loop()
         handleButtons();
     }
 
-    if ((millis() - timeStampMQTT) > 10000)
+    if ((millis() - timeStampMQTT) > 300)
     {
         timeStampMQTT = millis();
         if (WiFi.isConnected())
         {
             if (MQTTclient.connected())
             {
-                if (responseStatus == OpenThermResponseStatus::SUCCESS)
+                switch (mqttCounter)
                 {
+                case 0:
                     MQTTclient.publish("device/boiler/centralHeating/state", String(openThermDev.status.CentralHeating).c_str());
+                    break;
+                case 1:
                     MQTTclient.publish("device/boiler/centralHeating/actual", String(openThermDev.status.ch_temperature, 1).c_str());
-
+                    break;
+                case 2:
                     MQTTclient.publish("device/boiler/hotWater/state", String(openThermDev.status.HotWater).c_str());
+                    break;
+                case 3:
                     MQTTclient.publish("device/boiler/hotWater/actual", String(openThermDev.status.dhw_temperature, 1).c_str());
-
+                    break;
+                case 4:
                     MQTTclient.publish("device/boiler/pressure/actual", String(openThermDev.status.pressure, 1).c_str());
+                    break;
+                case 5:
                     MQTTclient.publish("device/boiler/modulation/actual", String(openThermDev.status.modulation, 1).c_str());
-
+                    break;
+                case 6:
                     MQTTclient.publish("device/boiler/flame/state", String(openThermDev.status.Flame).c_str());
+                    break;
+                case 7:
                     MQTTclient.publish("device/boiler/fault", String(openThermDev.status.otFault).c_str());
-
+                    break;
+                case 8:
                     if (openThermDev.status.otFault)
                         MQTTclient.publish("device/boiler/faultCode", String(openThermDev.status.otFaultCode).c_str());
+                    break;
+                case 9:
+                    MQTTclient.publish("device/boiler/communicationStatus", openThermDev.status.communicationStatus);
+                    break;
+                case 10:
+                    MQTTclient.publish("device/boiler/centralHeating/enable", String(openThermDev.settings.enableCentralHeating).c_str());
+                    break;
+                case 11:
+                    MQTTclient.publish("device/boiler/centralHeating/setpoint", String(openThermDev.settings.ch_temperature, 1).c_str());
+                    break;
+                case 12:
+                    MQTTclient.publish("device/boiler/hotWater/enable", String(openThermDev.settings.enableHotWater).c_str());
+                    break;
+                case 13:
+                    MQTTclient.publish("device/boiler/hotWater/setpoint", String(openThermDev.settings.dhw_temperature, 1).c_str());
+                    break;
+                case 14:
+                    MQTTclient.publish("device/roomTemperatureSensor/0001/actual", String(roomTemperature, 1).c_str());
+                    break;
+                default:
+                    mqttCounter = 255;
+                    break;
                 }
-
-                MQTTclient.publish("device/boiler/communicationStatus", openThermDev.status.communicationStatus);
-                MQTTclient.publish("device/boiler/centralHeating/enable", String(openThermDev.settings.enableCentralHeating).c_str());
-                MQTTclient.publish("device/boiler/centralHeating/setpoint", String(openThermDev.settings.ch_temperature, 1).c_str());
-
-                MQTTclient.publish("device/boiler/hotWater/enable", String(openThermDev.settings.enableHotWater).c_str());
-                MQTTclient.publish("device/boiler/hotWater/setpoint", String(openThermDev.settings.dhw_temperature, 1).c_str());
-
-                MQTTclient.publish("device/roomTemperatureSensor/0001/actual", String(roomTemperature, 1).c_str());
             }
             else
             {
@@ -870,6 +898,7 @@ void loop()
                 reconnectMQTT();
             }
         }
+        mqttCounter > 20 ? mqttCounter = 0 : mqttCounter++;
     }
     if (WiFi.isConnected())
     {

@@ -1,5 +1,5 @@
+bool printSerial = false;
 //******************** blynk settings ***********************
-
 #define BLYNK_TEMPLATE_ID "TMPLmJH5TAX6"
 #define BLYNK_DEVICE_NAME "KoncentratorIO"
 #define BLYNK_AUTH_TOKEN "YwTvXvw9IQdzqzZJ3HHvj3HkjvZpfHQd"
@@ -120,41 +120,87 @@ char mqtt_server[20] = "";
 WiFiClient espMQTTClient;
 PubSubClient MQTTclient(espMQTTClient);
 bool MQTTenabled = false;
-
+#define mqttQueueLen 10
+mqttMessage_t mqttQueue[mqttQueueLen];
 void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
 {
-    Serial.print("Message arrived [");
-    Serial.print(topic);
-    Serial.print("] ");
-    for (int i = 0; i < length; i++)
+    if (printSerial)
     {
-        Serial.print((char)payload[i]);
+        Serial.print("Message arrived [");
+        Serial.print(topic);
+        Serial.print("] ");
+        for (int i = 0; i < length; i++)
+        {
+            Serial.print((char)payload[i]);
+        }
+        Serial.println();
     }
-    Serial.println();
+    if (strlen(topic) < 60 && length < 10)
+    {
+        for (size_t i = 0; i < mqttQueueLen; i++)
+        {
+            if (mqttQueue[i].len == 0)
+            {
+                strcpy(mqttQueue[i].topic, topic);
+                strncpy(mqttQueue[i].payload, (char *)payload, length);
+                mqttQueue[i].payload[length] = '\0';
+                mqttQueue[i].len = length;
+                break;
+            }
+        }
+    }
+    // char buff[length + 1];
+    ///  strncpy(buff, (char *)payload, length);
+    // buff[length] = '\0';
 
-    char buff[length + 1];
-    strncpy(buff, (char *)payload, length);
-    buff[length] = '\0';
+    /* if (WiFi.isConnected() && Blynk.connected())
+     {
+         if (msgTopic == "device/boiler/centralHeating/state")
+             Blynk.virtualWrite(100, String(buff).toInt());
+         if (msgTopic == "device/boiler/centralHeating/enable")
+             Blynk.virtualWrite(101, String(buff).toInt());
+         if (msgTopic == "device/boiler/centralHeating/actual")
+             Blynk.virtualWrite(102, String(buff).toFloat());
+         if (msgTopic == "device/boiler/centralHeating/setpoint")
+             Blynk.virtualWrite(103, String(buff).toFloat());
 
-    String msgTopic = String(topic);
-    if (msgTopic == "device/boiler/centralHeating/state")
-        Blynk.virtualWrite(100, String(buff).toInt());
-    if (msgTopic == "device/boiler/centralHeating/enable")
-        Blynk.virtualWrite(101, String(buff).toInt());
-    if (msgTopic == "device/boiler/centralHeating/actual")
-        Blynk.virtualWrite(102, String(buff).toFloat());
-    if (msgTopic == "device/boiler/centralHeating/setpoint")
-        Blynk.virtualWrite(103, String(buff).toFloat());
+         if (msgTopic == "device/boiler/hotWater/state")
+             Blynk.virtualWrite(106, String(buff).toInt());
+         if (msgTopic == "device/boiler/hotWater/enable")
+             Blynk.virtualWrite(107, String(buff).toInt());
+         if (msgTopic == "device/boiler/hotWater/actual")
+             Blynk.virtualWrite(108, String(buff).toFloat());
+         if (msgTopic == "device/boiler/hotWater/setpoint")
+             Blynk.virtualWrite(109, String(buff).toFloat());
+     }*/
+}
 
-    if (msgTopic == "device/boiler/hotWater/state")
-        Blynk.virtualWrite(106, String(buff).toInt());
-    if (msgTopic == "device/boiler/hotWater/enable")
-        Blynk.virtualWrite(107, String(buff).toInt());
-    if (msgTopic == "device/boiler/hotWater/actual")
-        Blynk.virtualWrite(108, String(buff).toFloat());
-    if (msgTopic == "device/boiler/hotWater/setpoint")
-        Blynk.virtualWrite(109, String(buff).toFloat());
-    Serial.println("End MQTT recieve");
+void checkMqttQueue(void)
+{
+    for (size_t i = 0; i < mqttQueueLen; i++)
+    {
+        if (mqttQueue[i].len > 0)
+        {
+            if (strcmp(mqttQueue[i].topic, "device/boiler/centralHeating/state") == 0)
+                Blynk.virtualWrite(100, String(mqttQueue[i].payload).toInt());
+            else if (strcmp(mqttQueue[i].topic, "device/boiler/centralHeating/enable") == 0)
+                Blynk.virtualWrite(101, String(mqttQueue[i].payload).toInt());
+            else if (strcmp(mqttQueue[i].topic, "device/boiler/centralHeating/actual") == 0)
+                Blynk.virtualWrite(102, String(mqttQueue[i].payload).toFloat());
+            else if (strcmp(mqttQueue[i].topic, "device/boiler/centralHeating/setpoint") == 0)
+                Blynk.virtualWrite(103, String(mqttQueue[i].payload).toFloat());
+            else if (strcmp(mqttQueue[i].topic, "device/boiler/hotWater/state") == 0)
+                Blynk.virtualWrite(106, String(mqttQueue[i].payload).toInt());
+            else if (strcmp(mqttQueue[i].topic, "device/boiler/hotWater/enable") == 0)
+                Blynk.virtualWrite(107, String(mqttQueue[i].payload).toInt());
+            else if (strcmp(mqttQueue[i].topic, "device/boiler/hotWater/actual") == 0)
+                Blynk.virtualWrite(108, String(mqttQueue[i].payload).toFloat());
+            else if (strcmp(mqttQueue[i].topic, "device/boiler/hotWater/setpoint") == 0)
+                Blynk.virtualWrite(109, String(mqttQueue[i].payload).toFloat());
+
+            mqttQueue[i].len = 0;
+        }
+    }
 }
 
 void reconnectMQTT()
@@ -162,34 +208,39 @@ void reconnectMQTT()
     // Loop until we're reconnected
     if (!MQTTclient.connected())
     {
-        Serial.print("Attempting MQTT connection...");
+        if (printSerial)
+            Serial.print("Attempting MQTT connection...");
         // Create a random client ID
         String clientId = "IQhom-";
         clientId += String(random(0xffff), HEX);
         // Attempt to connect
         if (MQTTclient.connect(clientId.c_str()))
         {
-            Serial.println("connected");
+            if (printSerial)
+                Serial.println("connected");
             // Once connected, publish an announcement...
             // client.publish("outTopic", "hello world");
             // ... and resubscribe
             //  client.subscribe("inTopic");
 
-            //        MQTTclient.subscribe("device/boiler/centralHeating/state");
-            //        MQTTclient.subscribe("device/boiler/centralHeating/enable");
-            //        MQTTclient.subscribe("device/boiler/centralHeating/actual");
-            //        MQTTclient.subscribe("device/boiler/centralHeating/setpoint");
+            MQTTclient.subscribe("device/boiler/centralHeating/state");
+            MQTTclient.subscribe("device/boiler/centralHeating/enable");
+            MQTTclient.subscribe("device/boiler/centralHeating/actual");
+            MQTTclient.subscribe("device/boiler/centralHeating/setpoint");
 
-            //       MQTTclient.subscribe("device/boiler/hotWater/state");
-            //       MQTTclient.subscribe("device/boiler/hotWater/enable");
-            //       MQTTclient.subscribe("device/boiler/hotWater/actual");
-            //       MQTTclient.subscribe("device/boiler/hotWater/setpoint");
+            MQTTclient.subscribe("device/boiler/hotWater/state");
+            MQTTclient.subscribe("device/boiler/hotWater/enable");
+            MQTTclient.subscribe("device/boiler/hotWater/actual");
+            MQTTclient.subscribe("device/boiler/hotWater/setpoint");
         }
         else
         {
-            Serial.print("failed, rc=");
-            Serial.print(MQTTclient.state());
-            Serial.println(" try again in next loop");
+            if (printSerial)
+            {
+                Serial.print("failed, rc=");
+                Serial.print(MQTTclient.state());
+                Serial.println(" try again in next loop");
+            }
         }
     }
 }
@@ -244,7 +295,8 @@ table, th, td {\
                            " href='/setMqttBrokerForm'>MQTT</a>\
   <a " + (activeIndex == 3 ? activeTag : String("")) +
                            " href='/devUpdate'>Update</a>\
-  <a href='#about'>About</a>\
+  <a " + (activeIndex == 4 ? activeTag : String("")) +
+                           " href='/devConfig'>Nastawy</a>\
 </div>");
     return header;
 }
@@ -470,6 +522,31 @@ void handleSetMqttBroker()
     webServer.send(200, "text/html", webContent);
 }
 
+void handleDevConfig()
+{
+    String siteAction = String(webServer.arg(0).c_str());
+
+    if (siteAction == "toogleSerialInfo")
+        printSerial ? printSerial = false : printSerial = true;
+
+    // site page
+    String webContent(htmlHeader(4));
+    webContent += String("<h2> &nbsp; Nastawy </br></h2>");
+    /* webContent += "</h3><form action='/devConfig'>\
+ <table style='text-align:right'>\
+ <tr><td>  <label for='serialInfo'>Adres brokera MQTT:</label></td>\
+ <td>  <input type='text' id='serialInfo' name='serialInfo'></td></tr>\
+ <tr><td></td><td><input type='submit' value='Ustaw'></td></tr>\
+ </table>\
+ </form>";*/
+    webContent += String(
+        "<button onclick=\"location.href='/devConfig?command=toogleSerialInfo'\" type=\"button\">\
+         on/off serial info </button>");
+    webContent += "</body></html>";
+
+    webServer.send(200, "text/html", webContent);
+}
+
 void handleAddDevForm()
 {
     int unassignedDevIndex = atoi(webServer.arg(0).c_str());
@@ -506,7 +583,6 @@ void handleAddDevForm()
     // onewire config part
     for (size_t i = 0; i < maxOneWireChannelsInDevice; i++)
     {
-        Serial.println("DevIndex " + String(unassignedDevIndex) + " Channel " + String(i) + " Id :" + String(unassigendDeviceArr[unassignedDevIndex].oneWireChannel[i].id, HEX));
         if (unassigendDeviceArr[unassignedDevIndex].oneWireChannel[i].id == 0)
             break;
         String htmlId = "ChId" + String(i);
@@ -800,6 +876,7 @@ uint8_t countTagElements(String input, String tag)
     }
 }
 
+// SPIClass loraSPI = SPIClass(HSPI);
 void setup()
 {
     Serial.begin(115200);
@@ -836,7 +913,7 @@ void setup()
     // res = wm.autoConnect("AutoConnectAP"); // anonymous ap
     wm.setConnectRetries(5);
     wm.setWiFiAutoReconnect(true);
-    res = wm.autoConnect("AutoConnectAP", "password"); // password protected ap
+    res = wm.autoConnect("KoncentratorIO_AP", "mirsmok"); // password protected ap
     if (!res)
     {
         Serial.println("Failed to connect");
@@ -852,13 +929,15 @@ void setup()
     }
 
     //*************************** setttings for lora *****************************************************
-    Serial.println("LoRaNow Simple Gateway");
+    Serial.println("LoRaNow Simple Gateway started");
 
     // LoRaNow.setFrequencyCN(); // Select the frequency 486.5 MHz - Used in China
     //  LoRaNow.setFrequencyEU(); // Select the frequency 868.3 MHz - Used in Europe
     //  LoRaNow.setFrequencyUS(); // Select the frequency 904.1 MHz - Used in USA, Canada and South America
     //  LoRaNow.setFrequencyAU(); // Select the frequency 917.0 MHz - Used in Australia, Brazil and Chile
-
+    // LoRaNow.setSPI(loraSPI);
+    // loraSPI.begin(12, 15, 13, 17);
+    // LoRaNow.setPins(17, 2);
     LoRaNow.setFrequency(433E6);
     LoRaNow.setSpreadingFactor(7);
     // LoRaNow.setPins(10, 2);
@@ -937,6 +1016,7 @@ void setup()
     webServer.on("/delDev", handleDelDev);
     webServer.on("/showDev", handleShowDev);
     webServer.on("/resetErrors", handleResetErrors);
+    webServer.on("/devConfig", handleDevConfig);
     webServer.on("/test.svg", drawGraph);
     webServer.on("/inline", []()
                  { webServer.send(200, "text/plain", "this works as well"); });
@@ -1017,29 +1097,36 @@ void setup()
 }
 
 unsigned long displayTime = millis();
+uint8_t loopCounter = 0;
 void loop()
 {
+    if (loopCounter > 3)
+        loopCounter = 0;
     // put your main code here, to run repeatedly:
-
-    LoRaNow.loop();
-    if (Blynk.connected())
-    {
-        Blynk.run();
-        if (devErrors.blynkError == 1)
-            devErrors.blynkError = 2;
-    }
-    else
-    {
-        devErrors.blynkError = 1;
-    }
+    if (loopCounter == 0)
+        LoRaNow.loop();
     // Serial.println("timer run");
     //  timer.run();
     // Serial.println("webserwer handle client");
+    checkMqttQueue();
     if (WiFi.isConnected())
     {
-        webServer.handleClient();
+        if (Blynk.connected())
+        {
+            if (loopCounter == 1)
+                Blynk.run();
+            if (devErrors.blynkError == 1)
+                devErrors.blynkError = 2;
+        }
+        else
+        {
+            devErrors.blynkError = 1;
+        }
+        if (loopCounter == 2)
+            webServer.handleClient();
         if (devErrors.wifiError == 1)
             devErrors.wifiError = 2;
+        MQTTclient.loop();
     }
     else
         devErrors.wifiError = 1;
@@ -1080,7 +1167,6 @@ void loop()
                 //    Serial.println("publish heating states");
                 MQTTclient.publish("device/boiler/centralHeating/enable/remote", vPinStateFromBlink[20] ? "1" : "0");
                 MQTTclient.publish("device/boiler/hotWater/enable/remote", vPinStateFromBlink[19] ? "1" : "0");
-                MQTTclient.loop();
                 if (devErrors.mqttError == 1)
                     devErrors.mqttError = 2;
             }
@@ -1092,13 +1178,13 @@ void loop()
         // Serial.println("check lora ping");
         devErrors.checkLoraPing(sysSettings, millis());
         //  Serial.println("check ext io");
-        //   if (!extIO.begin_I2C())
-        //       devErrors.extIoError = 1;
-        //   else
-        //   {
-        //       if (devErrors.extIoError == 1)
-        //           devErrors.extIoError = 2;
-        //  }
+        // if (!extIO.begin_I2C())
+        //    devErrors.extIoError = 1;
+        // else
+        // {
+        //    if (devErrors.extIoError == 1)
+        //        devErrors.extIoError = 2;
+        // }
         // Serial.println("chek dev errors");
         devErrors.checkError();
 
@@ -1108,7 +1194,7 @@ void loop()
             if (!timeSynchronized)
                 timeSynchronized = ntp.update();
             else
-                ntp.update();
+                ntp.stop();
         }
 
         //  Serial.println("parse formulas");
@@ -1129,7 +1215,7 @@ void loop()
         displayData();
         displayTime = millis();
     }
-    delay(2);
+    loopCounter++;
 }
 
 void mesureTemperatures(void)
@@ -1184,8 +1270,8 @@ void mesureTemperatures(void)
                 break;
         }
     }
-
-    Serial.println(message);
+    if (printSerial)
+        Serial.println(message);
 
     // erorr handle
     uint8_t sysLocalOneWireSensors = 0;
@@ -1255,21 +1341,23 @@ String ds18b20AddressToStr(DeviceAddress deviceAddress)
 
 void onMessage(uint8_t *buffer, size_t size)
 {
-    Serial.println("Start Lora recieve");
+    if (printSerial)
+    {
+        Serial.println("Start Lora recieve");
+        Serial.print("Node Id: ");
+        Serial.println(LoRaId, HEX);
+        Serial.print("Count: ");
+        Serial.println(messageCounter);
+        Serial.print("RSSI: ");
+        Serial.println(LoRaRSSI);
+        Serial.print("Message: ");
+        Serial.write(buffer, size);
+        Serial.println();
+        Serial.println();
+    }
     messageCounter = LoRaNow.count();
     LoRaRSSI = LoRaNow.getRSSI();
     LoRaId = LoRaNow.id();
-
-    Serial.print("Node Id: ");
-    Serial.println(LoRaId, HEX);
-    Serial.print("Count: ");
-    Serial.println(messageCounter);
-    Serial.print("RSSI: ");
-    Serial.println(LoRaRSSI);
-    Serial.print("Message: ");
-    Serial.write(buffer, size);
-    Serial.println();
-    Serial.println();
 
     String data = String((char *)buffer);
     LoRaNow.clear();
@@ -1277,7 +1365,8 @@ void onMessage(uint8_t *buffer, size_t size)
     LoRaNow.print(millis());
     LoRaNow.send();
     ///************ parse recieved data ****************************
-    Serial.println("Start deserialize");
+    if (printSerial)
+        Serial.println("Start deserialize");
     DeserializationError error = deserializeJson(loraMessege, data);
     if (error)
     {
@@ -1287,9 +1376,10 @@ void onMessage(uint8_t *buffer, size_t size)
     }
     else
     {
-        Serial.println("Deserialize ok");
+        if (printSerial)
+            Serial.println("Deserialize ok");
         int dis = 0;
-        Serial.println("check if is key chs");
+        // Serial.println("check if is key chs");
         if (loraMessege.containsKey("CHs"))
         {
             if (loraMessege["CHs"] == 0)
@@ -1299,45 +1389,45 @@ void onMessage(uint8_t *buffer, size_t size)
         }
         else
         {
-            Serial.println("check if is key chvalues");
+            // Serial.println("check if is key chvalues");
             if (loraMessege.containsKey("ChValues"))
             {
                 int CHs = countTagElements(data, "ChValues");
                 loraMessege["CHs"] = CHs;
             }
         }
-        Serial.println("check if is key di");
+        // Serial.println("check if is key di");
         if (loraMessege.containsKey("DI"))
         {
             int dis = countTagElements(data, "DI");
             loraMessege["DIs"] = dis;
         }
-        Serial.println("check if is key do");
+        // Serial.println("check if is key do");
         if (loraMessege.containsKey("DO"))
         {
             loraMessege["DOs"] = countTagElements(data, "DO");
             int dos = loraMessege["DOs"];
         }
-        Serial.println("check if is key ai");
+        // Serial.println("check if is key ai");
         if (loraMessege.containsKey("AI"))
         {
             loraMessege["AIs"] = countTagElements(data, "AI");
             int ais = loraMessege["AIs"];
         }
-        Serial.println("check if is key ao");
+        // Serial.println("check if is key ao");
         if (loraMessege.containsKey("AO"))
         {
             loraMessege["AOs"] = countTagElements(data, "AO");
             int aos = loraMessege["AOs"];
         }
 
-        Serial.println("Lora recieve: wyswietlenie odebrano dane");
+        // Serial.println("Lora recieve: wyswietlenie odebrano dane");
         // powoduje zawieche cpu
         //  displayData("Odebrano dane");
     }
 
     // sprawdzenie czy urzadzenie jest na liscie
-    Serial.println("Sprawdzenie czy urzadzenie jest na liscie");
+    // Serial.println("Sprawdzenie czy urzadzenie jest na liscie");
     size_t i, j;
     for (i = 0; i < DefinedSystemMaxDevCount; i++)
     {
@@ -1347,7 +1437,8 @@ void onMessage(uint8_t *buffer, size_t size)
     // jezeli urzadzenia nie ma na liscie
     if (i == DefinedSystemMaxDevCount)
     {
-        Serial.println("urzadzenie nie ma na liscie");
+        if (printSerial)
+            Serial.println("urzadzenie nie ma na liscie");
         for (j = 0; j < maxUnassignedDevCount; j++)
         {
             bool _break = false;
@@ -1361,7 +1452,8 @@ void onMessage(uint8_t *buffer, size_t size)
                 continue;
             if (unassigendDeviceArr[j].id == 0)
             {
-                Serial.println("dodaje urzadzenie indeks: " + String(j));
+                if (printSerial)
+                    Serial.println("dodaje urzadzenie indeks: " + String(j));
                 unassigendDeviceArr[j].id = LoRaNow.id();
                 if (loraMessege.containsKey("CHs"))
                 {
@@ -1393,15 +1485,17 @@ void onMessage(uint8_t *buffer, size_t size)
     }
     else // jezeli urzadzenie jest na liscie wyslij dane do blynk
     {
-        Serial.println("urzadzenie jest na licie - wysylanie danych do blynk");
+        if (printSerial)
+            Serial.println("urzadzenie jest na licie - wysylanie danych do blynk");
         if (Blynk.connected())
             sendDataToBlynk();
-        Serial.println("urzadzenie jest na licie - wysylanie danych do MQTT");
+        if (printSerial)
+            Serial.println("urzadzenie jest na licie - wysylanie danych do MQTT");
         if (MQTTclient.connected())
             sendDataToMQTT(i, data);
         devErrors.loraLastPing[i] = millis();
     }
-    Serial.println("End Lora recieve");
+    // Serial.println("End Lora recieve");
 }
 
 void sendDataToMQTT(int devIndex, String &data)
@@ -1524,7 +1618,7 @@ void displayData(void)
     static bool firstRun = true;
     static unsigned long time = millis();
     if ((millis() - time) > 1000)
-        Serial.println("start wyswietlania");
+    // Serial.println("start wyswietlania");
     {
         if (firstRun)
         {
@@ -1665,6 +1759,8 @@ void displayData(void)
 
         tft.setTextColor(TFT_GREEN, TFT_BLACK);
     }
+    tft.drawString(String(millis() / 86400000UL) + "d " + String((millis() / 3600000UL) % 24) + "h " + String((millis() / 60000UL) % 60) + "m " + String((millis() / 1000UL) % 60) + "s ", 30, 110);
+
     // Serial.println("koniec wyswietlania ");
 }
 
@@ -1872,7 +1968,6 @@ bool parseFormula(String formula)
             vPinStateFromBlink[out] = 0;
         }
     }
-    // Serial.println("Parse formula end");
     return true;
 }
 #include "./blynkWrite.h"
