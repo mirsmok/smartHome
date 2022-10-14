@@ -128,64 +128,66 @@ mqttMessage_t mqttQueue[mqttQueueLen];
 void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length);
 #line 178 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void checkMqttQueue(void);
-#line 206 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 216 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void reconnectMQTT();
-#line 304 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 319 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleDevUpdate();
-#line 353 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 368 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleShowDev();
-#line 389 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
-void handleDelDev();
 #line 404 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+void handleDelDev();
+#line 419 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleAddDev();
-#line 474 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 489 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleSetMqttBrokerForm();
-#line 501 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 516 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleSetMqttBroker();
-#line 525 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 540 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleDevConfig();
-#line 550 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 597 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleAddDevForm();
-#line 632 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 679 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleDevList();
-#line 689 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 736 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleRoot();
-#line 810 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 857 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleResetErrors();
-#line 816 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 863 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleNotFound();
-#line 835 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 882 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void drawGraph();
-#line 855 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 902 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 uint8_t countTagElements(String input, String tag);
-#line 880 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 927 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void setup();
-#line 1101 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1148 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void loop();
-#line 1221 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1269 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void mesureTemperatures(void);
-#line 1295 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1343 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void clearDevice(int devIndex);
-#line 1319 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1367 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void printAddress(DeviceAddress deviceAddress);
-#line 1330 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1378 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 String ds18b20AddressToStr(DeviceAddress deviceAddress);
-#line 1342 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1390 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void onMessage(uint8_t *buffer, size_t size);
-#line 1501 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1549 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void sendDataToMQTT(int devIndex, String &data);
-#line 1508 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1556 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void sendLocalDataToBlynk(void);
-#line 1560 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1608 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void sendDataToBlynk(void);
-#line 1616 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1664 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void displayData(void);
-#line 1767 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
-void myTimerEvent();
-#line 1792 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
-void tftMessage(String Message, int txtColor, int bgColor, int showTime);
 #line 1815 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+void myTimerEvent();
+#line 1840 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+void tftMessage(String Message, int txtColor, int bgColor, int showTime);
+#line 1863 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 bool parseFormula(String formula);
+#line 2021 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+void scheduleExecute(void);
 #line 125 "c:\\Users\\mirsmok\\work\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
 {
@@ -262,6 +264,16 @@ void checkMqttQueue(void)
                 Blynk.virtualWrite(108, String(mqttQueue[i].payload).toFloat());
             else if (strcmp(mqttQueue[i].topic, "device/boiler/hotWater/setpoint") == 0)
                 Blynk.virtualWrite(109, String(mqttQueue[i].payload).toFloat());
+            else if (strcmp(mqttQueue[i].topic, "device/boiler/pressure/actual") == 0)
+                Blynk.virtualWrite(112, String(mqttQueue[i].payload).toFloat());
+            else if (strcmp(mqttQueue[i].topic, "device/boiler/modulation/actual") == 0)
+                Blynk.virtualWrite(113, String(mqttQueue[i].payload).toFloat());
+            else if (strcmp(mqttQueue[i].topic, "device/boiler/flame/state") == 0)
+                Blynk.virtualWrite(114, String(mqttQueue[i].payload).toInt());
+            else if (strcmp(mqttQueue[i].topic, "device/boiler/fault") == 0)
+                Blynk.virtualWrite(115, String(mqttQueue[i].payload).toInt());
+            else if (strcmp(mqttQueue[i].topic, "device/boiler/faultCode") == 0)
+                Blynk.virtualWrite(116, String(mqttQueue[i].payload).toInt());
 
             mqttQueue[i].len = 0;
         }
@@ -297,6 +309,11 @@ void reconnectMQTT()
             MQTTclient.subscribe("device/boiler/hotWater/enable");
             MQTTclient.subscribe("device/boiler/hotWater/actual");
             MQTTclient.subscribe("device/boiler/hotWater/setpoint");
+
+            MQTTclient.subscribe("device/boiler/pressure/actual");
+            MQTTclient.subscribe("device/boiler/modulation/actual");
+            MQTTclient.subscribe("device/boiler/flame/state");
+            MQTTclient.subscribe("device/boiler/fault");
         }
         else
         {
@@ -593,6 +610,13 @@ void handleDevConfig()
 
     if (siteAction == "toogleSerialInfo")
         printSerial ? printSerial = false : printSerial = true;
+    else if (String(webServer.argName(0).c_str()) == "Setting1")
+    {
+        for (size_t i = 0; i < maxScheduleCount; i++)
+            if (strlen(webServer.arg(i).c_str()) < (maxScheduleFormulaLength - 1))
+                strncpy(sysSettings.scheduleSettingsArray[i], webServer.arg(i).c_str(), maxScheduleFormulaLength - 1);
+        settings.putBytes("sysSettings", &sysSettings, sizeof(sysSettings));
+    }
 
     // site page
     String webContent(htmlHeader(4));
@@ -604,9 +628,34 @@ void handleDevConfig()
  <tr><td></td><td><input type='submit' value='Ustaw'></td></tr>\
  </table>\
  </form>";*/
-    webContent += String(
-        "<button onclick=\"location.href='/devConfig?command=toogleSerialInfo'\" type=\"button\">\
-         on/off serial info </button>");
+    webContent += String("<h3>Debug serial: </h3> \
+        <button onclick=\"location.href='/devConfig?command=toogleSerialInfo'\" type=\"button\">");
+    webContent += printSerial ? "Wyłącz" : "Załącz";
+    webContent += "</button>";
+    webContent += "<h3>Harmonogram: </h3>";
+    webContent += "************************parseFormula******************************</br>\
+ *  formula template:</br>\
+ * type 1 logic : 1 in1 operator in2 operator in3 output</br>\
+ * in1,in2,in3 - virtual pin numbers 0 - 127</br>\
+ * operator - or, and</br>\
+ * output - virtual pin number</br>\
+ * type 2 once per hour:  2 minuteOn minuteOff output</br>\
+ * type 3 once a day:  3 hourOn minuteOn HourOff minuteOff dayMask output</br>\
+ * type 4 once per hour in defined 2 ranges:  4 minuteOn minuteOff hourStart1 hourStop1 hourStart2 hourStop2 dayMask output</br>\
+ * dayMask - 127 all days  62 work days 65 weekends 1 - sunday, 2 - Monday etc.</br>\
+ *********************************************************************";
+    webContent += "<form action='devConfig'>\
+<table style='text-align:right'>";
+    for (size_t i = 0; i < maxScheduleCount; i++)
+    {
+        webContent += "<tr><td>  <label for='Setting" + String(i + 1) + "'>Ustawienia " + String(i + 1) + ":</label></td>\
+<td>  <input type='text' id='Setting" +
+                      String(i + 1) + "' name='Setting" + String(i + 1) + "' value='" + String(sysSettings.scheduleSettingsArray[i]) + "'></td></tr>";
+    }
+
+    webContent += "<tr><td></td><td><input type='submit' value='Ustaw'></td></tr>\
+    </table>\
+</form>";
     webContent += "</body></html>";
 
     webServer.send(200, "text/html", webContent);
@@ -1263,10 +1312,10 @@ void loop()
         }
 
         //  Serial.println("parse formulas");
-        parseFormula("1 50 or 82 and 18 20");
-        parseFormula("2 40 42 21");
-        parseFormula("3 20 11 20 13 6 22");
-        parseFormula("4 58 59 20 21 4 8 8 23");
+        //   parseFormula("1 50 or 82 and 18 20");
+        //   parseFormula("2 40 42 21");
+        //  parseFormula("3 20 11 20 13 6 22");
+        //  parseFormula("4 58 59 20 21 4 8 8 23");
     }
 
     // reset bledow
@@ -1277,6 +1326,7 @@ void loop()
 
     if ((millis() - displayTime) > 1000)
     {
+        scheduleExecute();
         displayData();
         displayTime = millis();
     }
@@ -1776,50 +1826,50 @@ void displayData(void)
         // wifi state
         if (devErrors.wifiError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
-        else // if (devErrors.wifiError == 2)
-            // tft.setTextColor(TFT_WHITE, TFT_ORANGE);
-            // else
+        else if (devErrors.wifiError == 2)
+            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
+        else
             tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("WF", 30, 133);
         // lora state
         if (devErrors.loraDevError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
-        // else if (devErrors.loraDevError == 2)
-        //  tft.setTextColor(TFT_WHITE, TFT_ORANGE);
-        // else
-        tft.setTextColor(TFT_BLUE, TFT_GREEN);
+        else if (devErrors.loraDevError == 2)
+            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
+        else
+            tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("LR", 59, 133);
         // MQTT state
         if (devErrors.mqttError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
-        // else if (devErrors.mqttError == 2)
-        //  tft.setTextColor(TFT_WHITE, TFT_ORANGE);
-        // else
-        tft.setTextColor(TFT_BLUE, TFT_GREEN);
+        else if (devErrors.mqttError == 2)
+            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
+        else
+            tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("MQ", 86, 133);
         // Blynk state
         if (devErrors.blynkError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
-        // else if (devErrors.blynkError == 2)
-        //  tft.setTextColor(TFT_WHITE, TFT_ORANGE);
-        // else
-        tft.setTextColor(TFT_BLUE, TFT_GREEN);
+        else if (devErrors.blynkError == 2)
+            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
+        else
+            tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("BLK", 116, 133);
         // ext IO
         if (devErrors.extIoError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
-        // else if (devErrors.extIoError == 2)
-        //  tft.setTextColor(TFT_WHITE, TFT_ORANGE);
-        // else
-        tft.setTextColor(TFT_BLUE, TFT_GREEN);
+        else if (devErrors.extIoError == 2)
+            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
+        else
+            tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("IO", 157, 133);
         // local DS18b20
         if (devErrors.localSensorError == 1)
             tft.setTextColor(TFT_WHITE, TFT_RED);
-        // else if (devErrors.localSensorError == 2)
-        //  tft.setTextColor(TFT_WHITE, TFT_ORANGE);
-        // else
-        tft.setTextColor(TFT_BLUE, TFT_GREEN);
+        else if (devErrors.localSensorError == 2)
+            tft.setTextColor(TFT_WHITE, TFT_ORANGE);
+        else
+            tft.setTextColor(TFT_BLUE, TFT_GREEN);
         tft.drawString("1w", 185, 133);
 
         tft.setTextColor(TFT_GREEN, TFT_BLACK);
@@ -2034,6 +2084,12 @@ bool parseFormula(String formula)
         }
     }
     return true;
+}
+void scheduleExecute(void)
+{
+    for (size_t i = 0; i < maxScheduleCount; i++)
+        if (strlen(sysSettings.scheduleSettingsArray[i]) > 4 && strlen(sysSettings.scheduleSettingsArray[i]) < (maxScheduleFormulaLength - 1))
+            parseFormula(String(sysSettings.scheduleSettingsArray[i]));
 }
 #include "./blynkWrite.h"
 

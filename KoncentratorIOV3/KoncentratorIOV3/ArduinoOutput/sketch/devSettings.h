@@ -8,6 +8,8 @@
 #define maxUnassignedDevCount 3
 #define maxOneWireChannelsInDevice 9
 #define maxPinCountInPort 8
+#define maxScheduleCount 10
+#define maxScheduleFormulaLength 35
 #define DI_localCount 8
 #define DO_localCount 8
 #define AI_localCount 3
@@ -51,6 +53,7 @@ typedef struct
     const uint8_t SystemMaxDevCount = DefinedSystemMaxDevCount;
     char MqttBrokerAddress[30];
     device_t device[DefinedSystemMaxDevCount];
+    char scheduleSettingsArray[maxScheduleCount][maxScheduleFormulaLength];
 } sysSettings_t;
 
 typedef struct
