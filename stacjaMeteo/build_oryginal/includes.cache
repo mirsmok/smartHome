@@ -1,0 +1,122 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\Desktop\\stacjaMeteo\\build\\sketch\\stacjaMeteo.ino.cpp",
+    "Include": "Adafruit_BMP280.h",
+    "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Adafruit_BMP280_Library"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\Desktop\\stacjaMeteo\\build\\sketch\\stacjaMeteo.ino.cpp",
+    "Include": "Adafruit_Sensor.h",
+    "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Adafruit_Unified_Sensor"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\Desktop\\stacjaMeteo\\build\\sketch\\stacjaMeteo.ino.cpp",
+    "Include": "Adafruit_I2CDevice.h",
+    "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Adafruit_BusIO"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\Desktop\\stacjaMeteo\\build\\sketch\\stacjaMeteo.ino.cpp",
+    "Include": "Wire.h",
+    "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\Desktop\\stacjaMeteo\\build\\sketch\\stacjaMeteo.ino.cpp",
+    "Include": "SPI.h",
+    "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SPI\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\Desktop\\stacjaMeteo\\build\\sketch\\stacjaMeteo.ino.cpp",
+    "Include": "Adafruit_AHTX0.h",
+    "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Adafruit_AHTX0"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\Desktop\\stacjaMeteo\\build\\sketch\\stacjaMeteo.ino.cpp",
+    "Include": "LoRaNow.h",
+    "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\LoRaNow\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\Desktop\\stacjaMeteo\\build\\sketch\\stacjaMeteo.ino.cpp",
+    "Include": "LowPower.h",
+    "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\LowPower_LowPowerLab"
+  },
+  {
+    "Sourcefile": "c:\\Users\\mirsmok\\Desktop\\stacjaMeteo\\build\\sketch\\stacjaMeteo.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Adafruit_BMP280_Library\\Adafruit_BMP280.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Adafruit_Unified_Sensor\\Adafruit_Sensor.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Adafruit_BusIO\\Adafruit_BusIO_Register.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Adafruit_BusIO\\Adafruit_I2CDevice.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Adafruit_BusIO\\Adafruit_SPIDevice.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src\\Wire.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\Wire\\src\\utility\\twi.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\libraries\\SPI\\src\\SPI.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\Adafruit_AHTX0\\Adafruit_AHTX0.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\LoRaNow\\src\\LoRaNow.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\LoRaNow\\src\\utility\\LoRa.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\LoRaNow\\src\\utility\\LoRaUtilities.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\LowPower_LowPowerLab\\LowPower.cpp",
+    "Include": "",
+    "Includepath": null
+  }
+]

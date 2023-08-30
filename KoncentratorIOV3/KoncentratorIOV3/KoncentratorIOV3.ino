@@ -414,6 +414,7 @@ void handleDelDev()
     webContent += "</body></html>";
 
     webServer.send(200, "text/html", webContent);
+    settings.putBytes("sysSettings", &sysSettings, sizeof(sysSettings));
 }
 
 void handleAddDev()
@@ -960,6 +961,8 @@ void setup()
     // res = wm.autoConnect("AutoConnectAP"); // anonymous ap
     wm.setConnectRetries(5);
     wm.setWiFiAutoReconnect(true);
+    //    wm.setConfigPortalTimeout(60);                        // auto close configportal after n seconds
+    //    wm.setAPClientCheck(true);                            // avoid timeout if client connected to softap
     res = wm.autoConnect("KoncentratorIO_AP", "mirsmok"); // password protected ap
     if (!res)
     {
@@ -1213,7 +1216,7 @@ void loop()
             {
                 //    Serial.println("publish heating states");
                 MQTTclient.publish("device/boiler/centralHeating/enable/remote", vPinStateFromBlink[20] ? "1" : "0");
-                MQTTclient.publish("device/boiler/hotWater/enable/remote", vPinStateFromBlink[19] ? "1" : "0");
+                MQTTclient.publish("device/boiler/hotWater/enable/remote", vPinStateFromBlink[21] ? "1" : "0");
                 if (devErrors.mqttError == 1)
                     devErrors.mqttError = 2;
             }

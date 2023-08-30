@@ -1,0 +1,7 @@
+{
+    "board": "arduino:avr:pro",
+    "port": "COM12",
+    "sketch": "stacjaMeteo.ino",
+    "configuration": "cpu=8MHzatmega328",
+    "output": "build"
+}
