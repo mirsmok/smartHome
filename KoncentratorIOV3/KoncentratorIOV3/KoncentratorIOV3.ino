@@ -1,4 +1,5 @@
 bool printSerial = false;
+char *_version = "V2.0";
 //******************** blynk settings ***********************
 #define BLYNK_TEMPLATE_ID "TMPLmJH5TAX6"
 #define BLYNK_DEVICE_NAME "KoncentratorIO"
@@ -938,7 +939,7 @@ void setup()
     tft.setCursor(0, 0);
     tft.setTextDatum(MC_DATUM);
     tft.setTextSize(2);
-    tftMessage(String("TFT OK!"), TFT_GREEN, TFT_BLACK, 2000);
+    tftMessage(String("Firmware: ") + _version, TFT_GREEN, TFT_BLACK, 2000);
 
     WiFi.mode(WIFI_STA); // explicitly set mode, esp defaults to STA+AP
     // it is a good practice to make sure your code sets wifi mode how you want it.
@@ -1238,7 +1239,7 @@ void loop()
                     }
                 }
                 tmpMsg += "}";
-                MQTTclient.publish("device/loraHub/devices/statuses", tmpMsg.c_str());
+                MQTTclient.publish("device/loraHub/devices/status", tmpMsg.c_str());
                 if (devErrors.mqttError == 1)
                     devErrors.mqttError = 2;
             }

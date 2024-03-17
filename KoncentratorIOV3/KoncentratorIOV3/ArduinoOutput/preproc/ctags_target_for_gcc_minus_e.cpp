@@ -1,51 +1,52 @@
 # 1 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 bool printSerial = false;
+char *_version = "V2.0";
 //******************** blynk settings ***********************
 
 
 
 // Comment this out to disable prints and save space
 
-# 9 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 10 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 BlynkTimer timer;
 int vPinStateFromBlink[128];
 int vPinStateToBlink[128];
 
 //****************** arduinoJSON **************************
-# 15 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 16 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 StaticJsonDocument<800> loraMessege;
 
 //**************** wifi meanger ***************************
-# 19 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 20 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 WiFiManager wm;
 //**************** LoRaNow ********************
-# 22 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 23 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 byte messageCounter;
 uint32_t LoRaId;
 int8_t LoRaRSSI;
 
 //**************** NTP **************************
-# 28 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 # 29 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 30 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 WiFiUDP wifiUdp;
 NTP ntp(wifiUdp);
 bool timeSynchronized = false;
 
 //**************** TFT ***************
-# 35 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 # 36 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 37 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 TFT_eSPI tft = TFT_eSPI(135, 240); // Invoke custom library
 
 //******************** OneWire **************************************************
-# 40 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 # 41 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 42 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 
 OneWire oneWire(32);
 DallasTemperature DS18B20(&oneWire);
 DeviceAddress sensorsAddr[10];
 
 //*********************** MCP23017 IO expander **************************************8
-# 48 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 49 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 Adafruit_MCP23X17 extIO;
 
 
@@ -58,10 +59,10 @@ unsigned long Time;
 unsigned long freeRam;
 
 //****************** preferences for keep settings ***************
-# 61 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 62 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 Preferences settings;
 //******************* system settings *********************
-# 64 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 65 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 
 devError devErrors;
 sysSettings_t sysSettings;
@@ -69,10 +70,10 @@ device_t unassigendDeviceArr[3];
 String devTypeNames[4] = {"null", "remIOv01", "remTempSensor", "localPorts"};
 
 //***************************** webSerwer *****************************************
-# 72 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 # 73 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 # 74 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 # 75 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 76 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 
 WebServer webServer(80);
 const char *serverIndex =
@@ -113,8 +114,8 @@ const char *serverIndex =
     "</script>";
 
 //******************** MQTT client *****************************************8
-# 116 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 # 117 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 118 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
 
 // Update these with values suitable for your network.
 char mqtt_server[20] = "";
@@ -265,7 +266,7 @@ String htmlHeader(uint8_t activeIndex = 0)
 {
     String activeTag = String("class='active'");
     String header = String("<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width, initial-scale=1' charset='UTF-8'><style>body {  margin: 0;  font-family: Arial, Helvetica, sans-serif;}.topnav {  overflow: hidden;  background-color: #333;}.topnav a {  float: left;  color: #f2f2f2;  text-align: center;  padding: 14px 16px;  text-decoration: none;  font-size: 17px;}.topnav a:hover {  background-color: #ddd;  color: black;}.topnav a.active {  background-color: #04AA6D;  color: white;}table, th, td {  border: 1px solid black;  border-collapse: collapse;  margin: 20px;  padding: 10px;}</style></head><body><div class='topnav'>  <a "
-# 305 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 306 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
        + (activeIndex == 0 ? activeTag : String("")) +
                            " href='/'>Home</a>  <a "
        + (activeIndex == 1 ? activeTag : String("")) +
@@ -388,9 +389,9 @@ void handleAddDev()
     String devDescription(webServer.arg(1));
     int devIndex = atoi(webServer.arg(2).c_str());
     uint32_t devId = strtoul(String(webServer.arg(3)).c_str(), 
-# 426 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 427 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                               __null
-# 426 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 427 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                   , 16);
     int vPinStart = atoi(webServer.arg(4).c_str());
 
@@ -409,9 +410,9 @@ void handleAddDev()
         if (webServer.argName(i).startsWith("ChId"))
         {
             sysSettings.device[devIndex].oneWireChannel[j].id = strtoul(webServer.arg(i).c_str(), 
-# 443 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 444 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                                                                  __null
-# 443 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 444 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                                                      , 16);
             sysSettings.device[devIndex].oneWireChannel[j].vPinAdrr = atoi(webServer.arg(i + 1).c_str());
         }
@@ -540,7 +541,7 @@ void handleDevConfig()
     webContent += "</button>";
     webContent += "<h3>Harmonogram: </h3>";
     webContent += "************************parseFormula******************************</br> *  formula template:</br> * type 1 logic : 1 in1 operator in2 operator in3 output</br> * in1,in2,in3 - virtual pin numbers 0 - 127</br> * operator - or, and</br> * output - virtual pin number</br> * type 2 once per hour:  2 minuteOn minuteOff output</br> * type 3 once a day:  3 hourOn minuteOn HourOff minuteOff dayMask output</br> * type 4 once per hour in defined 2 ranges:  4 minuteOn minuteOff hourStart1 hourStop1 hourStart2 hourStop2 dayMask output</br> * dayMask - 127 all days  62 work days 65 weekends 1 - sunday, 2 - Monday etc.</br> *********************************************************************";
-# 581 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 582 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
     webContent += "<form action='devConfig'><table style='text-align:right'>";
 
     for (size_t i = 0; i < 10; i++)
@@ -571,7 +572,7 @@ void handleAddDevForm()
     int firstFreeDevIndex = i;
     String webContent(htmlHeader(1) + "<h2> Dodawanie urządzenia </h2>");
     webContent += "<form action='/addDev'><table style='text-align:right'><tr><td>  <label for='devType'>Typ urządzenia:</label> </td><td>  <select name='devType' id='devType'>    <option value='1'>remIOv01</option>    <option value='2'>remTempSensor</option>    <option value='3'>localPorts</option>  </select></td></tr><tr><td>  <label for='Opis'>Opis urządzenia:</label></td><td>  <input type='text' id='Opis' name='Opis'></td></tr><tr><td>  <label for='No'>Index nowego urządzenia:</label></td><td>  <input type='text' id='No' name='No' value='";
-# 623 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 624 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
     webContent += String(firstFreeDevIndex);
     webContent += "'></td></tr><tr><td>  <label for='Id'>Device Id:</label></td><td>  <input type='text' id='Id' name='Id' value='";
 
@@ -634,7 +635,7 @@ void handleDevList()
     String webContent(htmlHeader(1) + " <h2> Aktualna konfiguracja systemu </h2>");
     // tablica urzadzen systemu
     webContent += "<br><table  style='width:600px'>    <caption>Lista zarejestrowanych urządzeń w sytemie</caption>  <tr>    <th>No</th>    <th>Typ</th>    <th>Id</th>    <th>Opis</th>    <th>vPin Start</th>    <th>Akcja</th>  </tr>";
-# 694 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 695 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
     /*
     webContent += "<tr><td>0</td>";
     webContent += "<td>" + devTypeNames[sysSettings.localPorts.type] + "</td>";
@@ -739,7 +740,7 @@ void handleRoot()
         webContent += "<tr>                    <td>Status Komunikacji Piec</td>                    <td>" +
 " +
                       String(openThermDev.status.communicationStatus) + "</td>                </tr>";*/
-# 815 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 816 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
     webContent += "<tr>                <td>Błąd Komunikacji Wifi</td>                <td>"
 
                       +
@@ -866,7 +867,7 @@ void setup()
     tft.setCursor(0, 0);
     tft.setTextDatum(4 /* Middle centre*/);
     tft.setTextSize(2);
-    tftMessage(String("TFT OK!"), 0x07E0 /*   0, 255,   0 */, 0x0000 /*   0,   0,   0 */, 2000);
+    tftMessage(String("Firmware: ") + _version, 0x07E0 /*   0, 255,   0 */, 0x0000 /*   0,   0,   0 */, 2000);
 
     WiFi.mode(WIFI_MODE_STA); // explicitly set mode, esp defaults to STA+AP
     // it is a good practice to make sure your code sets wifi mode how you want it.
@@ -1166,7 +1167,7 @@ void loop()
                     }
                 }
                 tmpMsg += "}";
-                MQTTclient.publish("device/loraHub/devices/statuses", tmpMsg.c_str());
+                MQTTclient.publish("device/loraHub/devices/status", tmpMsg.c_str());
                 if (devErrors.mqttError == 1)
                     devErrors.mqttError = 2;
             }
@@ -1263,9 +1264,9 @@ void mesureTemperatures(void)
                 {
                     for (size_t k = 0; (k < localSensorsCount) && (k < 9); k++)
                         unassigendDeviceArr[j].oneWireChannel[k].id = strtoul(ds18b20AddressToStr(sensorsAddr[k]).c_str(), 
-# 1337 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 1338 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                                                                                           __null
-# 1337 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1338 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                                                                               , 16);
                 }
                 unassigendDeviceArr[j].DI_PortCfg.count = 8;
@@ -1468,9 +1469,9 @@ void onMessage(uint8_t *buffer, size_t size)
                     int CHs = loraMessege["CHs"];
                     for (size_t k = 0; (k < CHs) && (k < 9); k++)
                         unassigendDeviceArr[j].oneWireChannel[k].id = strtoul(loraMessege["ChIds"][k], 
-# 1538 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 1539 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                                                                       __null
-# 1538 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1539 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                                                           , 16);
                 }
                 if (loraMessege.containsKey("DIs"))
@@ -1543,9 +1544,9 @@ void sendLocalDataToBlynk(void)
                 for (size_t j = 0; j < localSensorsCount; j++)
                 {
                     if (sysSettings.device[devIndex].oneWireChannel[i].id == strtoul(ds18b20AddressToStr(sensorsAddr[j]).c_str(), 
-# 1609 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 1610 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                                                                                                  __null
-# 1609 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1610 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                                                                                      , 16))
                     {
                         sensorIndex = j;
@@ -1595,9 +1596,9 @@ void sendDataToBlynk(void)
                 for (size_t j = 0; j < loraMessege["CHs"]; j++)
                 {
                     if (sysSettings.device[devIndex].oneWireChannel[i].id == strtoul(loraMessege["ChIds"][j], 
-# 1657 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 1658 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                                                                              __null
-# 1657 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1658 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                                                                  , 16))
                     {
                         loraIndex = j;
@@ -1996,4 +1997,4 @@ void scheduleExecute(void)
         if (strlen(sysSettings.scheduleSettingsArray[i]) > 4 && strlen(sysSettings.scheduleSettingsArray[i]) < (35 - 1))
             parseFormula(String(sysSettings.scheduleSettingsArray[i]));
 }
-# 2056 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 2057 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2

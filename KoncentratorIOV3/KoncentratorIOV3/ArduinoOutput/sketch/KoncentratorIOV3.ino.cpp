@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #line 1 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 bool printSerial = false;
+char *_version = "V2.0";
 //******************** blynk settings ***********************
 #define BLYNK_TEMPLATE_ID "TMPLmJH5TAX6"
 #define BLYNK_DEVICE_NAME "KoncentratorIO"
@@ -124,71 +125,71 @@ PubSubClient MQTTclient(espMQTTClient);
 bool MQTTenabled = false;
 #define mqttQueueLen 10
 mqttMessage_t mqttQueue[mqttQueueLen];
-#line 125 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 126 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length);
-#line 178 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 179 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void checkMqttQueue(void);
-#line 216 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 217 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void reconnectMQTT();
-#line 319 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 320 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleDevUpdate();
-#line 368 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 369 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleShowDev();
-#line 404 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 405 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleDelDev();
-#line 420 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 421 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleAddDev();
-#line 490 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 491 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleSetMqttBrokerForm();
-#line 517 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 518 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleSetMqttBroker();
-#line 541 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 542 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleDevConfig();
-#line 598 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 599 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleAddDevForm();
-#line 680 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 681 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleDevList();
-#line 737 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 738 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleRoot();
-#line 858 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 859 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleResetErrors();
-#line 864 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 865 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void handleNotFound();
-#line 883 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 884 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void drawGraph();
-#line 903 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 904 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 uint8_t countTagElements(String input, String tag);
-#line 928 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 929 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void setup();
-#line 1152 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1153 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void loop();
-#line 1297 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1298 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void mesureTemperatures(void);
-#line 1371 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1372 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void clearDevice(int devIndex);
-#line 1395 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1396 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void printAddress(DeviceAddress deviceAddress);
-#line 1406 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1407 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 String ds18b20AddressToStr(DeviceAddress deviceAddress);
-#line 1418 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1419 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void onMessage(uint8_t *buffer, size_t size);
-#line 1577 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1578 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void sendDataToMQTT(int devIndex, String &data);
-#line 1584 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1585 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void sendLocalDataToBlynk(void);
-#line 1636 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1637 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void sendDataToBlynk(void);
-#line 1692 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1693 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void displayData(void);
-#line 1843 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1844 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void myTimerEvent();
-#line 1868 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1869 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void tftMessage(String Message, int txtColor, int bgColor, int showTime);
-#line 1891 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1892 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 bool parseFormula(String formula);
-#line 2049 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 2050 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void scheduleExecute(void);
-#line 125 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 126 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
 {
     if (printSerial)
@@ -1005,7 +1006,7 @@ void setup()
     tft.setCursor(0, 0);
     tft.setTextDatum(MC_DATUM);
     tft.setTextSize(2);
-    tftMessage(String("TFT OK!"), TFT_GREEN, TFT_BLACK, 2000);
+    tftMessage(String("Firmware: ") + _version, TFT_GREEN, TFT_BLACK, 2000);
 
     WiFi.mode(WIFI_STA); // explicitly set mode, esp defaults to STA+AP
     // it is a good practice to make sure your code sets wifi mode how you want it.
@@ -1305,7 +1306,7 @@ void loop()
                     }
                 }
                 tmpMsg += "}";
-                MQTTclient.publish("device/loraHub/devices/statuses", tmpMsg.c_str());
+                MQTTclient.publish("device/loraHub/devices/status", tmpMsg.c_str());
                 if (devErrors.mqttError == 1)
                     devErrors.mqttError = 2;
             }
