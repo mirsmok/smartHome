@@ -1,48 +1,28 @@
-# 1 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+# 1 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 /*
-
 OpenTherm Master Communication Example
-
 By: Ihor Melnyk
-
 Date: January 19th, 2018
 
-
-
 Uses the OpenTherm library to get/set boiler status and water temperature
-
 Open serial monitor at 115200 baud to see output.
 
-
-
 Hardware Connections (OpenTherm Adapter (http://ihormelnyk.com/pages/OpenTherm) to Arduino/ESP8266):
-
 -OT1/OT2 = Boiler X1/X2
-
 -VCC = 5V or 3.3V
-
 -GND = GND
-
 -IN  = Arduino (3) / ESP8266 (5) Output Pin
-
 -OUT = Arduino (2) / ESP8266 (4) Input Pin
 
-
-
 Controller(Arduino/ESP8266) input pin should support interrupts.
-
 Arduino digital pins usable for interrupts: Uno, Nano, Mini: 2,3; Mega: 2, 3, 18, 19, 20, 21
-
 ESP8266: Interrupts may be attached to any GPIO pin except GPIO16,
-
 but since GPIO6-GPIO11 are typically used to interface with the flash memory ICs on most esp8266 modules, applying interrupts to these pins are likely to cause problems
-
 */
-# 21 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
-# 22 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
+# 22 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
 
 //#include <Arduino.h>
-# 25 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
+# 25 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
 
 const int inPin = 4; // for Arduino, 4 for ESP8266 (D2), 21 for ESP32
 const int outPin = 5; // for Arduino, 5 for ESP8266 (D1), 22 for ESP32
@@ -58,35 +38,35 @@ void __attribute__((section("\".iram.text." "OpenThermMaster.ino" "." "29" "." "
 //#include <WebServer.h>
 //#include <ESPmDNS.h>
 
-# 41 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
-# 42 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
-# 43 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
-# 44 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
+# 41 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
+# 42 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
+# 43 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
+# 44 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
 
 ESP8266WebServer webServer(8080);
 
 //**************** wifi meanger ***************************
-# 49 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
+# 49 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
 WiFiManager wm;
 
 //******************** oneWire *****************************
 
-# 54 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
-# 55 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
+# 54 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
+# 55 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
 // Data wire is connected to 14 pin on the OpenTherm Shield
 
 OneWire oneWire(14);
 DallasTemperature temperatureSensors(&oneWire);
 
 //******************** MQTT client *****************************************8
-# 62 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
+# 62 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
 // Update these with values suitable for your network.
 char mqtt_server[20] = "192.168.8.177";
 WiFiClient espMQTTClient;
 PubSubClient MQTTclient(espMQTTClient);
 
 //****************** settings ***************
-# 69 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
+# 69 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino" 2
 device_t openThermDev;
 // flag for saving data
 WiFiManagerParameter paramEnableCH("enableCH", "Załącz ogrzewanie", String(openThermDev.settings.enableCentralHeating).c_str(), String(openThermDev.settings.enableCentralHeating).length());
@@ -277,7 +257,7 @@ String htmlHeader(uint8_t activeIndex = 0)
 {
     String activeTag = String("class='active'");
     String header = String("<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width, initial-scale=1' charset='UTF-8'><style>body {  margin: 0;  font-family: Arial, Helvetica, sans-serif;}.topnav {  overflow: hidden;  background-color: #333;}.topnav a {  float: left;  color: #f2f2f2;  text-align: center;  padding: 14px 16px;  text-decoration: none;  font-size: 17px;}.topnav a:hover {  background-color: #ddd;  color: black;}.topnav a.active {  background-color: #04AA6D;  color: white;}table, th, td {  border: 1px solid black;  border-collapse: collapse;  margin: 20px;  padding: 10px;}</style></head><body><div class='topnav'>  <a "
-# 297 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+# 297 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
        + (activeIndex == 0 ? activeTag : String("")) +
                            " href='/'>Home</a>  <a "
        + (activeIndex == 2 ? activeTag : String("")) +

@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\libraries\ESP8266WiFi\WiFiClientSecureBearSSL.cpp.o: \
+d:\work\sync\smartHome\OpenThermMaster\arduinoOutput\libraries\ESP8266WiFi\WiFiClientSecureBearSSL.cpp.o: \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266WiFi\src\WiFiClientSecureBearSSL.cpp \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/Esp.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/Arduino.h \

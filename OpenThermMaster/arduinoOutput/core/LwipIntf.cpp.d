@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\core\LwipIntf.cpp.o: \
+d:\work\sync\smartHome\OpenThermMaster\arduinoOutput\core\LwipIntf.cpp.o: \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266\LwipIntf.cpp \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2/tools/sdk/lwip2/include/lwip/err.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2/tools/sdk/lwip2/include/lwip/opt.h \

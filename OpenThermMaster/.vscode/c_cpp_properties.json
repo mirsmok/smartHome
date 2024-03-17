@@ -20,7 +20,7 @@
             "includePath": [
                 "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\tools\\sdk\\include",
                 "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\tools\\sdk\\lwip2\\include",
-                "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\arduinoOutput\\core",
+                "d:\\work\\sync\\smartHome\\OpenThermMaster\\arduinoOutput\\core",
                 "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\cores\\esp8266",
                 "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\variants\\d1_mini",
                 "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\OpenTherm_Library\\src",

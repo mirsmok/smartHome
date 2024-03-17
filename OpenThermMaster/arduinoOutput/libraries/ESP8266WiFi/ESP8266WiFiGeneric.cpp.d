@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\libraries\ESP8266WiFi\ESP8266WiFiGeneric.cpp.o: \
+d:\work\sync\smartHome\OpenThermMaster\arduinoOutput\libraries\ESP8266WiFi\ESP8266WiFiGeneric.cpp.o: \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266WiFi\src\ESP8266WiFiGeneric.cpp \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/coredecls.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/cont.h \

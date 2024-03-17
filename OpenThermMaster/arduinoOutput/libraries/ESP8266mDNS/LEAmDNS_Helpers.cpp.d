@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\libraries\ESP8266mDNS\LEAmDNS_Helpers.cpp.o: \
+d:\work\sync\smartHome\OpenThermMaster\arduinoOutput\libraries\ESP8266mDNS\LEAmDNS_Helpers.cpp.o: \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266mDNS\src\LEAmDNS_Helpers.cpp \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2/tools/sdk/lwip2/include/lwip/igmp.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2/tools/sdk/lwip2/include/lwip/opt.h \

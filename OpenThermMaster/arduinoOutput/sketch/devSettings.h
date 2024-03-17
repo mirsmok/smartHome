@@ -1,4 +1,4 @@
-#line 1 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\devSettings.h"
+#line 1 "d:\\work\\sync\\smartHome\\OpenThermMaster\\devSettings.h"
 
 #ifndef DEVSETTINGS_H
 #define DEVSETTINGS_H

@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#line 1 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 1 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 /*
 OpenTherm Master Communication Example
 By: Ihor Melnyk
@@ -28,35 +28,35 @@ but since GPIO6-GPIO11 are typically used to interface with the flash memory ICs
 const int inPin = 4;  // for Arduino, 4 for ESP8266 (D2), 21 for ESP32
 const int outPin = 5; // for Arduino, 5 for ESP8266 (D1), 22 for ESP32
 OpenTherm ot(inPin, outPin);
-#line 80 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 80 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void saveConfig();
-#line 92 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 92 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void saveConfigCallback();
-#line 125 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 125 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length);
-#line 222 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 222 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void reconnectMQTT();
-#line 307 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 307 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleSetMqttBrokerForm();
-#line 325 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 325 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleSetMqttBroker();
-#line 348 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 348 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleUpdate();
-#line 358 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 358 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleResetErrors();
-#line 367 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 367 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleRoot();
-#line 485 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 485 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleNotFound();
-#line 504 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 504 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleButtons();
-#line 525 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 525 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void handleLed();
-#line 592 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 592 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void setup();
-#line 730 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 730 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void loop();
-#line 29 "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
+#line 29 "d:\\work\\sync\\smartHome\\OpenThermMaster\\OpenThermMaster.ino"
 void ICACHE_RAM_ATTR handleInterrupt()
 {
     ot.handleInterrupt();

@@ -10,52 +10,52 @@
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\variants\\d1_mini"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
+    "Sourcefile": "d:\\work\\sync\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
     "Include": "OpenTherm.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\OpenTherm_Library\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
+    "Sourcefile": "d:\\work\\sync\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
     "Include": "ESP8266WiFi.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\libraries\\ESP8266WiFi\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
+    "Sourcefile": "d:\\work\\sync\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
     "Include": "ESP8266WebServer.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\libraries\\ESP8266WebServer\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
+    "Sourcefile": "d:\\work\\sync\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
     "Include": "ESP8266mDNS.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\libraries\\ESP8266mDNS\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
+    "Sourcefile": "d:\\work\\sync\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
     "Include": "WiFiManager.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\WiFiManager"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
+    "Sourcefile": "d:\\work\\sync\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
     "Include": "DNSServer.h",
     "Includepath": "C:\\Users\\mirsmok\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\3.0.2\\libraries\\DNSServer\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
+    "Sourcefile": "d:\\work\\sync\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
     "Include": "OneWire.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\OneWire"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
+    "Sourcefile": "d:\\work\\sync\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
     "Include": "DallasTemperature.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\DallasTemperature"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
+    "Sourcefile": "d:\\work\\sync\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
     "Include": "PubSubClient.h",
     "Includepath": "C:\\Users\\mirsmok\\Documents\\Arduino\\libraries\\PubSubClient\\src"
   },
   {
-    "Sourcefile": "c:\\Users\\mirsmok\\work\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
+    "Sourcefile": "d:\\work\\sync\\smartHome\\OpenThermMaster\\arduinoOutput\\sketch\\OpenThermMaster.ino.cpp",
     "Include": "",
     "Includepath": null
   },

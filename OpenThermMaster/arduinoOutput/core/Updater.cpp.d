@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\core\Updater.cpp.o: \
+d:\work\sync\smartHome\OpenThermMaster\arduinoOutput\core\Updater.cpp.o: \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266\Updater.cpp \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266\Updater.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/Arduino.h \
@@ -49,7 +49,7 @@ c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\core\Updater.cpp.o
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266\eboot_command.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/esp8266_peri.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266\StackThunk.h \
- c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput/core/Updater_Signing.h \
+ d:\work\sync\smartHome\OpenThermMaster\arduinoOutput/core/Updater_Signing.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2/tools/sdk/include/user_interface.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2/tools/sdk/include/os_type.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2/tools/sdk/include/ets_sys.h \

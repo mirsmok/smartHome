@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\libraries\PubSubClient\PubSubClient.cpp.o: \
+d:\work\sync\smartHome\OpenThermMaster\arduinoOutput\libraries\PubSubClient\PubSubClient.cpp.o: \
  C:\Users\mirsmok\Documents\Arduino\libraries\PubSubClient\src\PubSubClient.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\PubSubClient\src\PubSubClient.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/Arduino.h \

@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\libraries\ESP8266mDNS\ESP8266mDNS.cpp.o: \
+d:\work\sync\smartHome\OpenThermMaster\arduinoOutput\libraries\ESP8266mDNS\ESP8266mDNS.cpp.o: \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266mDNS\src\ESP8266mDNS.cpp \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266mDNS\src/ESP8266mDNS.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266mDNS\src/LEAmDNS.h \

@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\libraries\ESP8266mDNS\LEAmDNS_Transfer.cpp.o: \
+d:\work\sync\smartHome\OpenThermMaster\arduinoOutput\libraries\ESP8266mDNS\LEAmDNS_Transfer.cpp.o: \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266mDNS\src\LEAmDNS_Transfer.cpp \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2/tools/sdk/include/user_interface.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2/tools/sdk/include/os_type.h \

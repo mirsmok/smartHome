@@ -1,5 +1,5 @@
-c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\sketch\OpenThermMaster.ino.cpp.o: \
- c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\sketch\OpenThermMaster.ino.cpp \
+d:\work\sync\smartHome\OpenThermMaster\arduinoOutput\sketch\OpenThermMaster.ino.cpp.o: \
+ d:\work\sync\smartHome\OpenThermMaster\arduinoOutput\sketch\OpenThermMaster.ino.cpp \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/Arduino.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/stdlib_noniso.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\cores\esp8266/binary.h \
@@ -163,4 +163,4 @@ c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\sketch\OpenThermMa
  C:\Users\mirsmok\Documents\Arduino\libraries\OneWire/util/OneWire_direct_regtype.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\DallasTemperature/DallasTemperature.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\PubSubClient\src/PubSubClient.h \
- c:\users\mirsmok\work\smarthome\openthermmaster\arduinooutput\sketch\devsettings.h
+ d:\work\sync\smarthome\openthermmaster\arduinooutput\sketch\devsettings.h

@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\libraries\DNSServer\DNSServer.cpp.o: \
+d:\work\sync\smartHome\OpenThermMaster\arduinoOutput\libraries\DNSServer\DNSServer.cpp.o: \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\DNSServer\src\DNSServer.cpp \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\DNSServer\src\DNSServer.h \
  C:\Users\mirsmok\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\3.0.2\libraries\ESP8266WiFi\src/WiFiUdp.h \

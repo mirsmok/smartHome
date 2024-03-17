@@ -1215,8 +1215,9 @@ void loop()
             else
             {
                 //    Serial.println("publish heating states");
-                MQTTclient.publish("device/boiler/centralHeating/enable/remote", vPinStateFromBlink[20] ? "1" : "0");
-                MQTTclient.publish("device/boiler/hotWater/enable/remote", vPinStateFromBlink[21] ? "1" : "0");
+                /********************        contol of boiler was moved to node-red     **/
+                /*    MQTTclient.publish("device/boiler/centralHeating/enable/remote", vPinStateFromBlink[20] ? "1" : "0");
+                    MQTTclient.publish("device/boiler/hotWater/enable/remote", vPinStateFromBlink[21] ? "1" : "0");*/
                 if (devErrors.mqttError == 1)
                     devErrors.mqttError = 2;
             }

@@ -1,4 +1,4 @@
-c:\Users\mirsmok\work\smartHome\OpenThermMaster\arduinoOutput\libraries\DallasTemperature\DallasTemperature.cpp.o: \
+d:\work\sync\smartHome\OpenThermMaster\arduinoOutput\libraries\DallasTemperature\DallasTemperature.cpp.o: \
  C:\Users\mirsmok\Documents\Arduino\libraries\DallasTemperature\DallasTemperature.cpp \
  C:\Users\mirsmok\Documents\Arduino\libraries\DallasTemperature\DallasTemperature.h \
  C:\Users\mirsmok\Documents\Arduino\libraries\OneWire/OneWire.h \
