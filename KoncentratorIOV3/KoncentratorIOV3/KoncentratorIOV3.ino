@@ -1148,6 +1148,7 @@ void setup()
 
 unsigned long displayTime = millis();
 uint8_t loopCounter = 0;
+uint16_t wifiTimeoutCounter = 0;
 void loop()
 {
     if (loopCounter > 3)
@@ -1177,6 +1178,7 @@ void loop()
         if (devErrors.wifiError == 1)
             devErrors.wifiError = 2;
         MQTTclient.loop();
+        devErrors.wifiError = 0;
     }
     else
         devErrors.wifiError = 1;
@@ -1266,6 +1268,9 @@ void loop()
         scheduleExecute();
         displayData();
         displayTime = millis();
+        idevErrors.wifiError == 1 ? wifiTimeoutCounter++ : wifiTimeoutCounter = 0;
+        if (wifiTimeoutCounter > wifiMaxTimeoutToResetDev)
+            ESP.restart();
     }
     loopCounter++;
 }

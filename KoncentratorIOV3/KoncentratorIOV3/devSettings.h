@@ -13,6 +13,7 @@
 #define DO_localCount 8
 #define AI_localCount 3
 #define AO_localCount 2
+#define wifiMaxTimeoutToResetDev 300
 
 enum devTypes
 {
@@ -80,7 +81,7 @@ public:
         this->loraDevError = 0;
         this->loraDevErrorArr[DefinedSystemMaxDevCount] = {0};
         this->loraLastPing[DefinedSystemMaxDevCount] = {0};
-        this->loraPingTimeout = 60000;
+        this->loraPingTimeout = 900000;
     }
     bool errorActive;
     uint8_t blynkError;

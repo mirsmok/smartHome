@@ -5,7 +5,7 @@ void devError::checkLoraPing(const sysSettings_t &sysSettings, unsigned long act
     for (int i = 0; i < sysSettings.SystemMaxDevCount; i++)
     {
         // id < 1000 - special device
-        if ((sysSettings.device[i].id > 1000) and ((actualTime - loraLastPing[i]) > this->loraPingTimeout))
+        if ((sysSettings.device[i].id > 1000) && ((actualTime - loraLastPing[i]) > this->loraPingTimeout))
         {
             this->loraDevErrorArr[i] = 1;
             errorPrasent = true;
@@ -24,7 +24,7 @@ void devError::checkLoraPing(const sysSettings_t &sysSettings, unsigned long act
 
 bool devError::checkError(void)
 {
-    this->errorActive = this->wifiError or this->mqttError or this->loraDevError or this->localSensorError or this->extIoError or this->blynkError;
+    this->errorActive = this->wifiError || this->mqttError || this->loraDevError || this->localSensorError || this->extIoError || this->blynkError;
     return this->errorActive;
 }
 
