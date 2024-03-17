@@ -36,4 +36,8 @@ void devError::clearErrors(void)
     this->localSensorError = 0;
     this->extIoError = 0;
     this->blynkError = 0;
+    for (uint8_t i = 0; i < DefinedSystemMaxDevCount; i++)
+    {
+        this->loraDevErrorArr[i] = 0;
+    }
 }

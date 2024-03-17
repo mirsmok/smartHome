@@ -1076,6 +1076,7 @@ void setup()
 
 unsigned long displayTime = millis();
 uint8_t loopCounter = 0;
+uint16_t wifiTimeoutCounter = 0;
 void loop()
 {
     if (loopCounter > 3)
@@ -1105,6 +1106,8 @@ void loop()
         if (devErrors.wifiError == 1)
             devErrors.wifiError = 2;
         MQTTclient.loop();
+        if (devErrors.wifiError == 1)
+            devErrors.wifiError = 2;
     }
     else
         devErrors.wifiError = 1;
@@ -1146,6 +1149,24 @@ void loop()
                 /********************        contol of boiler was moved to node-red     **/
                 /*    MQTTclient.publish("device/boiler/centralHeating/enable/remote", vPinStateFromBlink[20] ? "1" : "0");
                     MQTTclient.publish("device/boiler/hotWater/enable/remote", vPinStateFromBlink[21] ? "1" : "0");*/
+                String tmpMsg = "{\"error\":" + String(devErrors.errorActive) +
+                                ",\"uptime\":" + String(millis() / 1000) +
+                                ",\"freeRAM\":" + String((float)freeRam / 5200.0, 0) +
+                                "}";
+                MQTTclient.publish("device/loraHub/status", tmpMsg.c_str());
+                tmpMsg = "{";
+                for (int i = 0, j = 0; i < sysSettings.SystemMaxDevCount; i++)
+                {
+                    if (sysSettings.device[i].id > 1000)
+                    {
+                        if (j > 0)
+                            tmpMsg += ",";
+                        tmpMsg += String("\"") + sysSettings.device[i].description + "\":" + String(devErrors.loraDevErrorArr[i]);
+                        j++;
+                    }
+                }
+                tmpMsg += "}";
+                MQTTclient.publish("device/loraHub/devices/statuses", tmpMsg.c_str());
                 if (devErrors.mqttError == 1)
                     devErrors.mqttError = 2;
             }
@@ -1194,6 +1215,9 @@ void loop()
         scheduleExecute();
         displayData();
         displayTime = millis();
+        devErrors.wifiError == 1 ? wifiTimeoutCounter++ : wifiTimeoutCounter = 0;
+        if (wifiTimeoutCounter > 300)
+            ESP.restart();
     }
     loopCounter++;
 }
@@ -1239,9 +1263,9 @@ void mesureTemperatures(void)
                 {
                     for (size_t k = 0; (k < localSensorsCount) && (k < 9); k++)
                         unassigendDeviceArr[j].oneWireChannel[k].id = strtoul(ds18b20AddressToStr(sensorsAddr[k]).c_str(), 
-# 1313 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 1337 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                                                                                           __null
-# 1313 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1337 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                                                                               , 16);
                 }
                 unassigendDeviceArr[j].DI_PortCfg.count = 8;
@@ -1444,9 +1468,9 @@ void onMessage(uint8_t *buffer, size_t size)
                     int CHs = loraMessege["CHs"];
                     for (size_t k = 0; (k < CHs) && (k < 9); k++)
                         unassigendDeviceArr[j].oneWireChannel[k].id = strtoul(loraMessege["ChIds"][k], 
-# 1514 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 1538 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                                                                       __null
-# 1514 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1538 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                                                           , 16);
                 }
                 if (loraMessege.containsKey("DIs"))
@@ -1519,9 +1543,9 @@ void sendLocalDataToBlynk(void)
                 for (size_t j = 0; j < localSensorsCount; j++)
                 {
                     if (sysSettings.device[devIndex].oneWireChannel[i].id == strtoul(ds18b20AddressToStr(sensorsAddr[j]).c_str(), 
-# 1585 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 1609 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                                                                                                  __null
-# 1585 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1609 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                                                                                      , 16))
                     {
                         sensorIndex = j;
@@ -1571,9 +1595,9 @@ void sendDataToBlynk(void)
                 for (size_t j = 0; j < loraMessege["CHs"]; j++)
                 {
                     if (sysSettings.device[devIndex].oneWireChannel[i].id == strtoul(loraMessege["ChIds"][j], 
-# 1633 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
+# 1657 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 3 4
                                                                                                              __null
-# 1633 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+# 1657 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
                                                                                                                  , 16))
                     {
                         loraIndex = j;
@@ -1972,4 +1996,4 @@ void scheduleExecute(void)
         if (strlen(sysSettings.scheduleSettingsArray[i]) > 4 && strlen(sysSettings.scheduleSettingsArray[i]) < (35 - 1))
             parseFormula(String(sysSettings.scheduleSettingsArray[i]));
 }
-# 2032 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2
+# 2056 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino" 2

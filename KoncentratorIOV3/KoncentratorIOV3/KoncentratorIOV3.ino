@@ -1178,7 +1178,8 @@ void loop()
         if (devErrors.wifiError == 1)
             devErrors.wifiError = 2;
         MQTTclient.loop();
-        devErrors.wifiError = 0;
+        if (devErrors.wifiError == 1)
+            devErrors.wifiError = 2;
     }
     else
         devErrors.wifiError = 1;
@@ -1220,6 +1221,24 @@ void loop()
                 /********************        contol of boiler was moved to node-red     **/
                 /*    MQTTclient.publish("device/boiler/centralHeating/enable/remote", vPinStateFromBlink[20] ? "1" : "0");
                     MQTTclient.publish("device/boiler/hotWater/enable/remote", vPinStateFromBlink[21] ? "1" : "0");*/
+                String tmpMsg = "{\"error\":" + String(devErrors.errorActive) +
+                                ",\"uptime\":" + String(millis() / 1000) +
+                                ",\"freeRAM\":" + String((float)freeRam / 5200.0, 0) +
+                                "}";
+                MQTTclient.publish("device/loraHub/status", tmpMsg.c_str());
+                tmpMsg = "{";
+                for (int i = 0, j = 0; i < sysSettings.SystemMaxDevCount; i++)
+                {
+                    if (sysSettings.device[i].id > 1000)
+                    {
+                        if (j > 0)
+                            tmpMsg += ",";
+                        tmpMsg += String("\"") + sysSettings.device[i].description + "\":" + String(devErrors.loraDevErrorArr[i]);
+                        j++;
+                    }
+                }
+                tmpMsg += "}";
+                MQTTclient.publish("device/loraHub/devices/statuses", tmpMsg.c_str());
                 if (devErrors.mqttError == 1)
                     devErrors.mqttError = 2;
             }
@@ -1268,7 +1287,7 @@ void loop()
         scheduleExecute();
         displayData();
         displayTime = millis();
-        idevErrors.wifiError == 1 ? wifiTimeoutCounter++ : wifiTimeoutCounter = 0;
+        devErrors.wifiError == 1 ? wifiTimeoutCounter++ : wifiTimeoutCounter = 0;
         if (wifiTimeoutCounter > wifiMaxTimeoutToResetDev)
             ESP.restart();
     }

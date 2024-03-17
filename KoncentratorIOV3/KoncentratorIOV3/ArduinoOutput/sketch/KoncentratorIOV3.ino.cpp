@@ -160,33 +160,33 @@ void drawGraph();
 uint8_t countTagElements(String input, String tag);
 #line 928 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void setup();
-#line 1151 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1152 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void loop();
-#line 1273 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1297 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void mesureTemperatures(void);
-#line 1347 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
-void clearDevice(int devIndex);
 #line 1371 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+void clearDevice(int devIndex);
+#line 1395 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void printAddress(DeviceAddress deviceAddress);
-#line 1382 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1406 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 String ds18b20AddressToStr(DeviceAddress deviceAddress);
-#line 1394 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1418 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void onMessage(uint8_t *buffer, size_t size);
-#line 1553 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1577 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void sendDataToMQTT(int devIndex, String &data);
-#line 1560 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1584 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void sendLocalDataToBlynk(void);
-#line 1612 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1636 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void sendDataToBlynk(void);
-#line 1668 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1692 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void displayData(void);
-#line 1819 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1843 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void myTimerEvent();
-#line 1844 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1868 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void tftMessage(String Message, int txtColor, int bgColor, int showTime);
-#line 1867 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 1891 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 bool parseFormula(String formula);
-#line 2025 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
+#line 2049 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void scheduleExecute(void);
 #line 125 "d:\\work\\sync\\smartHome\\KoncentratorIOV3\\KoncentratorIOV3\\KoncentratorIOV3.ino"
 void MQTTmsgRcvCallback(char *topic, byte *payload, unsigned int length)
@@ -1215,6 +1215,7 @@ void setup()
 
 unsigned long displayTime = millis();
 uint8_t loopCounter = 0;
+uint16_t wifiTimeoutCounter = 0;
 void loop()
 {
     if (loopCounter > 3)
@@ -1244,6 +1245,8 @@ void loop()
         if (devErrors.wifiError == 1)
             devErrors.wifiError = 2;
         MQTTclient.loop();
+        if (devErrors.wifiError == 1)
+            devErrors.wifiError = 2;
     }
     else
         devErrors.wifiError = 1;
@@ -1285,6 +1288,24 @@ void loop()
                 /********************        contol of boiler was moved to node-red     **/
                 /*    MQTTclient.publish("device/boiler/centralHeating/enable/remote", vPinStateFromBlink[20] ? "1" : "0");
                     MQTTclient.publish("device/boiler/hotWater/enable/remote", vPinStateFromBlink[21] ? "1" : "0");*/
+                String tmpMsg = "{\"error\":" + String(devErrors.errorActive) +
+                                ",\"uptime\":" + String(millis() / 1000) +
+                                ",\"freeRAM\":" + String((float)freeRam / 5200.0, 0) +
+                                "}";
+                MQTTclient.publish("device/loraHub/status", tmpMsg.c_str());
+                tmpMsg = "{";
+                for (int i = 0, j = 0; i < sysSettings.SystemMaxDevCount; i++)
+                {
+                    if (sysSettings.device[i].id > 1000)
+                    {
+                        if (j > 0)
+                            tmpMsg += ",";
+                        tmpMsg += String("\"") + sysSettings.device[i].description + "\":" + String(devErrors.loraDevErrorArr[i]);
+                        j++;
+                    }
+                }
+                tmpMsg += "}";
+                MQTTclient.publish("device/loraHub/devices/statuses", tmpMsg.c_str());
                 if (devErrors.mqttError == 1)
                     devErrors.mqttError = 2;
             }
@@ -1333,6 +1354,9 @@ void loop()
         scheduleExecute();
         displayData();
         displayTime = millis();
+        devErrors.wifiError == 1 ? wifiTimeoutCounter++ : wifiTimeoutCounter = 0;
+        if (wifiTimeoutCounter > wifiMaxTimeoutToResetDev)
+            ESP.restart();
     }
     loopCounter++;
 }
